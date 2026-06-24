@@ -1,0 +1,57 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Meghan Farrell",
+      "email": "Wade_Denesik18@yahoo.com",
+      "password": "X9PWynnkBoUiz7H",
+      "avatar": "https://avatars.githubusercontent.com/u/43445218",
+      "createdAt": "2024-01-15T08:30:00Z"
+    }
+  ],
+  "places": [
+    {
+      "id": "1",
+      "osmId": "node/123456789",
+      "osmType": "node",
+      "name": "Bún bò Huế Mợ Tư",
+      "category": "restaurant",
+      "lat": 10.8231,
+      "lng": 106.6297,
+      "address": "123 Nguyễn Trãi, Q1, TP.HCM",
+      "thumbnailUrl": "",
+      "createdAt": "2024-01-15T08:30:00Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "osmId": "node/123456789",
+      "userId": "1",
+      "rating": 4,
+      "comment": "Quán ngon, phục vụ tốt",
+      "mediaUrls": ["https://avatars.githubusercontent.com/u/43445218"],
+      "mediaTypes": ["image"],
+      "createdAt": "2024-01-15T10:00:00Z"
+    }
+  ],
+  "favorites": [
+    {
+      "id": "1",
+      "userId": "1",
+      "osmId": "node/123456789",
+      "createdAt": "2024-01-15T09:00:00Z"
+    }
+  ],
+  "checkins": [
+    {
+      "id": "1",
+      "userId": "1",
+      "osmId": "node/123456789",
+      "lat": 10.82311,
+      "lng": 106.62975,
+      "distanceMeters": 7.3,
+      "createdAt": "2024-01-15T11:00:00Z"
+    }
+  ]
+}
