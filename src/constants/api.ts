@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://6a38a39464a2d82692229d7d.mockapi.io/api/v1';
+export const BASE_URL = 'http://192.168.10.20:3000';
 
 export const API_TIMEOUT_MS = 10_000;
 

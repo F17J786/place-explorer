@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": "81",
       "name": "Meghan Farrell",
       "email": "Wade_Denesik18@yahoo.com",
       "password": "X9PWynnkBoUiz7H",
@@ -21,6 +21,30 @@
       "address": "123 Nguyễn Trãi, Q1, TP.HCM",
       "thumbnailUrl": "",
       "createdAt": "2024-01-15T08:30:00Z"
+    },
+    {
+      "osmId": "node/13720019090",
+      "osmType": "node",
+      "name": "Saizeriya",
+      "category": "restaurant",
+      "lat": 11.0455142,
+      "lng": 106.678453,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=12",
+      "createdAt": "2026-06-24T07:43:00.996Z",
+      "id": "SekD1IWggNs"
+    },
+    {
+      "osmId": "node/13720019089",
+      "osmType": "node",
+      "name": "Dookki SORA Garden SC",
+      "category": "restaurant",
+      "lat": 11.0453965,
+      "lng": 106.6791055,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=1",
+      "createdAt": "2026-06-24T07:54:58.327Z",
+      "id": "lfukaCykNWA"
     }
   ],
   "reviews": [
@@ -30,8 +54,12 @@
       "userId": "1",
       "rating": 4,
       "comment": "Quán ngon, phục vụ tốt",
-      "mediaUrls": ["https://avatars.githubusercontent.com/u/43445218"],
-      "mediaTypes": ["image"],
+      "mediaUrls": [
+        "https://avatars.githubusercontent.com/u/43445218"
+      ],
+      "mediaTypes": [
+        "image"
+      ],
       "createdAt": "2024-01-15T10:00:00Z"
     }
   ],
@@ -41,6 +69,42 @@
       "userId": "1",
       "osmId": "node/123456789",
       "createdAt": "2024-01-15T09:00:00Z"
+    },
+    {
+      "userId": "81",
+      "osmId": "node/13720019089",
+      "createdAt": "2026-06-24T08:01:21.919Z",
+      "id": "__6vsOWMol0"
+    },
+    {
+      "userId": "81",
+      "osmId": "node/13720019089",
+      "createdAt": "2026-06-24T08:01:29.314Z",
+      "id": "ao7LqJEk3qA"
+    },
+    {
+      "userId": "81",
+      "osmId": "node/13720019089",
+      "createdAt": "2026-06-24T09:33:48.558Z",
+      "id": "9GhrQk_WU0M"
+    },
+    {
+      "userId": "81",
+      "osmId": "node/13720019089",
+      "createdAt": "2026-06-24T09:33:50.937Z",
+      "id": "AUhQHaabSEw"
+    },
+    {
+      "userId": "81",
+      "osmId": "node/13720019089",
+      "createdAt": "2026-06-24T09:51:40.171Z",
+      "id": "oyidm9mNJxk"
+    },
+    {
+      "userId": "81",
+      "osmId": "node/13720019089",
+      "createdAt": "2026-06-24T09:52:53.818Z",
+      "id": "6PzsBzwC6Ks"
     }
   ],
   "checkins": [
@@ -52,6 +116,34 @@
       "lng": 106.62975,
       "distanceMeters": 7.3,
       "createdAt": "2024-01-15T11:00:00Z"
+    },
+    {
+      "userId": "81",
+      "osmId": "node/13720019089",
+      "lat": 11.051728333333331,
+      "lng": 106.668025,
+      "distanceMeters": 1399.3,
+      "createdAt": "2026-06-24T07:55:01.946Z",
+      "id": "ojxBK9nKZ2I"
+    },
+    {
+      "userId": "81",
+      "osmId": "node/13720019089",
+      "lat": 11.052306666666668,
+      "lng": 106.667815,
+      "distanceMeters": 1452.1,
+      "createdAt": "2026-06-24T08:00:47.632Z",
+      "id": "OQxhyaojt_Y"
+    },
+    {
+      "userId": "81",
+      "osmId": "node/13720019089",
+      "lat": 11.05242,
+      "lng": 106.66782333333335,
+      "distanceMeters": 1458.1,
+      "createdAt": "2026-06-24T08:00:56.856Z",
+      "id": "jaeW2U0GHrM"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

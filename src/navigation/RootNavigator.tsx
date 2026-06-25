@@ -8,6 +8,7 @@ import { useBootstrap } from '@/hooks/useBootstrap';
 import { ActivityIndicator } from 'react-native-paper';
 import { View } from 'react-native';
 import { COLORS } from '@/constants/colors';
+import { PlaceDetailStackNavigator } from './PlaceDetailStackNavigator';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,7 +25,13 @@ export const RootNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {isAuthenticated ? (
-        <Stack.Screen name="Main" component={MainTabNavigator} />
+        <>
+          <Stack.Screen name="Main" component={MainTabNavigator} />
+          <Stack.Screen
+            name="PlaceDetail"
+            component={PlaceDetailStackNavigator}
+          />
+        </>
       ) : (
         <Stack.Screen name="Auth" component={AuthScreen} />
       )}

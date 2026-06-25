@@ -48,7 +48,7 @@ const showToast = (msg: string) => {
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-interface OsmMarker {
+export interface OsmMarker {
   id: string;
   name: string;
   amenity: string;
@@ -983,8 +983,8 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
   // Dropdown route: hiện khi routeMode mở
   // - Nếu đang nhập → show search results
   // - Nếu không nhập → show "Vị trí của bạn" + gần đây
-  const showRouteDropdown = routeMode && (showSearchResults || !isTyping);
-
+  const showRouteDropdown =
+    routeMode && routeCoords.length === 0 && (showSearchResults || !isTyping);
   // ─── Render ───────────────────────────────────────────────────────────────
 
   return (
@@ -1545,7 +1545,12 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
               <TouchableOpacity
                 style={styles.popupDetailBtn}
                 onPress={() =>
-                  navigation?.navigate('PlaceDetail', { place: selectedMarker })
+                  navigation?.navigate('PlaceDetail', {
+                    screen: 'PlaceDetailHome',
+                    params: {
+                      place: selectedMarker,
+                    },
+                  })
                 }
               >
                 <Icon name="info" size={14} color={COLORS.white} />
