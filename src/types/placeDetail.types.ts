@@ -73,3 +73,13 @@ export interface CreateFavoritePayload {
   osmId: string;
   createdAt: string;
 }
+
+export interface UpdateReviewPayload {
+  id: string;
+  osmId: string;
+  rating: number;
+  comment: string;
+  mediaUrls: string[];
+  mediaTypes: ('image' | 'video')[];
+  createdAt: string;
+}

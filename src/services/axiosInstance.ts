@@ -12,7 +12,10 @@ export const axiosInstance = axios.create({
   },
   paramsSerializer: params => {
     return Object.entries(params)
-      .map(([key, value]) => `${key}=${value}`)
+      .map(
+        ([key, value]) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`,
+      )
       .join('&');
   },
 });

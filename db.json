@@ -7,12 +7,20 @@
       "password": "X9PWynnkBoUiz7H",
       "avatar": "https://avatars.githubusercontent.com/u/43445218",
       "createdAt": "2024-01-15T08:30:00Z"
+    },
+    {
+      "id": "1",
+      "name": "Nguyễn Khoa",
+      "email": "abc@yahoo.com",
+      "password": "X9PWynnkBoUiz7H",
+      "avatar": "https://avatars.githubusercontent.com/u/43445218",
+      "createdAt": "2024-01-15T08:30:00Z"
     }
   ],
   "places": [
     {
       "id": "1",
-      "osmId": "node/123456789",
+      "osmId": "node_123456789",
       "osmType": "node",
       "name": "Bún bò Huế Mợ Tư",
       "category": "restaurant",
@@ -23,7 +31,7 @@
       "createdAt": "2024-01-15T08:30:00Z"
     },
     {
-      "osmId": "node/13720019090",
+      "osmId": "node_13720019090",
       "osmType": "node",
       "name": "Saizeriya",
       "category": "restaurant",
@@ -35,7 +43,7 @@
       "id": "SekD1IWggNs"
     },
     {
-      "osmId": "node/13720019089",
+      "osmId": "node_13720019089",
       "osmType": "node",
       "name": "Dookki SORA Garden SC",
       "category": "restaurant",
@@ -45,73 +53,169 @@
       "thumbnailUrl": "https://i.pravatar.cc/150?img=1",
       "createdAt": "2026-06-24T07:54:58.327Z",
       "id": "lfukaCykNWA"
+    },
+    {
+      "osmId": "node_13720026305",
+      "osmType": "node",
+      "name": "ITTOU RAMEN - SORA Gardens Links",
+      "category": "restaurant",
+      "lat": 11.0458167,
+      "lng": 106.6796764,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=5",
+      "createdAt": "2026-06-25T01:53:35.505Z",
+      "id": "YAE7X5MNhjk"
+    },
+    {
+      "osmId": "node_7016628656",
+      "osmType": "node",
+      "name": "Nhà Hàng Wrap&Roll",
+      "category": "restaurant",
+      "lat": 10.7428775,
+      "lng": 106.6123078,
+      "address": "1 Đường số 17A, Hồ Chí Minh",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=3",
+      "createdAt": "2026-06-25T03:36:51.376Z",
+      "id": "ksgcDGQZhMk"
+    },
+    {
+      "osmId": "node_12453142101",
+      "osmType": "node",
+      "name": "Mầm Vegetarian",
+      "category": "restaurant",
+      "lat": 10.7965995,
+      "lng": 106.6730691,
+      "address": "197/4 Nguyễn Văn Trỗi,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=18",
+      "createdAt": "2026-06-25T03:48:38.239Z",
+      "id": "a442OEAdOa4"
     }
   ],
   "reviews": [
     {
-      "id": "1",
-      "osmId": "node/123456789",
-      "userId": "1",
+      "osmId": "node_12453142101",
+      "userId": "81",
       "rating": 4,
-      "comment": "Quán ngon, phục vụ tốt",
+      "comment": "Ok ngonnnn",
       "mediaUrls": [
-        "https://avatars.githubusercontent.com/u/43445218"
+        "https://res.cloudinary.com/dzjbxwjvs/video/upload/v1782381722/works/videos/spavdqqmms8vcmbvx3rh.mp4",
+        "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1782381707/works/images/ycupmft7ihubusicsxwf.jpg",
+        "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1782381707/works/images/a94hjggurawna90of0ox.jpg",
+        "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1782381712/works/images/xh4pf6rlfxu3tdlj5yso.jpg",
+        "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1782381706/works/images/ik1ud1yj3hfmod6rn4op.jpg",
+        "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1782381713/works/images/zf1nolhdckma5kpdty6k.jpg",
+        "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1782381715/works/images/ws4lqs0aaxbrl1kj7pwy.jpg",
+        "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1782381720/works/images/nncxh2ney6s08jeenu0a.jpg",
+        "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1782381723/works/images/xe4x5o5yobxpwtxwqv56.jpg",
+        "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1782381718/works/images/amujtt0r8ju3cfbwxs7m.jpg"
       ],
       "mediaTypes": [
+        "video",
+        "image",
+        "image",
+        "image",
+        "image",
+        "image",
+        "image",
+        "image",
+        "image",
         "image"
       ],
-      "createdAt": "2024-01-15T10:00:00Z"
+      "createdAt": "2026-06-25T10:02:02.347Z",
+      "id": "EfUwm9IW1e4"
     }
   ],
   "favorites": [
     {
       "id": "1",
       "userId": "1",
-      "osmId": "node/123456789",
+      "osmId": "node_123456789",
       "createdAt": "2024-01-15T09:00:00Z"
     },
     {
       "userId": "81",
-      "osmId": "node/13720019089",
+      "osmId": "node_13720019089",
       "createdAt": "2026-06-24T08:01:21.919Z",
       "id": "__6vsOWMol0"
     },
     {
       "userId": "81",
-      "osmId": "node/13720019089",
+      "osmId": "node_13720019089",
       "createdAt": "2026-06-24T08:01:29.314Z",
       "id": "ao7LqJEk3qA"
     },
     {
       "userId": "81",
-      "osmId": "node/13720019089",
+      "osmId": "node_13720019089",
       "createdAt": "2026-06-24T09:33:48.558Z",
       "id": "9GhrQk_WU0M"
     },
     {
       "userId": "81",
-      "osmId": "node/13720019089",
+      "osmId": "node_13720019089",
       "createdAt": "2026-06-24T09:33:50.937Z",
       "id": "AUhQHaabSEw"
     },
     {
       "userId": "81",
-      "osmId": "node/13720019089",
+      "osmId": "node_13720019089",
       "createdAt": "2026-06-24T09:51:40.171Z",
       "id": "oyidm9mNJxk"
     },
     {
       "userId": "81",
-      "osmId": "node/13720019089",
+      "osmId": "node_13720019089",
       "createdAt": "2026-06-24T09:52:53.818Z",
       "id": "6PzsBzwC6Ks"
+    },
+    {
+      "userId": "81",
+      "osmId": "node_13720019089",
+      "createdAt": "2026-06-25T01:24:25.741Z",
+      "id": "GtNMqQiRqCM"
+    },
+    {
+      "userId": "81",
+      "osmId": "node_13720019089",
+      "createdAt": "2026-06-25T01:24:27.544Z",
+      "id": "Inzj9n4a_ek"
+    },
+    {
+      "userId": "81",
+      "osmId": "node_13720019089",
+      "createdAt": "2026-06-25T01:45:56.971Z",
+      "id": "28rDWoHUolQ"
+    },
+    {
+      "userId": "81",
+      "osmId": "node_13720019089",
+      "createdAt": "2026-06-25T01:51:02.796Z",
+      "id": "wA5zelSw26o"
+    },
+    {
+      "userId": "81",
+      "osmId": "node_13720019089",
+      "createdAt": "2026-06-25T02:25:12.171Z",
+      "id": "6jYpheGVLlU"
+    },
+    {
+      "userId": "81",
+      "osmId": "node_13720019089",
+      "createdAt": "2026-06-25T02:25:14.491Z",
+      "id": "nUUKJDdJD0k"
+    },
+    {
+      "userId": "81",
+      "osmId": "node_7016628656",
+      "createdAt": "2026-06-25T03:35:57.567Z",
+      "id": "rGpG4JFhUfM"
     }
   ],
   "checkins": [
     {
       "id": "1",
       "userId": "1",
-      "osmId": "node/123456789",
+      "osmId": "node_7016628656",
       "lat": 10.82311,
       "lng": 106.62975,
       "distanceMeters": 7.3,
@@ -119,7 +223,7 @@
     },
     {
       "userId": "81",
-      "osmId": "node/13720019089",
+      "osmId": "node_12453142101",
       "lat": 11.051728333333331,
       "lng": 106.668025,
       "distanceMeters": 1399.3,
@@ -128,7 +232,7 @@
     },
     {
       "userId": "81",
-      "osmId": "node/13720019089",
+      "osmId": "node_12453142101",
       "lat": 11.052306666666668,
       "lng": 106.667815,
       "distanceMeters": 1452.1,
@@ -137,7 +241,7 @@
     },
     {
       "userId": "81",
-      "osmId": "node/13720019089",
+      "osmId": "node_12453142101",
       "lat": 11.05242,
       "lng": 106.66782333333335,
       "distanceMeters": 1458.1,

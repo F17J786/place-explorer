@@ -7,7 +7,9 @@ import type {
   CreateReviewPayload,
   CreateCheckinPayload,
   CreateFavoritePayload,
+  UpdateReviewPayload,
 } from '@/types/placeDetail.types';
+import { axiosInstance } from '@/services/axiosInstance';
 
 export const placeDetailApi = api.injectEndpoints({
   endpoints: builder => ({
@@ -54,45 +56,41 @@ export const placeDetailApi = api.injectEndpoints({
 
     // ─── Reviews ─────────────────────────────────────────────────────────────
     getReviewsByOsmId: builder.query<Review[], string>({
-      queryFn: async (osmId, _api, _extra, baseQuery) => {
-        const reviewRes = await baseQuery({
-          url: '/reviews',
-          params: { osmId, _sort: 'createdAt', _order: 'desc' },
-        });
-        if (reviewRes.error) return { error: reviewRes.error };
-        const reviews = reviewRes.data as Review[];
+      queryFn: async osmId => {
+        try {
+          const { data: reviews } = await axiosInstance.get<Review[]>(
+            '/reviews',
+            {
+              params: { osmId, _sort: '-createdAt' },
+            },
+          );
 
-        // Enrich với user info
-        const userIds = [...new Set(reviews.map(r => r.userId))];
-        const userMap: Record<
-          string,
-          { id: string; name: string; avatar: string }
-        > = {};
+          const userIds = [...new Set(reviews.map(r => r.userId))];
+          const userMap: Record<
+            string,
+            { id: string; name: string; avatar: string }
+          > = {};
 
-        await Promise.allSettled(
-          userIds.map(async uid => {
-            const u = await baseQuery({ url: `/users/${uid}` });
-            if (!u.error && u.data) {
-              const user = u.data as {
-                id: string;
-                name: string;
-                avatar: string;
-              };
+          await Promise.allSettled(
+            userIds.map(async uid => {
+              const { data: user } = await axiosInstance.get(`/users/${uid}`);
               userMap[uid] = {
                 id: user.id,
                 name: user.name,
                 avatar: user.avatar,
               };
-            }
-          }),
-        );
+            }),
+          );
 
-        return {
-          data: reviews.map(r => ({
-            ...r,
-            user: userMap[r.userId] ?? undefined,
-          })),
-        };
+          return {
+            data: reviews.map(r => ({
+              ...r,
+              user: userMap[r.userId] ?? undefined,
+            })),
+          };
+        } catch (e: any) {
+          return { error: { status: e.response?.status, data: e.message } };
+        }
       },
       providesTags: (_result, _err, osmId) => [{ type: 'Review', id: osmId }],
     }),
@@ -102,6 +100,27 @@ export const placeDetailApi = api.injectEndpoints({
         url: '/reviews',
         method: 'POST',
         data: payload,
+      }),
+      invalidatesTags: (_result, _err, arg) => [
+        { type: 'Review', id: arg.osmId },
+      ],
+    }),
+
+    updateReview: builder.mutation<Review, UpdateReviewPayload>({
+      query: ({ id, ...body }) => ({
+        url: `/reviews/${id}`,
+        method: 'PATCH',
+        data: body,
+      }),
+      invalidatesTags: (_result, _err, arg) => [
+        { type: 'Review', id: arg.osmId },
+      ],
+    }),
+
+    deleteReview: builder.mutation<void, { id: string; osmId: string }>({
+      query: ({ id }) => ({
+        url: `/reviews/${id}`,
+        method: 'DELETE',
       }),
       invalidatesTags: (_result, _err, arg) => [
         { type: 'Review', id: arg.osmId },
@@ -128,11 +147,24 @@ export const placeDetailApi = api.injectEndpoints({
     }),
 
     addFavorite: builder.mutation<Favorite, CreateFavoritePayload>({
-      query: payload => ({
-        url: '/favorites',
-        method: 'POST',
-        data: payload,
-      }),
+      queryFn: async (payload, _api, _extra, baseQuery) => {
+        // check existing trước
+        const existing = await baseQuery({
+          url: '/favorites',
+          params: { userId: payload.userId, osmId: payload.osmId },
+        });
+        if (existing.error) return { error: existing.error };
+        const list = existing.data as Favorite[];
+        if (list.length > 0) return { data: list[0] }; // đã có rồi, skip
+
+        const result = await baseQuery({
+          url: '/favorites',
+          method: 'POST',
+          data: payload,
+        });
+        if (result.error) return { error: result.error };
+        return { data: result.data as Favorite };
+      },
       invalidatesTags: (_result, _err, arg) => [
         { type: 'Favorite', id: `${arg.userId}-${arg.osmId}` },
       ],
@@ -153,44 +185,44 @@ export const placeDetailApi = api.injectEndpoints({
 
     // ─── Checkins ────────────────────────────────────────────────────────────
     getCheckinsByOsmId: builder.query<Checkin[], string>({
-      queryFn: async (osmId, _api, _extra, baseQuery) => {
-        const checkinRes = await baseQuery({
-          url: '/checkins',
-          params: { osmId, _sort: 'createdAt', _order: 'desc' },
-        });
-        if (checkinRes.error) return { error: checkinRes.error };
-        const checkins = checkinRes.data as Checkin[];
+      queryFn: async osmId => {
+        try {
+          console.log('calling checkins with osmId:', osmId);
 
-        const userIds = [...new Set(checkins.map(c => c.userId))];
-        const userMap: Record<
-          string,
-          { id: string; name: string; avatar: string }
-        > = {};
+          const { data: checkins } = await axiosInstance.get<Checkin[]>(
+            '/checkins',
+            {
+              params: { osmId, _sort: 'createdAt' },
+            },
+          );
+          console.log('checkins raw response:', checkins);
 
-        await Promise.allSettled(
-          userIds.map(async uid => {
-            const u = await baseQuery({ url: `/users/${uid}` });
-            if (!u.error && u.data) {
-              const user = u.data as {
-                id: string;
-                name: string;
-                avatar: string;
-              };
+          const userIds = [...new Set(checkins.map(c => c.userId))];
+          const userMap: Record<
+            string,
+            { id: string; name: string; avatar: string }
+          > = {};
+
+          await Promise.allSettled(
+            userIds.map(async uid => {
+              const { data: user } = await axiosInstance.get(`/users/${uid}`);
               userMap[uid] = {
                 id: user.id,
                 name: user.name,
                 avatar: user.avatar,
               };
-            }
-          }),
-        );
+            }),
+          );
 
-        return {
-          data: checkins.map(c => ({
-            ...c,
-            user: userMap[c.userId] ?? undefined,
-          })),
-        };
+          return {
+            data: checkins.map(c => ({
+              ...c,
+              user: userMap[c.userId] ?? undefined,
+            })),
+          };
+        } catch (e: any) {
+          return { error: { status: e.response?.status, data: e.message } };
+        }
       },
       providesTags: (_result, _err, osmId) => [{ type: 'Checkin', id: osmId }],
     }),
@@ -218,4 +250,6 @@ export const {
   useRemoveFavoriteMutation,
   useGetCheckinsByOsmIdQuery,
   useCreateCheckinMutation,
+  useUpdateReviewMutation,
+  useDeleteReviewMutation,
 } = placeDetailApi;

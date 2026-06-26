@@ -35,6 +35,7 @@ import {
 } from '@/store/api/placeDetailApi';
 import type { OsmMarker } from '../Map/MapScreen'; // adjust path
 import { PlaceDetailStackParamList } from '@/types/navigation';
+import MediaThumb, { MediaLightbox } from '@/components/review/MediaThumb';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -43,7 +44,7 @@ const COLORS = {
   primaryDark: '#1447B8',
   primaryLight: '#EBF0FF',
   white: '#FFFFFF',
-  bg: '#F7F9FF',
+  bg: '#F5F6FA',
   text: '#0F172A',
   textSub: '#64748B',
   textLight: '#94A3B8',
@@ -134,18 +135,31 @@ export const PlaceDetailScreen = () => {
   const route = useRoute<PlaceDetailRouteProp>();
   const { place } = route.params as { place: OsmMarker };
 
-  const osmId = `node/${place.id}`;
+  const osmId = `node_${place.id}`;
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = !!user;
 
   const scrollRef = useRef<ScrollView>(null);
   const [checkinLoading, setCheckinLoading] = useState(false);
+  const [lightbox, setLightbox] = useState<{
+    urls: string[];
+    types: ('image' | 'video')[];
+    index: number;
+  } | null>(null);
 
   // ── Queries ──────────────────────────────────────────────────────────────────
   const { data: reviews = [], isLoading: reviewsLoading } =
     useGetReviewsByOsmIdQuery(osmId);
   const { data: checkins = [], isLoading: checkinsLoading } =
     useGetCheckinsByOsmIdQuery(osmId);
+  console.log(
+    'osmId query:',
+    osmId,
+    'checkins:',
+    checkins,
+    'loading:',
+    checkinsLoading,
+  );
   const { data: favorite } = useGetFavoriteByUserQuery(
     { userId: user?.id ?? '', osmId },
     { skip: !isLoggedIn },
@@ -164,6 +178,13 @@ export const PlaceDetailScreen = () => {
       : null;
   const previewReviews = reviews.slice(0, 5);
   const previewCheckins = checkins.slice(0, 3);
+  const allMedia = reviews.flatMap(r =>
+    r.mediaUrls.map((url, i) => ({
+      url,
+      type: (r.mediaTypes?.[i] ?? 'image') as 'image' | 'video',
+      id: `${r.id}-${i}`,
+    })),
+  );
   const amenityLabel = place.tags?.amenity ?? place.amenity ?? 'Địa điểm';
 
   // ── Handlers ─────────────────────────────────────────────────────────────────
@@ -298,29 +319,6 @@ export const PlaceDetailScreen = () => {
         backgroundColor={COLORS.primaryDark}
       />
 
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.headerBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Icon name="arrow-back" size={22} color={COLORS.white} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle} numberOfLines={1}>
-          {place.name}
-        </Text>
-        <TouchableOpacity
-          style={styles.headerBtn}
-          onPress={handleToggleFavorite}
-        >
-          <Ionicons
-            name={isFavorited ? 'heart' : 'heart-outline'}
-            size={22}
-            color={isFavorited ? '#FF6B6B' : COLORS.white}
-          />
-        </TouchableOpacity>
-      </View>
-
       <ScrollView
         ref={scrollRef}
         style={styles.scroll}
@@ -338,15 +336,32 @@ export const PlaceDetailScreen = () => {
             style={styles.heroImage}
             resizeMode="cover"
           />
-          <View style={styles.heroTag}>
-            <Icon2 name="map-marker" size={12} color={COLORS.white} />
-            <Text style={styles.heroTagText}>{amenityLabel}</Text>
-          </View>
         </View>
 
         {/* Info Card */}
         <View style={styles.infoCard}>
-          <Text style={styles.placeName}>{place.name}</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Text
+              style={[styles.placeName, { flex: 1, marginRight: 12 }]}
+              numberOfLines={2}
+            >
+              {place.name}
+            </Text>
+
+            <TouchableOpacity>
+              <Icon name="share" size={24} color={COLORS.primary} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.heroTag}>
+            <Icon2 name="map-marker" size={12} color={COLORS.white} />
+            <Text style={styles.heroTagText}>{amenityLabel}</Text>
+          </View>
 
           {avgRating && (
             <View style={styles.ratingRow}>
@@ -431,6 +446,20 @@ export const PlaceDetailScreen = () => {
               </>
             )}
           </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.actionBtn,
+              styles.actionBtnOutline,
+              styles.actionBtnIcon,
+            ]}
+            onPress={handleToggleFavorite}
+          >
+            <Ionicons
+              name={isFavorited ? 'heart' : 'heart-outline'}
+              size={22}
+              color={isFavorited ? '#FF6B6B' : COLORS.primary}
+            />
+          </TouchableOpacity>
         </View>
 
         {!isLoggedIn && (
@@ -449,31 +478,34 @@ export const PlaceDetailScreen = () => {
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
-              data={reviews.flatMap(r =>
-                r.mediaUrls.map((url, i) => ({
-                  url,
-                  type: r.mediaTypes[i],
-                  id: `${r.id}-${i}`,
-                })),
-              )}
+              data={allMedia}
               keyExtractor={item => item.id}
-              contentContainerStyle={styles.mediaList}
-              renderItem={({ item }) => (
-                <View style={styles.mediaItem}>
-                  <Image source={{ uri: item.url }} style={styles.mediaThumb} />
-                  {item.type === 'video' && (
-                    <View style={styles.videoPlayOverlay}>
-                      <Icon
-                        name="play-circle-outline"
-                        size={28}
-                        color={COLORS.white}
-                      />
-                    </View>
-                  )}
-                </View>
+              contentContainerStyle={{ gap: 8 }}
+              renderItem={({ item, index }) => (
+                <MediaThumb
+                  url={item.url}
+                  type={item.type}
+                  onPress={() =>
+                    setLightbox({
+                      urls: allMedia.map(m => m.url),
+                      types: allMedia.map(m => m.type),
+                      index,
+                    })
+                  }
+                />
               )}
             />
           </View>
+        )}
+
+        {lightbox !== null && (
+          <MediaLightbox
+            mediaUrls={lightbox.urls}
+            mediaTypes={lightbox.types}
+            initialIndex={lightbox.index}
+            visible
+            onClose={() => setLightbox(null)}
+          />
         )}
 
         {/* Reviews — preview 5, navigate sang ReviewList để xem thêm & viết */}
@@ -537,19 +569,28 @@ export const PlaceDetailScreen = () => {
                 </View>
                 <Text style={styles.reviewComment}>{review.comment}</Text>
                 {review.mediaUrls.length > 0 && (
-                  <ScrollView
+                  <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    style={{ marginTop: 8 }}
-                  >
-                    {review.mediaUrls.map((url, i) => (
-                      <Image
-                        key={i}
-                        source={{ uri: url }}
-                        style={styles.reviewMedia}
+                    data={review.mediaUrls}
+                    keyExtractor={(_, i) => `${review.id}-${i}`}
+                    contentContainerStyle={{ gap: 8, marginTop: 8 }}
+                    renderItem={({ item: url, index }) => (
+                      <MediaThumb
+                        url={url}
+                        type={review.mediaTypes?.[index] ?? 'image'}
+                        onPress={() =>
+                          setLightbox({
+                            urls: review.mediaUrls,
+                            types:
+                              review.mediaTypes ??
+                              review.mediaUrls.map(() => 'image' as const),
+                            index,
+                          })
+                        }
                       />
-                    ))}
-                  </ScrollView>
+                    )}
+                  />
                 )}
               </View>
             ))
@@ -659,9 +700,7 @@ const styles = StyleSheet.create({
   heroContainer: { width: '100%', height: 220, position: 'relative' },
   heroImage: { width: '100%', height: '100%' },
   heroTag: {
-    position: 'absolute',
-    bottom: 12,
-    left: 14,
+    alignSelf: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
@@ -688,18 +727,17 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 1,
     shadowRadius: 8,
+    gap: 10,
   },
   placeName: {
     fontSize: 20,
     fontWeight: '700',
     color: COLORS.text,
-    marginBottom: 6,
   },
   ratingRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    marginBottom: 10,
   },
   ratingValue: { fontSize: 14, fontWeight: '700', color: COLORS.star },
   ratingCount: { fontSize: 12, color: COLORS.textSub },
@@ -712,7 +750,7 @@ const styles = StyleSheet.create({
     borderTopColor: COLORS.border,
   },
   addressText: { flex: 1, fontSize: 13, color: COLORS.textSub, lineHeight: 18 },
-  tagList: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 10 },
+  tagList: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
   tagChip: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -854,4 +892,9 @@ const styles = StyleSheet.create({
   emptyState: { alignItems: 'center', paddingVertical: 28, gap: 6 },
   emptyText: { fontSize: 13, color: COLORS.textLight },
   emptyHint: { fontSize: 12, color: COLORS.primary },
+  actionBtnIcon: {
+    flex: 0,
+    width: 46,
+    paddingHorizontal: 0,
+  },
 });

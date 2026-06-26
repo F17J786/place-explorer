@@ -25,7 +25,7 @@ const COLORS = {
   primary: '#1A56DB',
   primaryLight: '#EBF0FF',
   white: '#FFFFFF',
-  bg: '#F7F9FF',
+  bg: '#F5F6FA',
   text: '#0F172A',
   textSub: '#64748B',
   textLight: '#94A3B8',
@@ -101,26 +101,6 @@ export const CheckinListScreen = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#1447B8" />
-
-      {/* Header */}
-      <View style={styles.header}>
-        <Icon
-          name="arrow-back"
-          size={22}
-          color={COLORS.white}
-          onPress={() => navigation.goBack()}
-          style={styles.backBtn}
-        />
-        <View style={styles.headerCenter}>
-          <Text style={styles.headerTitle} numberOfLines={1}>
-            Check-in
-          </Text>
-          <Text style={styles.headerSub} numberOfLines={1}>
-            {placeName}
-          </Text>
-        </View>
-        <View style={{ width: 40 }} />
-      </View>
 
       {isLoading ? (
         <ActivityIndicator

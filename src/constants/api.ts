@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://192.168.10.20:3000';
+export const BASE_URL = 'http://192.168.10.30:3000';
 
 export const API_TIMEOUT_MS = 10_000;
 
