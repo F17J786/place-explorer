@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { AUTH_COLORS, AUTH_TYPOGRAPHY } from '@/constants/authTheme';
 import { DEFAULT_AVATAR_URL } from '@/constants/api';
 import { useImagePicker } from '@/hooks/useImagePicker';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface AvatarPickerProps {
   value?: string;
@@ -19,7 +14,7 @@ interface AvatarPickerProps {
 
 export const AvatarPicker = ({ value, onChange, error }: AvatarPickerProps) => {
   const { pickFromGallery, pickFromCamera } = useImagePicker();
-  const avatarUri = value || DEFAULT_AVATAR_URL;
+  const avatarUri = value;
 
   const handlePickFromGallery = async () => {
     const uri = await pickFromGallery();
@@ -39,18 +34,30 @@ export const AvatarPicker = ({ value, onChange, error }: AvatarPickerProps) => {
     <View style={styles.wrapper}>
       <Text style={styles.label}>Ảnh đại diện</Text>
       <View style={styles.row}>
-        <Image source={{ uri: avatarUri }} style={styles.avatar} />
+        {avatarUri ? (
+          <Image source={{ uri: avatarUri }} style={styles.avatar} />
+        ) : (
+          <View style={styles.defaultAvatar}>
+            <MaterialCommunityIcons
+              name="image-outline"
+              size={40}
+              color="#9CA3AF"
+            />
+          </View>
+        )}
         <View style={styles.actions}>
           <TouchableOpacity
             style={styles.actionButton}
             onPress={handlePickFromGallery}
-            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          >
             <Text style={styles.actionButtonText}>Chọn ảnh</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.actionButton, styles.actionButtonOutline]}
             onPress={handlePickFromCamera}
-            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          >
             <Text style={styles.actionButtonOutlineText}>Chụp ảnh</Text>
           </TouchableOpacity>
         </View>
@@ -82,6 +89,14 @@ const styles = StyleSheet.create({
     backgroundColor: AUTH_COLORS.primaryPale,
     borderWidth: 2,
     borderColor: AUTH_COLORS.borderDefault,
+  },
+  defaultAvatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: '#E5E7EB',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   actions: {
     flex: 1,

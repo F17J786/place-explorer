@@ -9,11 +9,13 @@ import { ActivityIndicator } from 'react-native-paper';
 import { View } from 'react-native';
 import { COLORS } from '@/constants/colors';
 import { PlaceDetailStackNavigator } from './PlaceDetailStackNavigator';
+import { useAppSelector } from '@/store/hooks';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const RootNavigator = () => {
-  const { isReady, isAuthenticated } = useBootstrap();
+  const { isReady } = useBootstrap();
+  const isAuthenticated = useAppSelector(state => state.auth.isLoggedIn);
 
   if (!isReady)
     return (

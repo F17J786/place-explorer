@@ -4,15 +4,15 @@
       "id": "81",
       "name": "Meghan Farrell",
       "email": "Wade_Denesik18@yahoo.com",
-      "password": "X9PWynnkBoUiz7H",
+      "password": "1234567",
       "avatar": "https://avatars.githubusercontent.com/u/43445218",
       "createdAt": "2024-01-15T08:30:00Z"
     },
     {
       "id": "1",
       "name": "Nguyễn Khoa",
-      "email": "abc@yahoo.com",
-      "password": "X9PWynnkBoUiz7H",
+      "email": "abc@123.com",
+      "password": "1234567",
       "avatar": "https://avatars.githubusercontent.com/u/43445218",
       "createdAt": "2024-01-15T08:30:00Z"
     }

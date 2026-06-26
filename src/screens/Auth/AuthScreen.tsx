@@ -58,7 +58,7 @@ export const AuthScreen = () => {
             <View style={[styles.logoSquare, styles.logoSquarePrimary]} />
             <View style={[styles.logoSquare, styles.logoSquareAccent]} />
           </View>
-          <Text style={styles.appName}>Map Explorer</Text>
+          <Text style={styles.appName}>Place Explorer</Text>
         </View>
 
         <View style={styles.card}>

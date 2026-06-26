@@ -2,5 +2,4 @@ export const BASE_URL = 'http://192.168.10.30:3000';
 
 export const API_TIMEOUT_MS = 10_000;
 
-export const DEFAULT_AVATAR_URL =
-  'https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/17.jpg';
+export const DEFAULT_AVATAR_URL = 'https://i.pravatar.cc/512?img=17';

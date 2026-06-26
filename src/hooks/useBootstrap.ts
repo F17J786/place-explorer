@@ -7,11 +7,11 @@ import { useAppDispatch } from '@/store/hooks';
 import { setUser } from '@/store/slices/authSlice';
 import { User } from '@/types/user';
 
+// useBootstrap.ts
 export const useBootstrap = () => {
   const { loadData } = useEncryptedStorage();
   const dispatch = useAppDispatch();
   const [isReady, setIsReady] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -19,12 +19,10 @@ export const useBootstrap = () => {
         const credentials = await Keychain.getGenericPassword({
           service: KEYCHAIN_SERVICE,
         });
-
         if (credentials) {
           const user = await loadData<User>(STORAGE_KEYS.USER_PROFILE);
           if (user) {
             dispatch(setUser(user));
-            setIsAuthenticated(true);
           }
         }
       } catch (e) {
@@ -33,9 +31,8 @@ export const useBootstrap = () => {
         setIsReady(true);
       }
     };
-
     checkSession();
   }, []);
 
-  return { isReady, isAuthenticated };
+  return { isReady };
 };
