@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Image,
@@ -95,15 +95,12 @@ export const MediaLightbox = ({
     mediaTypes[initialIndex] === 'video', // nếu bấm thẳng vào video thì mở luôn
   );
 
-  const images = useMemo(
-    () =>
-      mediaUrls.map((url, i) =>
-        mediaTypes[i] === 'video'
-          ? { uri: getVideoThumbnail(url) }
-          : { uri: getImageFull(url) },
-      ),
-    [mediaUrls, mediaTypes],
-  );
+  const images = mediaUrls.map((url, i) => {
+    const uri =
+      mediaTypes[i] === 'video' ? getVideoThumbnail(url) : getImageFull(url);
+    console.log('lightbox image:', uri);
+    return { uri };
+  });
 
   const handleIndexChange = (index: number) => {
     setCurrentIndex(index);

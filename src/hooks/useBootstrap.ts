@@ -7,7 +7,6 @@ import { useAppDispatch } from '@/store/hooks';
 import { setUser } from '@/store/slices/authSlice';
 import { User } from '@/types/user';
 
-// useBootstrap.ts
 export const useBootstrap = () => {
   const { loadData } = useEncryptedStorage();
   const dispatch = useAppDispatch();

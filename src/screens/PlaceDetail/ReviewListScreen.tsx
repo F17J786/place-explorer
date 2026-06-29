@@ -12,6 +12,7 @@ import {
   TextInput,
   Alert,
   ScrollView,
+  Pressable,
 } from 'react-native';
 import {
   useRoute,
@@ -37,6 +38,7 @@ import axios from 'axios';
 import BottomSheet, {
   BottomSheetBackdrop,
   useBottomSheet,
+  useBottomSheetSpringConfigs,
 } from '@gorhom/bottom-sheet';
 import MediaThumb, { MediaLightbox } from '@/components/review/MediaThumb';
 import { useForm, Controller } from 'react-hook-form';
@@ -46,6 +48,8 @@ import {
   type ReviewFormValues,
 } from '@/schemas/validationSchemas';
 import { BackHandler } from 'react-native';
+import { toast } from '@baronha/ting';
+import { Divider, Menu } from 'react-native-paper';
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const CLOUDINARY_UPLOAD_PRESET = 'test_word';
@@ -67,6 +71,7 @@ const COLORS = {
   textSub: '#64748B',
   textLight: '#94A3B8',
   border: '#E2E8F0',
+  gray: '#D1D5DB',
   star: '#F59E0B',
   overlay: 'rgba(15,23,42,0.55)',
   cardShadow: 'rgba(26,86,219,0.08)',
@@ -170,11 +175,18 @@ const FilterHandleComponent = ({ title }: { title: string }) => {
     <View style={styles.bsHandle}>
       <View style={styles.bsHandleBar} />
       <View style={styles.bsHandleRow}>
-        <View style={{ width: 28 }} />
         <Text style={styles.bsHandleTitle}>{title}</Text>
         <TouchableOpacity
           onPress={() => close()}
-          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 10 }}
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: 16,
+            backgroundColor: COLORS.bg,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
           <Icon name="close" size={20} color={COLORS.textSub} />
         </TouchableOpacity>
@@ -213,6 +225,7 @@ const ReviewItem = ({
 }) => {
   const isOwn = currentUserId === item.userId;
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   const handleMenu = () => {
     Alert.alert('Tùy chọn', undefined, [
@@ -250,12 +263,58 @@ const ReviewItem = ({
           </View>
         </View>
         {isOwn && (
-          <TouchableOpacity
-            onPress={handleMenu}
-            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          <Menu
+            visible={menuVisible}
+            onDismiss={() => setMenuVisible(false)}
+            contentStyle={{ borderRadius: 14, backgroundColor: COLORS.white }}
+            anchor={
+              <TouchableOpacity
+                onPress={() => setMenuVisible(true)}
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              >
+                <Icon name="more-vert" size={20} color={COLORS.textSub} />
+              </TouchableOpacity>
+            }
           >
-            <Icon name="more-vert" size={20} color={COLORS.textSub} />
-          </TouchableOpacity>
+            <Pressable
+              android_ripple={{ color: COLORS.primaryLight }}
+              onPress={() => {
+                setMenuVisible(false);
+                onEdit(item);
+              }}
+              style={({ pressed }) => [
+                styles.menuItem,
+                pressed && { backgroundColor: COLORS.border },
+              ]}
+            >
+              <Icon2 name="pencil-outline" size={16} color={COLORS.text} />
+              <Text style={styles.menuItemText}>Chỉnh sửa xếp hạng</Text>
+            </Pressable>
+
+            <Pressable
+              android_ripple={{ color: 'rgba(239,68,68,0.1)' }}
+              onPress={() => {
+                setMenuVisible(false);
+                Alert.alert('Xác nhận', 'Bạn muốn xóa đánh giá này?', [
+                  { text: 'Hủy', style: 'cancel' },
+                  {
+                    text: 'Xóa',
+                    style: 'destructive',
+                    onPress: () => onDelete(item.id),
+                  },
+                ]);
+              }}
+              style={({ pressed }) => [
+                styles.menuItem,
+                pressed && { backgroundColor: COLORS.border },
+              ]}
+            >
+              <Icon2 name="delete-outline" size={16} color={COLORS.danger} />
+              <Text style={[styles.menuItemText, { color: COLORS.danger }]}>
+                Xoá bài đánh giá
+              </Text>
+            </Pressable>
+          </Menu>
         )}
       </View>
       <Text style={styles.comment}>{item.comment}</Text>
@@ -290,7 +349,7 @@ const ReviewItem = ({
 };
 
 const WriteReviewForm = ({
-  initialRating = 5,
+  initialRating = 0,
   initialComment = '',
   initialMedia = [] as MediaItem[],
   submitLabel = 'Gửi đánh giá',
@@ -307,6 +366,9 @@ const WriteReviewForm = ({
   loading: boolean;
 }) => {
   const [uploading, setUploading] = useState(false);
+  const [hint, setHint] = useState<{ text: string; index: number } | null>(
+    null,
+  );
 
   const {
     control,
@@ -447,24 +509,58 @@ const WriteReviewForm = ({
         render={({ field: { value, onChange } }) => (
           <View style={styles.starPicker}>
             {[1, 2, 3, 4, 5].map(i => (
-              <TouchableOpacity key={i} onPress={() => onChange(i)}>
-                <Icon
-                  name={i <= value ? 'star' : 'star-border'}
-                  size={36}
-                  color={COLORS.star}
-                />
-              </TouchableOpacity>
+              <View
+                key={i}
+                style={{
+                  alignItems: 'center',
+                  position: 'relative',
+                  overflow: 'visible',
+                }}
+              >
+                {hint?.index === i && (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      zIndex: 10,
+                      left: -100,
+                      right: -100,
+                      alignItems: 'center',
+                      alignSelf: 'center',
+                    }}
+                  >
+                    <View style={styles.starHint}>
+                      <Text style={styles.starHintText}>{hint.text}</Text>
+                    </View>
+                  </View>
+                )}
+                <TouchableOpacity
+                  onPress={() => {
+                    onChange(i);
+                    setHint({
+                      text: [
+                        '',
+                        'Rất tệ',
+                        'Tệ',
+                        'Bình thường',
+                        'Tốt',
+                        'Tuyệt vời',
+                      ][i],
+                      index: i,
+                    });
+                    setTimeout(() => setHint(null), 1500);
+                  }}
+                  activeOpacity={0.7}
+                  accessible={false}
+                >
+                  <Icon
+                    name={i <= value ? 'star' : 'star-border'}
+                    size={36}
+                    color={COLORS.star}
+                  />
+                </TouchableOpacity>
+              </View>
             ))}
           </View>
-        )}
-      />
-      <Controller
-        control={control}
-        name="rating"
-        render={({ field: { value } }) => (
-          <Text style={styles.ratingHint}>
-            {['', 'Rất tệ', 'Tệ', 'Bình thường', 'Tốt', 'Tuyệt vời'][value]}
-          </Text>
         )}
       />
       {errors.rating && (
@@ -496,8 +592,8 @@ const WriteReviewForm = ({
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: 8 }}
-          style={{ marginBottom: 12 }}
+          contentContainerStyle={{ gap: 8, paddingBottom: 0 }}
+          style={{ marginBottom: 12, overflow: 'visible' }}
         >
           {media.map((item, index) => (
             <View key={index} style={styles.mediaPreviewWrap}>
@@ -580,8 +676,11 @@ const FilterBottomSheet = ({
   onApply: (filter: FilterType) => void;
 }) => {
   const [temp, setTemp] = useState<FilterType>(activeFilter);
-
-  const snapPoints = useMemo(() => ['42%'], []);
+  const animationConfigs = useBottomSheetSpringConfigs({
+    damping: 80, // độ nảy
+    overshootClamping: true,
+    stiffness: 700, // độ cứng — cao hơn = nhanh hơn
+  });
 
   const FILTER_OPTIONS: { id: FilterType; label: string }[] = [
     { id: 'newest', label: 'Mới nhất' },
@@ -600,10 +699,12 @@ const FilterBottomSheet = ({
     <BottomSheet
       ref={bsRef}
       index={-1}
-      snapPoints={snapPoints}
+      snapPoints={['44%']}
       enablePanDownToClose
       enableDynamicSizing={false}
       handleComponent={() => <FilterHandleComponent title="Bộ lọc" />}
+      backgroundStyle={{ borderTopLeftRadius: 26, borderTopRightRadius: 26 }}
+      animationConfigs={animationConfigs}
       backdropComponent={props => (
         <BottomSheetBackdrop
           {...props}
@@ -811,9 +912,10 @@ export const ReviewListScreen = () => {
           style={styles.filterBtn}
           onPress={() => filterBsRef.current?.expand()}
         >
-          <Icon name="filter-list" size={18} color={COLORS.primary} />
+          <View style={styles.iconWrapper}>
+            <Icon name="tune" size={18} color={COLORS.primary} />
+          </View>
           <Text style={styles.filterBtnText}>Bộ lọc</Text>
-          {activeFilter !== 'newest' && <View style={styles.filterDot} />}
         </TouchableOpacity>
         {activeFilter !== 'newest' && (
           <TouchableOpacity
@@ -823,7 +925,12 @@ export const ReviewListScreen = () => {
             <Text style={styles.filterClearChipText}>
               {`${activeFilter} sao`}
             </Text>
-            <Icon name="close" size={12} color={COLORS.primary} />
+            <Icon
+              name="close"
+              size={12}
+              style={{ marginTop: 1.5 }}
+              color={COLORS.primary}
+            />
           </TouchableOpacity>
         )}
       </View>
@@ -961,6 +1068,20 @@ const styles = StyleSheet.create({
   },
   ratingLabel: { fontSize: 13, color: COLORS.textSub, marginBottom: 8 },
   starPicker: { flexDirection: 'row', gap: 4, marginBottom: 4 },
+  starHint: {
+    position: 'absolute',
+    bottom: 7,
+    backgroundColor: 'rgba(0,0,0,0.75)',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 8,
+    zIndex: 10,
+  },
+  starHintText: {
+    color: COLORS.white,
+    fontSize: 12,
+    fontWeight: '600',
+  },
   ratingHint: {
     fontSize: 13,
     color: COLORS.primary,
@@ -979,7 +1100,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: COLORS.bg,
   },
-  mediaPreviewWrap: { marginRight: 8, position: 'relative' },
+  mediaPreviewWrap: { marginRight: 8, position: 'relative', zIndex: 1 },
   removeMediaBtn: {
     position: 'absolute',
     top: -4,
@@ -1056,16 +1177,22 @@ const styles = StyleSheet.create({
   filterBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    backgroundColor: COLORS.white,
-    paddingHorizontal: 14,
+    gap: 5,
+    backgroundColor: COLORS.border,
+    paddingHorizontal: 8,
     paddingVertical: 8,
-    borderRadius: 20,
-    borderWidth: 1.5,
-    borderColor: COLORS.border,
-    elevation: 1,
+    borderRadius: 8,
   },
-  filterBtnText: { fontSize: 13, fontWeight: '600', color: COLORS.primary },
+  iconWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  filterBtnText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: COLORS.primary,
+    textAlignVertical: 'center',
+  },
   filterDot: {
     width: 7,
     height: 7,
@@ -1078,10 +1205,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
     backgroundColor: COLORS.primaryLight,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 20,
-    borderWidth: 1.5,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
     borderColor: COLORS.primary,
   },
   filterClearChipText: {
@@ -1132,38 +1259,35 @@ const styles = StyleSheet.create({
   // Bottom sheet
   bsHandle: {
     paddingHorizontal: 16,
-    paddingBottom: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    paddingBottom: 9,
   },
   bsHandleBar: {
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: COLORS.border,
+    backgroundColor: COLORS.gray,
     alignSelf: 'center',
     marginTop: 10,
-    marginBottom: 12,
+    marginBottom: 2,
   },
   bsHandleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 10,
   },
   bsHandleTitle: {
-    fontSize: 16,
-    fontWeight: '700',
+    fontSize: 20,
+    fontWeight: '600',
     color: COLORS.text,
     flex: 1,
-    textAlign: 'center',
+    textAlign: 'left',
   },
-  bsContent: { paddingHorizontal: 16, paddingTop: 16 },
+  bsContent: { paddingHorizontal: 16, paddingVertical: 12, paddingBottom: 14 },
   bsSectionTitle: {
-    fontSize: 13,
+    fontSize: 16,
     fontWeight: '600',
     color: COLORS.textSub,
-    marginBottom: 12,
+    marginBottom: 13,
   },
   bsChipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   bsChip: {
@@ -1184,12 +1308,10 @@ const styles = StyleSheet.create({
   bsChipTextActive: { color: COLORS.primary, fontWeight: '700' },
   bsFooter: {
     flexDirection: 'row',
-    padding: 16,
-    paddingBottom: 28,
+    paddingHorizontal: 16,
+    paddingTop: 10,
     gap: 10,
     backgroundColor: COLORS.white,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.border,
   },
   bsClearBtn: {
     flex: 1,
@@ -1223,5 +1345,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.55)',
     alignItems: 'center' as const,
     justifyContent: 'center' as const,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  menuItemText: {
+    fontSize: 14,
+    color: COLORS.text,
   },
 });
