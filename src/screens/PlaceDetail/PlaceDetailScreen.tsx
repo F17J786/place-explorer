@@ -135,7 +135,7 @@ export const PlaceDetailScreen = () => {
   const route = useRoute<PlaceDetailRouteProp>();
   const { place } = route.params as { place: OsmMarker };
 
-  const osmId = `node_${place.id}`;
+  const osmId: string = (place as any).osmId ?? `node_${place.id}`;
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = !!user;
 
@@ -201,12 +201,22 @@ export const PlaceDetailScreen = () => {
       await removeFavorite({ id: favorite.id, userId: user.id, osmId });
       Alert.alert('Đã xoá', 'Đã xoá khỏi danh sách yêu thích.');
     } else {
+      await upsertPlace({
+        osmId,
+        osmType: 'node',
+        name: place.name,
+        category: amenityLabel,
+        lat: place.coordinate.latitude,
+        lng: place.coordinate.longitude,
+        address: place.address ?? '',
+        thumbnailUrl: place.photoUrl ?? '',
+      });
       await addFavorite({
         userId: user.id,
         osmId,
         createdAt: new Date().toISOString(),
       });
-      Alert.alert('Đã lưu ❤️', 'Đã thêm vào danh sách yêu thích!');
+      Alert.alert('Đã lưu', 'Đã thêm vào danh sách yêu thích!');
     }
   }, [
     isLoggedIn,
@@ -305,10 +315,19 @@ export const PlaceDetailScreen = () => {
     upsertPlace,
   ]);
 
-  const handleOpenMaps = () => {
-    const { latitude, longitude } = place.coordinate;
-    Linking.openURL(`https://maps.google.com/?q=${latitude},${longitude}`);
+  const handleSearchRoute = () => {
+    navigation.getParent()?.navigate('Main', {
+      screen: 'Map',
+      params: { routeTo: place },
+    });
   };
+
+  const handleOpenMaps = useCallback(() => {
+    navigation.getParent()?.navigate('Main', {
+      screen: 'Map',
+      params: { selectedMarker: place },
+    });
+  }, [navigation, place]);
 
   // ── Render ────────────────────────────────────────────────────────────────────
 
@@ -422,7 +441,7 @@ export const PlaceDetailScreen = () => {
         <View style={styles.actionRow}>
           <TouchableOpacity
             style={[styles.actionBtn, styles.actionBtnOutline]}
-            onPress={handleOpenMaps}
+            onPress={handleSearchRoute}
           >
             <Icon name="directions" size={18} color={COLORS.primary} />
             <Text style={styles.actionBtnOutlineText}>Chỉ đường</Text>
@@ -457,7 +476,7 @@ export const PlaceDetailScreen = () => {
             <Ionicons
               name={isFavorited ? 'heart' : 'heart-outline'}
               size={22}
-              color={isFavorited ? '#FF6B6B' : COLORS.primary}
+              color={COLORS.primary}
             />
           </TouchableOpacity>
         </View>

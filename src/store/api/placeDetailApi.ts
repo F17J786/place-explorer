@@ -24,6 +24,24 @@ export const placeDetailApi = api.injectEndpoints({
       providesTags: (_result, _err, osmId) => [{ type: 'Place', id: osmId }],
     }),
 
+    getPlacesByOsmIds: builder.query<PlaceRecord[], string[]>({
+      queryFn: async (osmIds, _api, _extra, baseQuery) => {
+        const results = await Promise.allSettled(
+          osmIds.map(osmId => baseQuery({ url: '/places', params: { osmId } })),
+        );
+        const places: PlaceRecord[] = [];
+        results.forEach(r => {
+          if (r.status === 'fulfilled' && !r.value.error) {
+            const list = r.value.data as PlaceRecord[];
+            if (list[0]) places.push(list[0]);
+          }
+        });
+        return { data: places };
+      },
+      providesTags: (_result, _err, osmIds) =>
+        osmIds.map(id => ({ type: 'Place' as const, id })),
+    }),
+
     upsertPlace: builder.mutation<
       PlaceRecord,
       Omit<PlaceRecord, 'id' | 'createdAt'>
@@ -127,6 +145,20 @@ export const placeDetailApi = api.injectEndpoints({
       ],
     }),
 
+    getFavoritesByUser: builder.query<Favorite[], string>({
+      queryFn: async (userId, _api, _extra, baseQuery) => {
+        const result = await baseQuery({
+          url: '/favorites',
+          params: { userId: Number(userId) },
+        });
+        if (result.error) return { error: result.error };
+        return { data: result.data as Favorite[] };
+      },
+      providesTags: (_result, _err, userId) => [
+        { type: 'Favorite', id: `list-${userId}` },
+      ],
+    }),
+
     // ─── Favorites ───────────────────────────────────────────────────────────
     getFavoriteByUser: builder.query<
       Favorite | null,
@@ -135,7 +167,7 @@ export const placeDetailApi = api.injectEndpoints({
       queryFn: async ({ userId, osmId }, _api, _extra, baseQuery) => {
         const result = await baseQuery({
           url: '/favorites',
-          params: { userId, osmId },
+          params: { userId: Number(userId), osmId },
         });
         if (result.error) return { error: result.error };
         const list = result.data as Favorite[];
@@ -147,26 +179,28 @@ export const placeDetailApi = api.injectEndpoints({
     }),
 
     addFavorite: builder.mutation<Favorite, CreateFavoritePayload>({
-      queryFn: async (payload, _api, _extra, baseQuery) => {
-        // check existing trước
-        const existing = await baseQuery({
-          url: '/favorites',
-          params: { userId: payload.userId, osmId: payload.osmId },
-        });
-        if (existing.error) return { error: existing.error };
-        const list = existing.data as Favorite[];
-        if (list.length > 0) return { data: list[0] }; // đã có rồi, skip
+      queryFn: async payload => {
+        try {
+          const { data: list } = await axiosInstance.get<Favorite[]>(
+            '/favorites',
+            {
+              params: { userId: Number(payload.userId), osmId: payload.osmId },
+            },
+          );
+          if (list.length > 0) return { data: list[0] };
 
-        const result = await baseQuery({
-          url: '/favorites',
-          method: 'POST',
-          data: payload,
-        });
-        if (result.error) return { error: result.error };
-        return { data: result.data as Favorite };
+          const { data } = await axiosInstance.post<Favorite>('/favorites', {
+            ...payload,
+            userId: Number(payload.userId),
+          });
+          return { data };
+        } catch (e: any) {
+          return { error: { status: e.response?.status, data: e.message } };
+        }
       },
       invalidatesTags: (_result, _err, arg) => [
         { type: 'Favorite', id: `${arg.userId}-${arg.osmId}` },
+        { type: 'Favorite', id: `list-${arg.userId}` },
       ],
     }),
 
@@ -180,6 +214,7 @@ export const placeDetailApi = api.injectEndpoints({
       }),
       invalidatesTags: (_result, _err, arg) => [
         { type: 'Favorite', id: `${arg.userId}-${arg.osmId}` },
+        { type: 'Favorite', id: `list-${arg.userId}` },
       ],
     }),
 
@@ -252,4 +287,6 @@ export const {
   useCreateCheckinMutation,
   useUpdateReviewMutation,
   useDeleteReviewMutation,
+  useGetFavoritesByUserQuery,
+  useGetPlacesByOsmIdsQuery,
 } = placeDetailApi;

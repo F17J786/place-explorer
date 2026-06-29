@@ -34,6 +34,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { promptForEnableLocationIfNeeded } from 'react-native-android-location-enabler';
 import { toast } from '@baronha/ting';
+import { useRoute } from '@react-navigation/native';
 
 const showToast = (msg: string) => {
   toast({
@@ -183,7 +184,7 @@ const fetchOverpassMarkers = async (
     ? `["amenity"="${selectedAmenity}"]`
     : '["amenity"]';
   const query = `[out:json][timeout:25];node${amenityFilter}(${s},${w},${n},${e});out 500;`;
-
+  console.log(query);
   for (const server of OVERPASS_SERVERS) {
     try {
       const res = await axios.post(
@@ -216,12 +217,21 @@ const fetchOverpassMarkers = async (
         }));
       if (validElements.length > 0) return validElements;
     } catch (error: any) {
+      console.log('====================');
+      console.log('SERVER:', server);
+      console.log('ERROR:', error);
+      console.log('STATUS:', error?.response?.status);
+      console.log('DATA:', error?.response?.data);
+      console.log('MESSAGE:', error?.message);
+
       if (
         axios.isCancel(error) ||
         error.name === 'AbortError' ||
         error.code === 'ERR_CANCELED'
-      )
+      ) {
         throw error;
+      }
+
       continue;
     }
   }
@@ -491,8 +501,39 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
   const showDropdown = focusedInput !== null || routeMode; // luôn show khi routeMode mở
 
   const [initialRegion, setInitialRegion] = useState<Region>(INITIAL_REGION);
+  // Thêm vào đầu component MapScreen
+  const route = useRoute(); // hoặc dùng props.route nếu có
+  const routeParams = route.params as
+    | { routeTo?: OsmMarker; selectedMarker?: OsmMarker }
+    | undefined;
+
+  useEffect(() => {
+    if (!routeParams?.routeTo) return;
+    const place = routeParams.routeTo;
+    setRouteMode(true);
+    setPointB({
+      coordinate: place.coordinate,
+      label: 'B',
+      name: place.name,
+    });
+    setInputBText(place.name);
+    setInputBIsMyLoc(false);
+    setFocusedInput('A'); // focus input A để chọn điểm xuất phát
+  }, [routeParams?.routeTo]);
 
   // ─── Effects ──────────────────────────────────────────────────────────────
+
+  useEffect(() => {
+    const marker = routeParams?.selectedMarker;
+    if (!marker) return;
+    setSelectedMarker(marker);
+    setTimeout(() => {
+      mapRef.current?.animateCamera({
+        center: marker.coordinate,
+        zoom: 17,
+      });
+    }, 300);
+  }, [routeParams?.selectedMarker]);
 
   useEffect(() => {
     sortedRef.current = [...markers].sort((a, b) => b.score - a.score);
