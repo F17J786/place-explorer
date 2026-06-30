@@ -12,4 +12,13 @@ export const COLORS = {
   placeholder: '#B0BAC9',
   linkText: '#1A6BF5',
   white: '#FFFFFF',
+  primary2: '#1A56DB',
+  primaryDark: '#1447B8',
+  primaryLight: '#EBF0FF',
+  bg: '#F5F6FA',
+  textSub: '#64748B',
+  textLight: '#94A3B8',
+  star: '#F59E0B',
+  success: '#10B981',
+  cardShadow: 'rgba(26,86,219,0.08)',
 } as const;

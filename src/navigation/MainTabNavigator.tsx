@@ -29,10 +29,14 @@ interface CustomTabBarProps {
 
 const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
   const activeIdx = state.index;
+  const activeRoute = state.routes[activeIdx]?.name;
+  const isMapTab = activeRoute === 'Map';
 
   return (
-    <View style={tabBarStyles.wrapper}>
-      <View style={tabBarStyles.bar}>
+    <View
+      style={isMapTab ? tabBarStyles.wrapperFloating : tabBarStyles.wrapper}
+    >
+      <View style={isMapTab ? tabBarStyles.barFloating : tabBarStyles.bar}>
         {TABS.map((tab, idx) => {
           const isFab = 'isFab' in tab && tab.isFab;
           const isActive = !isFab && state.routes[activeIdx]?.name === tab.key;
@@ -88,6 +92,30 @@ const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
 
 const tabBarStyles = StyleSheet.create({
   wrapper: {
+    height: 100, // 68 bar + 14 bottom + 14 buffer
+    backgroundColor: COLORS.bg,
+  },
+
+  bar: {
+    position: 'absolute',
+    bottom: 14,
+    left: 20,
+    right: 20,
+    borderRadius: 32,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 8,
+    overflow: 'visible',
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 68,
+    paddingHorizontal: 12,
+  },
+
+  wrapperFloating: {
     position: 'absolute',
     bottom: 14,
     left: 20,
@@ -102,7 +130,7 @@ const tabBarStyles = StyleSheet.create({
     overflow: 'visible',
   },
 
-  bar: {
+  barFloating: {
     flexDirection: 'row',
     alignItems: 'center',
     height: 68,
@@ -146,28 +174,38 @@ const tabBarStyles = StyleSheet.create({
   },
 });
 
-const Tab = createBottomTabNavigator<MainTabParamList>();
+// Thêm vào MainTabNavigator.tsx
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { PlaceDetailStackNavigator } from './PlaceDetailStackNavigator';
 
-const PlaceholderScreen = () => (
-  <View
-    style={{
-      flex: 1,
-      backgroundColor: '#F3F4F8',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}
-  >
-    <Text
-      style={{
-        fontSize: 24,
-        fontWeight: '700',
-        color: '#374151',
-      }}
-    >
-      Hỗ trợ
-    </Text>
-  </View>
-);
+const MapStack = createNativeStackNavigator();
+const FavStack = createNativeStackNavigator();
+
+function MapStackScreen() {
+  return (
+    <MapStack.Navigator screenOptions={{ headerShown: false }}>
+      <MapStack.Screen name="MapScreen" component={MapScreen} />
+      <MapStack.Screen
+        name="PlaceDetail"
+        component={PlaceDetailStackNavigator}
+      />
+    </MapStack.Navigator>
+  );
+}
+
+function FavoritesStackScreen() {
+  return (
+    <FavStack.Navigator screenOptions={{ headerShown: false }}>
+      <FavStack.Screen name="FavoritesScreen" component={FavoritesScreen} />
+      <FavStack.Screen
+        name="PlaceDetail"
+        component={PlaceDetailStackNavigator}
+      />
+    </FavStack.Navigator>
+  );
+}
+
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 export const MainTabNavigator = () => {
   return (
@@ -177,18 +215,8 @@ export const MainTabNavigator = () => {
         headerShown: false,
       }}
     >
-      <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} />
-      {/* <Tab.Screen
-        name="Support"
-        component={PlaceholderScreen}
-        options={{ title: 'Hỗ trợ' }}
-      /> */}
-      {/* <Tab.Screen
-        name="Points"
-        component={ProfileScreen}
-        options={{ title: 'Điểm GD' }}
-      /> */}
+      <Tab.Screen name="Map" component={MapStackScreen} />
+      <Tab.Screen name="Favorites" component={FavoritesStackScreen} />
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}

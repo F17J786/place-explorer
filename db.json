@@ -89,6 +89,210 @@
       "thumbnailUrl": "https://i.pravatar.cc/150?img=18",
       "createdAt": "2026-06-25T03:48:38.239Z",
       "id": "a442OEAdOa4"
+    },
+    {
+      "osmId": "node_12645255890",
+      "osmType": "node",
+      "name": "Sanité Chay",
+      "category": "restaurant",
+      "lat": 10.796845,
+      "lng": 106.6725132,
+      "address": "46 Trương Quốc Dung,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=11",
+      "createdAt": "2026-06-29T08:10:55.508Z",
+      "id": "fwPz1_-BUng"
+    },
+    {
+      "osmId": "node_12754202152",
+      "osmType": "node",
+      "name": "Hương Thiền",
+      "category": "restaurant",
+      "lat": 10.7985379,
+      "lng": 106.6727317,
+      "address": "21 Trương Quốc Dung,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=12",
+      "createdAt": "2026-06-29T08:11:07.005Z",
+      "id": "C5oGhDLJWPY"
+    },
+    {
+      "osmId": "node_12504148357",
+      "osmType": "node",
+      "name": "Hoàng Ty",
+      "category": "restaurant",
+      "lat": 10.7954485,
+      "lng": 106.6724281,
+      "address": "74 Trương Quốc Dung, Ho Chi Minh City",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=9",
+      "createdAt": "2026-06-29T08:11:18.574Z",
+      "id": "Oz5s5vjecsA"
+    },
+    {
+      "osmId": "node_9587042687",
+      "osmType": "node",
+      "name": "Trung tâm Hội nghị Tiệc cưới Tân Sơn Nhất Pavillon",
+      "category": "restaurant",
+      "lat": 10.8010742,
+      "lng": 106.6706699,
+      "address": "202 Hoàng Văn Thụ, Thành phố Hồ Chí Minh",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=7",
+      "createdAt": "2026-06-29T08:11:39.015Z",
+      "id": "_L3PxP2ioz4"
+    },
+    {
+      "osmId": "node_12594930882",
+      "osmType": "node",
+      "name": "Tami Coffee & Chay",
+      "category": "restaurant",
+      "lat": 10.7957691,
+      "lng": 106.6709072,
+      "address": "33 Hoàng Diệu,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=10",
+      "createdAt": "2026-06-29T08:11:58.381Z",
+      "id": "HBCE0V9duGo"
+    },
+    {
+      "osmId": "node_5266633521",
+      "osmType": "node",
+      "name": "Mì Quảng Cô Lý",
+      "category": "restaurant",
+      "lat": 10.7913998,
+      "lng": 106.6740218,
+      "address": "hẻm 347 Huỳnh Văn Bánh,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=5",
+      "createdAt": "2026-06-29T08:12:09.128Z",
+      "id": "m1FQX36yc0c"
+    },
+    {
+      "osmId": "node_12833531006",
+      "osmType": "node",
+      "name": "Hủ Tiếu Chay Cây Đề",
+      "category": "restaurant",
+      "lat": 10.7963499,
+      "lng": 106.6653543,
+      "address": "315A Đường Lê Văn Sỹ,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=21",
+      "createdAt": "2026-06-29T08:12:50.186Z",
+      "id": "GTl8IxLobEE"
+    },
+    {
+      "osmId": "node_12860099570",
+      "osmType": "node",
+      "name": "Tiệm Mì Zigzag",
+      "category": "restaurant",
+      "lat": 10.7969848,
+      "lng": 106.6627307,
+      "address": "66 Ngô Thị Thu Minh,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=22",
+      "createdAt": "2026-06-29T08:12:59.511Z",
+      "id": "pRmrb_GjSiQ"
+    },
+    {
+      "osmId": "node_4355942393",
+      "osmType": "node",
+      "name": "Quán Nhậu Bamboo",
+      "category": "restaurant",
+      "lat": 10.7918435,
+      "lng": 106.6626874,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=2",
+      "createdAt": "2026-06-29T08:13:10.365Z",
+      "id": "902PjWVxnS8"
+    },
+    {
+      "osmId": "node_11080761705",
+      "osmType": "node",
+      "name": "Bún Chả Hà Nội",
+      "category": "restaurant",
+      "lat": 10.790973,
+      "lng": 106.6645255,
+      "address": "Hoàng Sa,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=10",
+      "createdAt": "2026-06-29T08:13:28.800Z",
+      "id": "biSMqAOjfmo"
+    },
+    {
+      "osmId": "node_12376248079",
+      "osmType": "node",
+      "name": "Qúan Chay Thiên Đức",
+      "category": "restaurant",
+      "lat": 10.7917657,
+      "lng": 106.6656704,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=13",
+      "createdAt": "2026-06-29T08:13:36.482Z",
+      "id": "XVgFQ-FtKPE"
+    },
+    {
+      "osmId": "node_4918074720",
+      "osmType": "node",
+      "name": "Nhà Hàng San San",
+      "category": "restaurant",
+      "lat": 10.7909994,
+      "lng": 106.664387,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=2",
+      "createdAt": "2026-06-29T08:13:48.757Z",
+      "id": "DDVGRuOt_t0"
+    },
+    {
+      "osmId": "node_11080705505",
+      "osmType": "node",
+      "name": "Demi Coffee & Tea",
+      "category": "cafe",
+      "lat": 10.7908769,
+      "lng": 106.664722,
+      "address": "1221 Hoàng Sa,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=8",
+      "createdAt": "2026-06-29T08:14:07.503Z",
+      "id": "4btVgJOXdqY"
+    },
+    {
+      "osmId": "node_3246108181",
+      "osmType": "node",
+      "name": "Cà Phê Phố",
+      "category": "cafe",
+      "lat": 10.7913315,
+      "lng": 106.6633709,
+      "address": "Hoàng Sa,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
+      "createdAt": "2026-06-29T08:14:15.178Z",
+      "id": "ic46D4TyNOk"
+    },
+    {
+      "osmId": "node_5349532651",
+      "osmType": "node",
+      "name": "Cà Phê Hùng Mập",
+      "category": "cafe",
+      "lat": 10.7943037,
+      "lng": 106.662569,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=4",
+      "createdAt": "2026-06-29T08:14:22.653Z",
+      "id": "bnaJyzrmGAw"
+    },
+    {
+      "osmId": "node_8049390086",
+      "osmType": "node",
+      "name": "Cà Phê Ngự Uyển",
+      "category": "cafe",
+      "lat": 10.7887499,
+      "lng": 106.6626678,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=7",
+      "createdAt": "2026-06-29T08:14:31.976Z",
+      "id": "qbNS0hCrEPU"
+    },
+    {
+      "osmId": "node_3641673395",
+      "osmType": "node",
+      "name": "Quán Cơm Tấm 390",
+      "category": "restaurant",
+      "lat": 10.7830862,
+      "lng": 106.6720457,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=1",
+      "createdAt": "2026-06-29T10:20:51.079Z",
+      "id": "bLvc9E3auhs"
     }
   ],
   "reviews": [
@@ -127,88 +331,100 @@
   ],
   "favorites": [
     {
-      "id": "1",
-      "userId": "1",
-      "osmId": "node_123456789",
-      "createdAt": "2024-01-15T09:00:00Z"
-    },
-    {
-      "userId": "81",
+      "userId": 81,
       "osmId": "node_13720019089",
       "createdAt": "2026-06-24T08:01:21.919Z",
       "id": "__6vsOWMol0"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-24T08:01:29.314Z",
-      "id": "ao7LqJEk3qA"
+      "userId": 1,
+      "osmId": "node_12453142101",
+      "createdAt": "2026-06-29T08:04:39.193Z",
+      "id": "L1mKPWzZ--M"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-24T09:33:48.558Z",
-      "id": "9GhrQk_WU0M"
+      "userId": 1,
+      "osmId": "node_12645255890",
+      "createdAt": "2026-06-29T08:10:55.610Z",
+      "id": "BI4nGA5bEfg"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-24T09:33:50.937Z",
-      "id": "AUhQHaabSEw"
+      "userId": 1,
+      "osmId": "node_12754202152",
+      "createdAt": "2026-06-29T08:11:07.117Z",
+      "id": "1suXOJVIUsA"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-24T09:51:40.171Z",
-      "id": "oyidm9mNJxk"
+      "userId": 1,
+      "osmId": "node_12504148357",
+      "createdAt": "2026-06-29T08:11:18.656Z",
+      "id": "gP-_E1EKVgE"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-24T09:52:53.818Z",
-      "id": "6PzsBzwC6Ks"
+      "userId": 1,
+      "osmId": "node_9587042687",
+      "createdAt": "2026-06-29T08:11:41.811Z",
+      "id": "0aJD30kX2u8"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-25T01:24:25.741Z",
-      "id": "GtNMqQiRqCM"
+      "userId": 1,
+      "osmId": "node_12594930882",
+      "createdAt": "2026-06-29T08:11:58.487Z",
+      "id": "aeKbl0jLBe4"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-25T01:24:27.544Z",
-      "id": "Inzj9n4a_ek"
+      "userId": 1,
+      "osmId": "node_5266633521",
+      "createdAt": "2026-06-29T08:12:09.234Z",
+      "id": "uIbEX9NV4YQ"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-25T01:45:56.971Z",
-      "id": "28rDWoHUolQ"
+      "userId": 1,
+      "osmId": "node_12833531006",
+      "createdAt": "2026-06-29T08:12:50.296Z",
+      "id": "RS2xRoiW1ks"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-25T01:51:02.796Z",
-      "id": "wA5zelSw26o"
+      "userId": 1,
+      "osmId": "node_12860099570",
+      "createdAt": "2026-06-29T08:12:59.625Z",
+      "id": "2oiizSCGttA"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-25T02:25:12.171Z",
-      "id": "6jYpheGVLlU"
+      "userId": 1,
+      "osmId": "node_4355942393",
+      "createdAt": "2026-06-29T08:13:10.466Z",
+      "id": "zZM-r_EcxDc"
     },
     {
-      "userId": "81",
-      "osmId": "node_13720019089",
-      "createdAt": "2026-06-25T02:25:14.491Z",
-      "id": "nUUKJDdJD0k"
+      "userId": 1,
+      "osmId": "node_11080761705",
+      "createdAt": "2026-06-29T08:13:28.899Z",
+      "id": "wEJUxIkwDUY"
     },
     {
-      "userId": "81",
-      "osmId": "node_7016628656",
-      "createdAt": "2026-06-25T03:35:57.567Z",
-      "id": "rGpG4JFhUfM"
+      "userId": 1,
+      "osmId": "node_11080705505",
+      "createdAt": "2026-06-29T08:14:07.610Z",
+      "id": "A-mRPgKGkqs"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_3246108181",
+      "createdAt": "2026-06-29T08:14:15.289Z",
+      "id": "lm-EO5u6GiM"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_5349532651",
+      "createdAt": "2026-06-29T08:14:22.757Z",
+      "id": "QtQmLPEzm4k"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_8049390086",
+      "createdAt": "2026-06-29T08:14:32.077Z",
+      "id": "zN6dAcKRfwc"
     }
   ],
   "checkins": [
