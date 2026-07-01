@@ -29,8 +29,14 @@ interface CustomTabBarProps {
 
 const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
   const activeIdx = state.index;
-  const activeRoute = state.routes[activeIdx]?.name;
-  const isMapTab = activeRoute === 'Map';
+  const activeRoute = state.routes[activeIdx];
+  console.log('activeRoute name:', activeRoute?.name); // debug thử
+  const focusedRouteName =
+    getFocusedRouteNameFromRoute(activeRoute) ?? 'MapScreen';
+
+  console.log('focusedRouteName:', focusedRouteName);
+
+  const isMapTab = focusedRouteName === 'MapScreen';
 
   return (
     <View
@@ -174,9 +180,10 @@ const tabBarStyles = StyleSheet.create({
   },
 });
 
-// Thêm vào MainTabNavigator.tsx
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PlaceDetailStackNavigator } from './PlaceDetailStackNavigator';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { ProfileStackNavigator } from './ProfileStackNavigator';
 
 const MapStack = createNativeStackNavigator();
 const FavStack = createNativeStackNavigator();
@@ -219,7 +226,7 @@ export const MainTabNavigator = () => {
       <Tab.Screen name="Favorites" component={FavoritesStackScreen} />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStackNavigator}
         options={{ title: 'Tài khoản' }}
       />
     </Tab.Navigator>

@@ -17,3 +17,9 @@ export type PlaceDetailStackParamList = {
   CheckinList: { osmId: string; placeName: string };
   ReviewList: { osmId: string; placeName: string };
 };
+
+export type ProfileStackParamList = {
+  ProfileScreen: undefined;
+  PersonalInfo: undefined;
+  ChangePassword: undefined;
+};

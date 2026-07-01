@@ -10,11 +10,18 @@
     },
     {
       "id": "1",
-      "name": "Nguyễn Khoa",
+      "name": "Nguyễn Khoaa",
       "email": "abc@123.com",
-      "password": "1234567",
+      "password": "12345678",
       "avatar": "https://avatars.githubusercontent.com/u/43445218",
       "createdAt": "2024-01-15T08:30:00Z"
+    },
+    {
+      "name": "Khoa Nguyễnnn",
+      "email": "abc@123.comm",
+      "password": "12345678K",
+      "avatar": "file:///data/user/0/com.placeexplorer/cache/rn_image_picker_lib_temp_7afcfa5e-bae2-4653-8985-2b40c70c37a0.jpg",
+      "id": "8rzmrKi9k00"
     }
   ],
   "places": [
@@ -293,6 +300,54 @@
       "thumbnailUrl": "https://i.pravatar.cc/150?img=1",
       "createdAt": "2026-06-29T10:20:51.079Z",
       "id": "bLvc9E3auhs"
+    },
+    {
+      "osmId": "node_4089403710",
+      "osmType": "node",
+      "name": "Pizza Hut",
+      "category": "restaurant",
+      "lat": 10.8062117,
+      "lng": 106.63439,
+      "address": "1/1 Trường Chinh, Ho Chi Minh City",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=2",
+      "createdAt": "2026-06-30T04:25:16.922Z",
+      "id": "Hreg_v0tz9E"
+    },
+    {
+      "osmId": "node_4696576905",
+      "osmType": "node",
+      "name": "Lẩu cá đuối Hai Béo",
+      "category": "restaurant",
+      "lat": 10.7430941,
+      "lng": 106.7351789,
+      "address": "106 Trần Trọng Cung, HỒ CHÍ MINH",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=45",
+      "createdAt": "2026-06-30T07:51:19.719Z",
+      "id": "8VFhCBMRbYI"
+    },
+    {
+      "osmId": "node_13760293401",
+      "osmType": "node",
+      "name": "Station Sports Bar",
+      "category": "restaurant",
+      "lat": 10.7664308,
+      "lng": 106.691926,
+      "address": "135 Bùi Viện,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=68",
+      "createdAt": "2026-07-01T01:35:49.051Z",
+      "id": "eKL6ismT-Mw"
+    },
+    {
+      "osmId": "node_13470187228",
+      "osmType": "node",
+      "name": "Hủ tiếu mực - Hải sản Vũng Tàu",
+      "category": "restaurant",
+      "lat": 10.81761,
+      "lng": 106.6372261,
+      "address": "189 Phạm Văn Bạch, Hồ Chí Minh",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
+      "createdAt": "2026-07-01T01:57:22.428Z",
+      "id": "i2UJxzFxwL4"
     }
   ],
   "reviews": [
@@ -425,6 +480,24 @@
       "osmId": "node_8049390086",
       "createdAt": "2026-06-29T08:14:32.077Z",
       "id": "zN6dAcKRfwc"
+    },
+    {
+      "userId": null,
+      "osmId": "node_4089403710",
+      "createdAt": "2026-06-30T04:26:19.954Z",
+      "id": "7VkxTyGIjv8"
+    },
+    {
+      "userId": null,
+      "osmId": "node_4089403710",
+      "createdAt": "2026-06-30T04:27:33.327Z",
+      "id": "O819XfZyCic"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13470187228",
+      "createdAt": "2026-07-01T01:57:22.538Z",
+      "id": "3d9fYuPel7g"
     }
   ],
   "checkins": [

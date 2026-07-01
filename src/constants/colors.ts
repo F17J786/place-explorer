@@ -21,4 +21,5 @@ export const COLORS = {
   star: '#F59E0B',
   success: '#10B981',
   cardShadow: 'rgba(26,86,219,0.08)',
+  inputBg2: '#FDFDFE',
 } as const;
