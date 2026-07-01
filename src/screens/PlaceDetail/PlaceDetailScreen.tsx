@@ -360,11 +360,6 @@ export const PlaceDetailScreen = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={COLORS.primaryDark}
-      />
-
       <ScrollView
         ref={scrollRef}
         style={styles.scroll}

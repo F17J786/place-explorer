@@ -100,8 +100,6 @@ export const CheckinListScreen = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#1447B8" />
-
       {isLoading ? (
         <ActivityIndicator
           color={COLORS.primary}

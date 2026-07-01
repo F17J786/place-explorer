@@ -941,11 +941,6 @@ export const ReviewListScreen = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={COLORS.primaryDark}
-      />
-
       <FlatList
         data={filteredReviews}
         keyExtractor={item => item.id}
