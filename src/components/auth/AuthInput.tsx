@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   View,
+  type ViewStyle,
   type TextInputProps,
 } from 'react-native';
 
@@ -14,6 +15,7 @@ interface AuthInputProps extends TextInputProps {
   error?: string;
   leftSlot?: React.ReactNode;
   rightSlot?: React.ReactNode;
+  containerStyle?: ViewStyle;
 }
 
 const COLORS = {
@@ -34,6 +36,7 @@ export const AuthInput = ({
   leftSlot,
   rightSlot,
   style,
+  containerStyle,
   onFocus,
   onBlur,
   ...textInputProps
@@ -58,6 +61,7 @@ export const AuthInput = ({
           styles.container,
           isFocused && styles.containerFocused,
           error ? styles.containerError : undefined,
+          containerStyle,
         ]}
       >
         {leftSlot ? <View style={styles.leftSlot}>{leftSlot}</View> : null}
