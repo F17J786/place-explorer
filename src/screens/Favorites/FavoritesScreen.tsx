@@ -329,57 +329,60 @@ export const FavoritesScreen = () => {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
-
       {/* ── Header ── */}
       <View style={styles.header}>
         {isSelectMode ? (
           <>
             <TouchableOpacity style={styles.headerBtn} onPress={cancelSelect}>
-              <Icon name="close" size={22} color="#1A56DB" />
+              <Icon name="close" size={22} color={COLORS.white} />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>
-              {selectedIds.size > 0
-                ? `Đã chọn ${selectedIds.size}`
-                : 'Chọn địa điểm'}
-            </Text>
-            <View style={styles.headerRight}>
-              <TouchableOpacity
-                style={styles.headerTextBtn}
-                onPress={toggleAll}
-              >
-                <Text style={styles.headerTextBtnLabel}>
-                  {isAllSelected ? 'Bỏ chọn' : 'Chọn tất cả'}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.headerTextBtn}
-                onPress={handleDelete}
-                disabled={selectedIds.size === 0}
-              >
-                <Text
-                  style={[
-                    styles.headerTextBtnLabel,
-                    styles.headerDangerText,
-                    selectedIds.size === 0 && { opacity: 0.4 },
-                  ]}
+            <View style={styles.headerRow}>
+              <Text style={styles.headerTitle}>
+                {selectedIds.size > 0
+                  ? `Đã chọn ${selectedIds.size}`
+                  : 'Chọn địa điểm'}
+              </Text>
+              <View style={styles.headerRight}>
+                <TouchableOpacity
+                  style={styles.headerTextBtn}
+                  onPress={toggleAll}
                 >
-                  Xoá
-                </Text>
-              </TouchableOpacity>
+                  <Text style={styles.headerTextBtnLabel}>
+                    {isAllSelected ? 'Bỏ chọn' : 'Chọn tất cả'}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.headerTextBtn}
+                  onPress={handleDelete}
+                  disabled={selectedIds.size === 0}
+                >
+                  <Text
+                    style={[
+                      styles.headerTextBtnLabel,
+                      styles.headerDangerText,
+                      selectedIds.size === 0 && { opacity: 0.4 },
+                    ]}
+                  >
+                    Xoá
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </>
         ) : (
           <>
-            <Text style={styles.headerTitle}>Yêu thích</Text>
-            {favorites.length > 0 && (
-              <TouchableOpacity
-                style={styles.headerTextBtn}
-                onPress={enterSelectMode}
-              >
-                <Text style={styles.headerTextBtnLabel}>Xoá</Text>
-              </TouchableOpacity>
-            )}
+            <View style={styles.headerRow}>
+              <Text style={styles.headerTitle}>Yêu thích</Text>
+
+              {favorites.length > 0 && (
+                <TouchableOpacity
+                  style={styles.headerTextBtn}
+                  onPress={enterSelectMode}
+                >
+                  <Text style={styles.headerTextBtnLabel}>Xoá</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           </>
         )}
       </View>
@@ -398,6 +401,7 @@ export const FavoritesScreen = () => {
             styles.listContent,
             favorites.length === 0 && styles.listContentEmpty,
           ]}
+          style={{ marginTop: 50 }}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           ListEmptyComponent={<EmptyState />}
           onRefresh={refetch}
@@ -423,18 +427,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E8EEFF',
+    backgroundColor: COLORS.primary,
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 125,
+    zIndex: 0,
   },
   headerBtn: {
     padding: 4,
   },
-  headerTitle: {
+  headerRow: {
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  headerTitle: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#0F1729',
+    color: COLORS.white,
     marginLeft: 4,
   },
   headerRight: {
@@ -457,8 +472,8 @@ const styles = StyleSheet.create({
 
   // List
   listContent: {
-    padding: 12,
-    paddingBottom: 16,
+    paddingHorizontal: 14,
+    paddingBottom: 14,
   },
   listContentEmpty: {
     flex: 1,
@@ -477,7 +492,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderRadius: 14,
+    borderRadius: 16,
     paddingHorizontal: 14,
     paddingVertical: 12,
     borderWidth: 1.5,
@@ -624,7 +639,7 @@ const styles = StyleSheet.create({
   headerTextBtnLabel: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#1A56DB',
+    color: '#DBEAFE',
   },
   headerDangerText: {
     color: '#EF4444',
