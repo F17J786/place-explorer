@@ -36,7 +36,7 @@ import { promptForEnableLocationIfNeeded } from 'react-native-android-location-e
 import { toast } from '@baronha/ting';
 import { useRoute } from '@react-navigation/native';
 
-const showToast = (msg: string) => {
+export const showToast = (msg: string) => {
   toast({
     title: msg,
     preset: 'none',
@@ -502,9 +502,9 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
 
   const [initialRegion, setInitialRegion] = useState<Region>(INITIAL_REGION);
   // Thêm vào đầu component MapScreen
-  const route = useRoute(); // hoặc dùng props.route nếu có
+  const route = useRoute();
   const routeParams = route.params as
-    | { routeTo?: OsmMarker; selectedMarker?: OsmMarker }
+    | { routeTo?: OsmMarker; selectedMarker?: OsmMarker; navKey?: number }
     | undefined;
 
   useEffect(() => {
@@ -530,10 +530,10 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
     setTimeout(() => {
       mapRef.current?.animateCamera({
         center: marker.coordinate,
-        zoom: 17,
+        zoom: 20,
       });
     }, 300);
-  }, [routeParams?.selectedMarker]);
+  }, [routeParams?.selectedMarker, routeParams?.navKey]);
 
   useEffect(() => {
     sortedRef.current = [...markers].sort((a, b) => b.score - a.score);
@@ -1653,7 +1653,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
                     setSelectedMarker(item);
                     mapRef.current?.animateCamera({
                       center: item.coordinate,
-                      zoom: 17,
+                      zoom: 20,
                     });
                   }}
                 >

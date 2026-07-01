@@ -12,6 +12,7 @@ import {
   Linking,
   StatusBar,
   Platform,
+  PermissionsAndroid,
 } from 'react-native';
 import {
   useNavigation,
@@ -33,9 +34,11 @@ import {
   useCreateCheckinMutation,
   useUpsertPlaceMutation,
 } from '@/store/api/placeDetailApi';
-import type { OsmMarker } from '../Map/MapScreen'; // adjust path
+import { showToast, type OsmMarker } from '../Map/MapScreen'; // adjust path
 import { PlaceDetailStackParamList } from '@/types/navigation';
 import MediaThumb, { MediaLightbox } from '@/components/review/MediaThumb';
+import { promptForEnableLocationIfNeeded } from 'react-native-android-location-enabler';
+import Geolocation from '@react-native-community/geolocation';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -247,9 +250,29 @@ export const PlaceDetailScreen = () => {
 
     setCheckinLoading(true);
     try {
-      const { default: Geolocation } = await import(
-        '@react-native-community/geolocation'
-      );
+      const result = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+      ]);
+
+      const ok =
+        result[PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION] ===
+          PermissionsAndroid.RESULTS.GRANTED ||
+        result[PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION] ===
+          PermissionsAndroid.RESULTS.GRANTED;
+
+      if (!ok) {
+        setCheckinLoading(false);
+        return;
+      }
+
+      try {
+        await promptForEnableLocationIfNeeded();
+      } catch {
+        showToast('Chưa có vị trí hiện tại. Thử lại');
+        setCheckinLoading(false);
+        return;
+      }
 
       Geolocation.getCurrentPosition(
         async pos => {
@@ -288,7 +311,7 @@ export const PlaceDetailScreen = () => {
 
           Alert.alert(
             'Check-in thành công!',
-            `Bạn đã check-in tại ${place.name} 🎉`,
+            `Bạn đã check-in tại ${place.name}`,
           );
           setCheckinLoading(false);
         },
@@ -318,18 +341,22 @@ export const PlaceDetailScreen = () => {
   const handleSearchRoute = () => {
     navigation.getParent()?.navigate('Main', {
       screen: 'Map',
-      params: { routeTo: place },
+      params: {
+        screen: 'MapScreen',
+        params: { routeTo: place },
+      },
     });
   };
 
   const handleOpenMaps = useCallback(() => {
     navigation.getParent()?.navigate('Main', {
       screen: 'Map',
-      params: { selectedMarker: place },
+      params: {
+        screen: 'MapScreen',
+        params: { selectedMarker: place, navKey: Date.now() },
+      },
     });
   }, [navigation, place]);
-
-  // ── Render ────────────────────────────────────────────────────────────────────
 
   return (
     <View style={styles.container}>
