@@ -57,7 +57,7 @@ const VideoFullscreen = ({
     onRequestClose={onClose}
     statusBarTranslucent
   >
-    <StatusBar hidden />
+    {visible && <StatusBar hidden />}
     <View style={styles.videoModal}>
       <Video
         source={{ uri: url }}
@@ -117,7 +117,6 @@ export const MediaLightbox = ({
         visible={visible && !videoVisible}
         onRequestClose={onClose}
         onImageIndexChange={handleIndexChange}
-        presentationStyle="overFullScreen"
       />
 
       <VideoFullscreen
