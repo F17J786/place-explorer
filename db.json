@@ -10,9 +10,9 @@
     },
     {
       "id": "1",
-      "name": "Nguyễn Khoaa",
+      "name": "Nguyễn Khoaaaa",
       "email": "abc@123.com",
-      "password": "12345678",
+      "password": "1234567",
       "avatar": "https://avatars.githubusercontent.com/u/43445218",
       "createdAt": "2024-01-15T08:30:00Z"
     },
@@ -21,7 +21,7 @@
       "email": "abc@123.comm",
       "password": "12345678K",
       "avatar": "file:///data/user/0/com.placeexplorer/cache/rn_image_picker_lib_temp_7afcfa5e-bae2-4653-8985-2b40c70c37a0.jpg",
-      "id": "8rzmrKi9k00"
+      "id": "2"
     }
   ],
   "places": [
@@ -348,12 +348,24 @@
       "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
       "createdAt": "2026-07-01T01:57:22.428Z",
       "id": "i2UJxzFxwL4"
+    },
+    {
+      "osmId": "node_8724303924",
+      "osmType": "node",
+      "name": "Cơm Chay Thuyền Tịnh",
+      "category": "restaurant",
+      "lat": 10.764674,
+      "lng": 106.6702377,
+      "address": "336 Đường Nguyễn Duy Dương, Ho Chi Minh City",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=29",
+      "createdAt": "2026-07-02T02:36:05.479Z",
+      "id": "cKEvdYfDEHg"
     }
   ],
   "reviews": [
     {
       "osmId": "node_12453142101",
-      "userId": "81",
+      "userId": 81,
       "rating": 4,
       "comment": "Ok ngonnnn",
       "mediaUrls": [
@@ -382,6 +394,26 @@
       ],
       "createdAt": "2026-06-25T10:02:02.347Z",
       "id": "EfUwm9IW1e4"
+    },
+    {
+      "osmId": "node_12453142101",
+      "userId": 1,
+      "rating": 2,
+      "comment": "Okkkkkkkkk",
+      "mediaUrls": [],
+      "mediaTypes": [],
+      "createdAt": "2026-07-01T07:30:39.194Z",
+      "id": "TnhP2KnXw3o"
+    },
+    {
+      "osmId": "node_8724303924",
+      "userId": 1,
+      "rating": 5,
+      "comment": "Okkkkkkkkk ",
+      "mediaUrls": [],
+      "mediaTypes": [],
+      "createdAt": "2026-07-02T02:36:27.336Z",
+      "id": "oZFsGmj8W0U"
     }
   ],
   "favorites": [
@@ -390,12 +422,6 @@
       "osmId": "node_13720019089",
       "createdAt": "2026-06-24T08:01:21.919Z",
       "id": "__6vsOWMol0"
-    },
-    {
-      "userId": 1,
-      "osmId": "node_12453142101",
-      "createdAt": "2026-06-29T08:04:39.193Z",
-      "id": "L1mKPWzZ--M"
     },
     {
       "userId": 1,
@@ -498,12 +524,18 @@
       "osmId": "node_13470187228",
       "createdAt": "2026-07-01T01:57:22.538Z",
       "id": "3d9fYuPel7g"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_12453142101",
+      "createdAt": "2026-07-01T09:05:06.792Z",
+      "id": "sigIhW4C5uo"
     }
   ],
   "checkins": [
     {
       "id": "1",
-      "userId": "1",
+      "userId": 1,
       "osmId": "node_7016628656",
       "lat": 10.82311,
       "lng": 106.62975,
@@ -511,7 +543,7 @@
       "createdAt": "2024-01-15T11:00:00Z"
     },
     {
-      "userId": "81",
+      "userId": 81,
       "osmId": "node_12453142101",
       "lat": 11.051728333333331,
       "lng": 106.668025,
@@ -520,7 +552,7 @@
       "id": "ojxBK9nKZ2I"
     },
     {
-      "userId": "81",
+      "userId": 81,
       "osmId": "node_12453142101",
       "lat": 11.052306666666668,
       "lng": 106.667815,
@@ -529,13 +561,22 @@
       "id": "OQxhyaojt_Y"
     },
     {
-      "userId": "81",
+      "userId": 81,
       "osmId": "node_12453142101",
       "lat": 11.05242,
       "lng": 106.66782333333335,
       "distanceMeters": 1458.1,
       "createdAt": "2026-06-24T08:00:56.856Z",
       "id": "jaeW2U0GHrM"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_12453142101",
+      "lat": 11.051708333333332,
+      "lng": 106.66807333333333,
+      "distanceMeters": 1393.6,
+      "createdAt": "2026-07-02T03:30:05.491Z",
+      "id": "SCTVJGW9tFE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

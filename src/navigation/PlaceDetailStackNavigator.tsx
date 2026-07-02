@@ -5,6 +5,7 @@ import {
   CheckinListScreen,
   ReviewListScreen,
   createScreenOptions,
+  ProfileReviewScreen,
 } from '@/screens/PlaceDetail';
 
 const DetailStack = createNativeStackNavigator();
@@ -31,6 +32,13 @@ export const PlaceDetailStackNavigator = () => {
         component={ReviewListScreen}
         options={({ navigation }) =>
           createScreenOptions({ navigation, title: 'Danh sách đánh giá' })
+        }
+      />
+      <DetailStack.Screen
+        name="ProfileReview"
+        component={ProfileReviewScreen}
+        options={({ navigation }) =>
+          createScreenOptions({ navigation, title: 'Trang cá nhân' })
         }
       />
     </DetailStack.Navigator>

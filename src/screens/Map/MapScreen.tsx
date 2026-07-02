@@ -530,7 +530,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
     setTimeout(() => {
       mapRef.current?.animateCamera({
         center: marker.coordinate,
-        zoom: 20,
+        zoom: 19,
       });
     }, 300);
   }, [routeParams?.selectedMarker, routeParams?.navKey]);
@@ -1653,7 +1653,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
                     setSelectedMarker(item);
                     mapRef.current?.animateCamera({
                       center: item.coordinate,
-                      zoom: 20,
+                      zoom: 19,
                     });
                   }}
                 >

@@ -221,37 +221,35 @@ const ReviewItem = ({
   item: Review;
   currentUserId?: string;
   onEdit: (item: Review) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: string, userId: string) => void;
 }) => {
-  const isOwn = currentUserId === item.userId;
+  const isOwn = currentUserId === String(item.userId);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [menuVisible, setMenuVisible] = useState(false);
+  const navigation = useNavigation<NavProp>();
 
-  const handleMenu = () => {
-    Alert.alert('Tùy chọn', undefined, [
-      { text: 'Chỉnh sửa', onPress: () => onEdit(item) },
-      {
-        text: 'Xóa',
-        style: 'destructive',
-        onPress: () =>
-          Alert.alert('Xác nhận', 'Bạn muốn xóa đánh giá này?', [
-            { text: 'Hủy', style: 'cancel' },
-            {
-              text: 'Xóa',
-              style: 'destructive',
-              onPress: () => onDelete(item.id),
-            },
-          ]),
-      },
-      { text: 'Hủy', style: 'cancel' },
-    ]);
+  const goToProfile = () => {
+    navigation.navigate('ProfileReview', {
+      userId: item.userId,
+      name: item.user?.name,
+      avatar: item.user?.avatar,
+    });
   };
 
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
-        <Avatar uri={item.user?.avatar} size={38} />
-        <View style={styles.cardMeta}>
+        <TouchableOpacity
+          onPress={goToProfile}
+          hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+        >
+          <Avatar uri={item.user?.avatar} size={38} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.cardMeta}
+          onPress={goToProfile}
+          activeOpacity={0.6}
+        >
           <Text style={styles.userName}>
             {item.user?.name ?? 'Người dùng ẩn danh'}
           </Text>
@@ -261,7 +259,7 @@ const ReviewItem = ({
               {new Date(item.createdAt).toLocaleDateString('vi-VN')}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         {isOwn && (
           <Menu
             visible={menuVisible}
@@ -300,7 +298,7 @@ const ReviewItem = ({
                   {
                     text: 'Xóa',
                     style: 'destructive',
-                    onPress: () => onDelete(item.id),
+                    onPress: () => onDelete(item.id, String(item.userId)),
                   },
                 ]);
               }}
@@ -842,18 +840,21 @@ export const ReviewListScreen = () => {
   };
 
   const handleDelete = useCallback(
-    async (id: string) => {
-      await deleteReview({ id, osmId });
+    async (id: string, reviewUserId: string) => {
+      await deleteReview({ id, osmId, userId: reviewUserId });
     },
     [deleteReview, osmId],
   );
+
   const handleEditStart = useCallback((item: Review) => {
     setEditingReview(item);
   }, []);
 
   // ── Already reviewed? ───────────────────────────────────────────────────────
 
-  const myReview = user ? reviews.find(r => r.userId === user.id) : undefined;
+  const myReview = user
+    ? reviews.find(r => String(r.userId) === user.id)
+    : undefined;
   const showCreateForm = isLoggedIn && !myReview && !editingReview;
   const showEditForm = !!editingReview;
 

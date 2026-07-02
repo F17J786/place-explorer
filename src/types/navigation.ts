@@ -16,6 +16,7 @@ export type PlaceDetailStackParamList = {
   PlaceDetailHome: { place: OsmMarker };
   CheckinList: { osmId: string; placeName: string };
   ReviewList: { osmId: string; placeName: string };
+  ProfileReview: { userId: string; name?: string; avatar?: string };
 };
 
 export type ProfileStackParamList = {

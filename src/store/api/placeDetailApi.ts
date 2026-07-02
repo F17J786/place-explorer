@@ -114,13 +114,18 @@ export const placeDetailApi = api.injectEndpoints({
     }),
 
     createReview: builder.mutation<Review, CreateReviewPayload>({
-      query: payload => ({
-        url: '/reviews',
-        method: 'POST',
-        data: payload,
-      }),
+      queryFn: async (payload, _api, _extra, baseQuery) => {
+        const result = await baseQuery({
+          url: '/reviews',
+          method: 'POST',
+          data: { ...payload, userId: Number(payload.userId) },
+        });
+        if (result.error) return { error: result.error };
+        return { data: result.data as Review };
+      },
       invalidatesTags: (_result, _err, arg) => [
         { type: 'Review', id: arg.osmId },
+        { type: 'Review', id: `user-${arg.userId}` },
       ],
     }),
 
@@ -130,18 +135,25 @@ export const placeDetailApi = api.injectEndpoints({
         method: 'PATCH',
         data: body,
       }),
-      invalidatesTags: (_result, _err, arg) => [
+      invalidatesTags: (result, _err, arg) => [
         { type: 'Review', id: arg.osmId },
+        ...(result
+          ? [{ type: 'Review' as const, id: `user-${result.userId}` }]
+          : []),
       ],
     }),
 
-    deleteReview: builder.mutation<void, { id: string; osmId: string }>({
+    deleteReview: builder.mutation<
+      void,
+      { id: string; osmId: string; userId: string }
+    >({
       query: ({ id }) => ({
         url: `/reviews/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: (_result, _err, arg) => [
         { type: 'Review', id: arg.osmId },
+        { type: 'Review', id: `user-${arg.userId}` },
       ],
     }),
 
@@ -266,10 +278,66 @@ export const placeDetailApi = api.injectEndpoints({
       query: payload => ({
         url: '/checkins',
         method: 'POST',
-        data: payload,
+        data: { ...payload, userId: Number(payload.userId) },
       }),
       invalidatesTags: (_result, _err, arg) => [
         { type: 'Checkin', id: arg.osmId },
+        { type: 'Checkin', id: `user-${arg.userId}` },
+      ],
+    }),
+
+    // ─── Profile (reviewer) ──────────────────────────────────────────────────
+    getUserById: builder.query<
+      { id: string; name: string; avatar: string; email?: string },
+      string
+    >({
+      queryFn: async userId => {
+        try {
+          const { data } = await axiosInstance.get(`/users/${userId}`);
+          return { data };
+        } catch (e: any) {
+          return { error: { status: e.response?.status, data: e.message } };
+        }
+      },
+      providesTags: (_result, _err, userId) => [{ type: 'User', id: userId }],
+    }),
+
+    getReviewsByUserId: builder.query<Review[], string>({
+      queryFn: async userId => {
+        try {
+          console.log('getReviewsByUserId called with userId:', userId);
+          const { data: reviews } = await axiosInstance.get<Review[]>(
+            '/reviews',
+            {
+              params: { userId, _sort: '-createdAt' },
+            },
+          );
+          console.log('getReviewsByUserId raw response:', reviews);
+          return { data: reviews };
+        } catch (e: any) {
+          console.log('getReviewsByUserId error:', e.message);
+          return { error: { status: e.response?.status, data: e.message } };
+        }
+      },
+      providesTags: (_result, _err, userId) => [
+        { type: 'Review', id: `user-${userId}` },
+      ],
+    }),
+
+    getCheckinsByUserId: builder.query<Checkin[], string>({
+      queryFn: async userId => {
+        try {
+          const { data: checkins } = await axiosInstance.get<Checkin[]>(
+            '/checkins',
+            { params: { userId, _sort: '-createdAt' } },
+          );
+          return { data: checkins };
+        } catch (e: any) {
+          return { error: { status: e.response?.status, data: e.message } };
+        }
+      },
+      providesTags: (_result, _err, userId) => [
+        { type: 'Checkin', id: `user-${userId}` },
       ],
     }),
   }),
@@ -289,4 +357,7 @@ export const {
   useDeleteReviewMutation,
   useGetFavoritesByUserQuery,
   useGetPlacesByOsmIdsQuery,
+  useGetUserByIdQuery,
+  useGetReviewsByUserIdQuery,
+  useGetCheckinsByUserIdQuery,
 } = placeDetailApi;

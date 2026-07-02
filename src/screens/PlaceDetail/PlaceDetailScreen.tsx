@@ -39,6 +39,7 @@ import { PlaceDetailStackParamList } from '@/types/navigation';
 import MediaThumb, { MediaLightbox } from '@/components/review/MediaThumb';
 import { promptForEnableLocationIfNeeded } from 'react-native-android-location-enabler';
 import Geolocation from '@react-native-community/geolocation';
+import { Review, Checkin } from '@/types/placeDetail.types';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -149,6 +150,7 @@ export const PlaceDetailScreen = () => {
     types: ('image' | 'video')[];
     index: number;
   } | null>(null);
+  const [lightboxVisible, setLightboxVisible] = useState(false);
 
   // ── Queries ──────────────────────────────────────────────────────────────────
   const { data: reviews = [], isLoading: reviewsLoading } =
@@ -191,6 +193,22 @@ export const PlaceDetailScreen = () => {
   const amenityLabel = place.tags?.amenity ?? place.amenity ?? 'Địa điểm';
 
   // ── Handlers ─────────────────────────────────────────────────────────────────
+
+  const goToProfileReview = (review: Review) => {
+    navigation.navigate('ProfileReview', {
+      userId: String(review.userId),
+      name: review.user?.name,
+      avatar: review.user?.avatar,
+    });
+  };
+
+  const goToProfileCheckin = (checkin: Checkin) => {
+    navigation.navigate('ProfileReview', {
+      userId: String(checkin.userId),
+      name: checkin.user?.name,
+      avatar: checkin.user?.avatar,
+    });
+  };
 
   const handleToggleFavorite = useCallback(async () => {
     if (!isLoggedIn || !user) {
@@ -289,7 +307,7 @@ export const PlaceDetailScreen = () => {
               Math.sin(dLng / 2) ** 2;
           const distance = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-          if (distance > 100) {
+          if (distance > 3000) {
             Alert.alert(
               'Quá xa',
               `Bạn đang cách ${Math.round(
@@ -589,8 +607,17 @@ export const PlaceDetailScreen = () => {
             previewReviews.map(review => (
               <View key={review.id} style={styles.reviewCard}>
                 <View style={styles.reviewHeader}>
-                  <Avatar uri={review.user?.avatar} size={36} />
-                  <View style={styles.reviewMeta}>
+                  <TouchableOpacity
+                    onPress={() => goToProfileReview(review)}
+                    hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                  >
+                    <Avatar uri={review.user?.avatar} size={36} />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.reviewMeta}
+                    onPress={() => goToProfileReview(review)}
+                    activeOpacity={0.6}
+                  >
                     <Text style={styles.reviewAuthor}>
                       {review.user?.name ?? 'Người dùng'}
                     </Text>
@@ -606,7 +633,7 @@ export const PlaceDetailScreen = () => {
                         {new Date(review.createdAt).toLocaleDateString('vi-VN')}
                       </Text>
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 </View>
                 <Text style={styles.reviewComment}>{review.comment}</Text>
                 {review.mediaUrls.length > 0 && (
@@ -668,8 +695,17 @@ export const PlaceDetailScreen = () => {
           ) : (
             previewCheckins.map(checkin => (
               <View key={checkin.id} style={styles.checkinRow}>
-                <Avatar uri={checkin.user?.avatar} size={32} />
-                <View style={styles.checkinInfo}>
+                <TouchableOpacity
+                  onPress={() => goToProfileCheckin(checkin)}
+                  hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                >
+                  <Avatar uri={checkin.user?.avatar} size={32} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.checkinInfo}
+                  onPress={() => goToProfileCheckin(checkin)}
+                  activeOpacity={0.6}
+                >
                   <Text style={styles.checkinName}>
                     {checkin.user?.name ?? 'Người dùng'}
                   </Text>
@@ -684,7 +720,7 @@ export const PlaceDetailScreen = () => {
                     {'  •  '}
                     {checkin.distanceMeters}m
                   </Text>
-                </View>
+                </TouchableOpacity>
                 <View style={styles.checkinBadge}>
                   <Icon2
                     name="map-marker-check"
