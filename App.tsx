@@ -7,6 +7,7 @@ import { PaperProvider } from 'react-native-paper';
 
 import { AppNavigator } from '@/navigation';
 import { store } from '@/store';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -16,12 +17,14 @@ const App = () => {
       <Provider store={store}>
         <SafeAreaProvider>
           <PaperProvider>
-            <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-              backgroundColor="transparent"
-              translucent
-            />
-            <AppNavigator />
+            <BottomSheetModalProvider>
+              <StatusBar
+                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+                backgroundColor="transparent"
+                translucent
+              />
+              <AppNavigator />
+            </BottomSheetModalProvider>
           </PaperProvider>
         </SafeAreaProvider>
       </Provider>

@@ -1,4 +1,10 @@
-import React, { useState, useRef, useCallback, useMemo } from 'react';
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+  forwardRef,
+} from 'react';
 import {
   View,
   Text,
@@ -35,7 +41,8 @@ import type { Review } from '@/types/placeDetail.types';
 import { PlaceDetailStackParamList } from '@/types/navigation';
 import { launchImageLibrary, type Asset } from 'react-native-image-picker';
 import axios from 'axios';
-import BottomSheet, {
+import {
+  BottomSheetModal,
   BottomSheetBackdrop,
   useBottomSheet,
   useBottomSheetSpringConfigs,
@@ -50,6 +57,7 @@ import {
 import { BackHandler } from 'react-native';
 import { toast } from '@baronha/ting';
 import { Divider, Menu } from 'react-native-paper';
+import { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const CLOUDINARY_UPLOAD_PRESET = 'test_word';
@@ -664,94 +672,93 @@ const WriteReviewForm = ({
   );
 };
 
-const FilterBottomSheet = ({
-  bsRef,
-  activeFilter,
-  onApply,
-}: {
-  bsRef: React.RefObject<BottomSheet | null>;
+interface FilterBottomSheetProps {
   activeFilter: FilterType;
   onApply: (filter: FilterType) => void;
-}) => {
-  const [temp, setTemp] = useState<FilterType>(activeFilter);
-  const animationConfigs = useBottomSheetSpringConfigs({
-    damping: 80, // độ nảy
-    overshootClamping: true,
-    stiffness: 700, // độ cứng — cao hơn = nhanh hơn
-  });
+}
 
-  const FILTER_OPTIONS: { id: FilterType; label: string }[] = [
-    { id: 'newest', label: 'Mới nhất' },
-    { id: 5, label: '⭐⭐⭐⭐⭐  5 sao' },
-    { id: 4, label: '⭐⭐⭐⭐  4 sao' },
-    { id: 3, label: '⭐⭐⭐  3 sao' },
-    { id: 2, label: '⭐⭐  2 sao' },
-    { id: 1, label: '⭐  1 sao' },
-  ];
+const FilterBottomSheet = forwardRef<BottomSheetModal, FilterBottomSheetProps>(
+  ({ activeFilter, onApply }, ref) => {
+    const [temp, setTemp] = useState<FilterType>(activeFilter);
+    const animationConfigs = useBottomSheetSpringConfigs({
+      damping: 80,
+      overshootClamping: true,
+      stiffness: 700,
+    });
 
-  const handleApply = () => onApply(temp);
+    const FILTER_OPTIONS: { id: FilterType; label: string }[] = [
+      { id: 'newest', label: 'Mới nhất' },
+      { id: 5, label: '⭐⭐⭐⭐⭐  5 sao' },
+      { id: 4, label: '⭐⭐⭐⭐  4 sao' },
+      { id: 3, label: '⭐⭐⭐  3 sao' },
+      { id: 2, label: '⭐⭐  2 sao' },
+      { id: 1, label: '⭐  1 sao' },
+    ];
 
-  const handleClear = () => setTemp('newest');
+    const handleApply = () => onApply(temp);
 
-  return (
-    <BottomSheet
-      ref={bsRef}
-      index={-1}
-      snapPoints={['44%']}
-      enablePanDownToClose
-      enableDynamicSizing={false}
-      handleComponent={() => <FilterHandleComponent title="Bộ lọc" />}
-      backgroundStyle={{ borderTopLeftRadius: 26, borderTopRightRadius: 26 }}
-      animationConfigs={animationConfigs}
-      backdropComponent={props => (
-        <BottomSheetBackdrop
-          {...props}
-          disappearsOnIndex={-1}
-          appearsOnIndex={0}
-          pressBehavior="close"
-        />
-      )}
-      footerComponent={() => (
-        <View style={styles.bsFooter}>
-          <TouchableOpacity style={styles.bsClearBtn} onPress={handleClear}>
-            <Text style={styles.bsClearText}>Xóa</Text>
-          </TouchableOpacity>
-          <FilterApplyButton onApply={handleApply} />
-        </View>
-      )}
-    >
-      <View style={styles.bsContent}>
-        <Text style={styles.bsSectionTitle}>Sắp xếp theo</Text>
-        <View style={styles.bsChipRow}>
-          {FILTER_OPTIONS.map(opt => (
-            <TouchableOpacity
-              key={String(opt.id)}
-              style={[styles.bsChip, temp === opt.id && styles.bsChipActive]}
-              onPress={() => setTemp(opt.id)}
-            >
-              {temp === opt.id && (
-                <Icon
-                  name="check"
-                  size={13}
-                  color={COLORS.primary}
-                  style={{ marginRight: 3 }}
-                />
-              )}
-              <Text
-                style={[
-                  styles.bsChipText,
-                  temp === opt.id && styles.bsChipTextActive,
-                ]}
-              >
-                {opt.label}
-              </Text>
+    const handleClear = () => setTemp('newest');
+
+    return (
+      <BottomSheetModal
+        ref={ref}
+        index={0}
+        snapPoints={['38%']}
+        enablePanDownToClose
+        enableDynamicSizing={false}
+        handleComponent={() => <FilterHandleComponent title="Bộ lọc" />}
+        backgroundStyle={{ borderTopLeftRadius: 26, borderTopRightRadius: 26 }}
+        animationConfigs={animationConfigs}
+        backdropComponent={props => (
+          <BottomSheetBackdrop
+            {...props}
+            disappearsOnIndex={-1}
+            appearsOnIndex={0}
+            pressBehavior="close"
+          />
+        )}
+        footerComponent={() => (
+          <View style={styles.bsFooter}>
+            <TouchableOpacity style={styles.bsClearBtn} onPress={handleClear}>
+              <Text style={styles.bsClearText}>Xóa</Text>
             </TouchableOpacity>
-          ))}
+            <FilterApplyButton onApply={handleApply} />
+          </View>
+        )}
+      >
+        <View style={styles.bsContent}>
+          <Text style={styles.bsSectionTitle}>Sắp xếp theo</Text>
+          <View style={styles.bsChipRow}>
+            {FILTER_OPTIONS.map(opt => (
+              <TouchableOpacity
+                key={String(opt.id)}
+                style={[styles.bsChip, temp === opt.id && styles.bsChipActive]}
+                onPress={() => setTemp(opt.id)}
+              >
+                {temp === opt.id && (
+                  <Icon
+                    name="check"
+                    size={13}
+                    color={COLORS.primary}
+                    style={{ marginRight: 3 }}
+                  />
+                )}
+                <Text
+                  style={[
+                    styles.bsChipText,
+                    temp === opt.id && styles.bsChipTextActive,
+                  ]}
+                >
+                  {opt.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
-      </View>
-    </BottomSheet>
-  );
-};
+      </BottomSheetModal>
+    );
+  },
+);
 
 // ── Main Screen ───────────────────────────────────────────────────────────────
 
@@ -763,7 +770,7 @@ export const ReviewListScreen = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const isLoggedIn = !!user;
 
-  const filterBsRef = useRef<BottomSheet>(null);
+  const filterBsRef = useRef<any>(null);
   const [activeFilter, setActiveFilter] = useState<FilterType>('newest');
 
   // Edit state
@@ -911,7 +918,10 @@ export const ReviewListScreen = () => {
       <View style={styles.filterBar}>
         <TouchableOpacity
           style={styles.filterBtn}
-          onPress={() => filterBsRef.current?.expand()}
+          onPress={() => {
+            console.log('ref:', filterBsRef.current);
+            filterBsRef.current?.present();
+          }}
         >
           <View style={styles.iconWrapper}>
             <Icon name="tune" size={18} color={COLORS.primary} />
@@ -979,7 +989,7 @@ export const ReviewListScreen = () => {
       />
 
       <FilterBottomSheet
-        bsRef={filterBsRef}
+        ref={filterBsRef}
         activeFilter={activeFilter}
         onApply={setActiveFilter}
       />
@@ -992,7 +1002,7 @@ export const ReviewListScreen = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
 
-  list: { padding: 14, gap: 10 },
+  list: { padding: 14, paddingBottom: 0, gap: 10 },
 
   // Summary
   summaryCard: {
