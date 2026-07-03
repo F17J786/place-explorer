@@ -11,6 +11,9 @@ import type {
   ChangePasswordFormValues,
   UpdateProfileFormValues,
 } from '@/types/profile.types';
+import { KEYCHAIN_SERVICE } from '@/constants/keychain';
+import { useEncryptedStorage } from './useEncryptedStorage';
+import { STORAGE_KEYS } from '@/constants/storageKeys';
 
 export const useProfile = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +29,7 @@ export const useProfile = () => {
 
   const clearProfileError = () => setProfileError(null);
   const clearPasswordError = () => setPasswordError(null);
+  const { removeData } = useEncryptedStorage();
 
   const handleUpdateProfile = async (
     values: UpdateProfileFormValues,
@@ -65,7 +69,8 @@ export const useProfile = () => {
   };
 
   const handleLogout = async () => {
-    await Keychain.resetGenericPassword();
+    await Keychain.resetGenericPassword({ service: KEYCHAIN_SERVICE });
+    await removeData(STORAGE_KEYS.USER_PROFILE);
     dispatch(clearAuth());
   };
 
