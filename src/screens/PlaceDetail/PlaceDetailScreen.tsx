@@ -607,93 +607,99 @@ export const PlaceDetailScreen = () => {
             }
           />
 
-          {reviewsLoading ? (
-            <ActivityIndicator
-              color={COLORS.primary}
-              style={{ marginVertical: 24 }}
-            />
-          ) : previewReviews.length === 0 ? (
-            <TouchableOpacity
-              style={styles.emptyState}
-              onPress={() =>
-                navigation.navigate('ReviewList', {
-                  osmId,
-                  placeName: place.name,
-                })
-              }
-            >
-              <Icon2
-                name="comment-text-outline"
-                size={36}
-                color={COLORS.textLight}
+          <View style={{ gap: 10 }}>
+            {reviewsLoading ? (
+              <ActivityIndicator
+                color={COLORS.primary}
+                style={{ marginVertical: 24 }}
               />
-              <Text style={styles.emptyText}>Chưa có đánh giá nào</Text>
-              <Text style={styles.emptyHint}>Nhấn để xem & viết đánh giá</Text>
-            </TouchableOpacity>
-          ) : (
-            previewReviews.map(review => (
-              <View key={review.id} style={styles.reviewCard}>
-                <View style={styles.reviewHeader}>
-                  <TouchableOpacity
-                    onPress={() => goToProfileReview(review)}
-                    hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
-                  >
-                    <Avatar uri={review.user?.avatar} size={36} />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.reviewMeta}
-                    onPress={() => goToProfileReview(review)}
-                    activeOpacity={0.6}
-                  >
-                    <Text style={styles.reviewAuthor}>
-                      {review.user?.name ?? 'Người dùng'}
-                    </Text>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: 6,
-                      }}
+            ) : previewReviews.length === 0 ? (
+              <TouchableOpacity
+                style={styles.emptyState}
+                onPress={() =>
+                  navigation.navigate('ReviewList', {
+                    osmId,
+                    placeName: place.name,
+                  })
+                }
+              >
+                <Icon2
+                  name="comment-text-outline"
+                  size={36}
+                  color={COLORS.textLight}
+                />
+                <Text style={styles.emptyText}>Chưa có đánh giá nào</Text>
+                <Text style={styles.emptyHint}>
+                  Nhấn để xem & viết đánh giá
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              previewReviews.map(review => (
+                <View key={review.id} style={styles.reviewCard}>
+                  <View style={styles.reviewHeader}>
+                    <TouchableOpacity
+                      onPress={() => goToProfileReview(review)}
+                      hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
                     >
-                      <StarRow rating={review.rating} size={12} />
-                      <Text style={styles.reviewDate}>
-                        {new Date(review.createdAt).toLocaleDateString('vi-VN')}
+                      <Avatar uri={review.user?.avatar} size={36} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.reviewMeta}
+                      onPress={() => goToProfileReview(review)}
+                      activeOpacity={0.6}
+                    >
+                      <Text style={styles.reviewAuthor}>
+                        {review.user?.name ?? 'Người dùng'}
                       </Text>
-                    </View>
-                  </TouchableOpacity>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          gap: 6,
+                        }}
+                      >
+                        <StarRow rating={review.rating} size={12} />
+                        <Text style={styles.reviewDate}>
+                          {new Date(review.createdAt).toLocaleDateString(
+                            'vi-VN',
+                          )}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                  <Text style={styles.reviewComment}>{review.comment}</Text>
+                  {review.mediaUrls.length > 0 && (
+                    <FlatList
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      data={review.mediaUrls}
+                      keyExtractor={(_, i) => `${review.id}-${i}`}
+                      contentContainerStyle={{ gap: 8, marginTop: 8 }}
+                      renderItem={({ item: url, index }) => (
+                        <MediaThumb
+                          url={url}
+                          type={review.mediaTypes?.[index] ?? 'image'}
+                          onPress={() =>
+                            setLightbox({
+                              urls: review.mediaUrls,
+                              types:
+                                review.mediaTypes ??
+                                review.mediaUrls.map(() => 'image' as const),
+                              index,
+                            })
+                          }
+                        />
+                      )}
+                    />
+                  )}
                 </View>
-                <Text style={styles.reviewComment}>{review.comment}</Text>
-                {review.mediaUrls.length > 0 && (
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={review.mediaUrls}
-                    keyExtractor={(_, i) => `${review.id}-${i}`}
-                    contentContainerStyle={{ gap: 8, marginTop: 8 }}
-                    renderItem={({ item: url, index }) => (
-                      <MediaThumb
-                        url={url}
-                        type={review.mediaTypes?.[index] ?? 'image'}
-                        onPress={() =>
-                          setLightbox({
-                            urls: review.mediaUrls,
-                            types:
-                              review.mediaTypes ??
-                              review.mediaUrls.map(() => 'image' as const),
-                            index,
-                          })
-                        }
-                      />
-                    )}
-                  />
-                )}
-              </View>
-            ))
-          )}
+              ))
+            )}
+          </View>
         </View>
 
         {/* Checkins — preview 3, navigate sang CheckinList để xem thêm */}
-        <View style={[styles.section, { marginBottom: 32 }]}>
+        <View style={styles.section}>
           <SectionHeader
             title="Check-in"
             count={checkins.length}
@@ -799,7 +805,7 @@ const styles = StyleSheet.create({
   },
 
   scroll: { flex: 1 },
-  scrollContent: { paddingBottom: 16 },
+  scrollContent: {},
 
   heroContainer: { width: '100%', height: 220, position: 'relative' },
   heroImage: { width: '100%', height: '100%' },
@@ -948,7 +954,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 14,
     padding: 14,
-    marginBottom: 10,
     elevation: 1,
     shadowColor: COLORS.cardShadow,
     shadowOffset: { width: 0, height: 1 },
