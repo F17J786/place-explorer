@@ -15,6 +15,9 @@ import { LoginForm } from '@/components/auth/LoginForm';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { AUTH_COLORS } from '@/constants/authTheme';
 import type { AuthTab } from '@/types/auth.types';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '@/navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const TAB_ANIMATION_MS = 100;
 const CARD_HORIZONTAL_MARGIN = 24;
@@ -23,7 +26,14 @@ const LOGO_SQUARE_SIZE = 18;
 const LOGO_SQUARE_RADIUS = 6;
 const LOGO_SQUARE_OFFSET = 6;
 
+type AuthRouteProp = RouteProp<RootStackParamList, 'Auth'>;
+type AuthNavProp = NativeStackNavigationProp<RootStackParamList, 'Auth'>;
+
 export const AuthScreen = () => {
+  const route = useRoute<AuthRouteProp>();
+  const navigation = useNavigation<AuthNavProp>();
+  const redirectTo = route.params?.redirectTo;
+
   const insets = useSafeAreaInsets();
   const [activeTab, setActiveTab] = useState<AuthTab>('login');
 
@@ -37,6 +47,17 @@ export const AuthScreen = () => {
     },
     [activeTab],
   );
+
+  const onAuthSuccess = () => {
+    if (redirectTo) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: redirectTo.screen, params: redirectTo.params }],
+      });
+    } else {
+      navigation.reset({ index: 0, routes: [{ name: 'Main' }] });
+    }
+  };
 
   return (
     <KeyboardAwareScrollView
@@ -112,7 +133,11 @@ export const AuthScreen = () => {
               transform: [{ translateY: formTranslateY }],
             }}
           >
-            {activeTab === 'login' ? <LoginForm /> : <RegisterForm />}
+            {activeTab === 'login' ? (
+              <LoginForm onSuccess={onAuthSuccess} />
+            ) : (
+              <RegisterForm />
+            )}
           </Animated.View>
         </View>
       </ScrollView>

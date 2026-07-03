@@ -5,6 +5,7 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "baseUrl": ".",
+    "lib": ["ESNext", "DOM"],
     "paths": {
       "@/*": ["src/*"]
     },

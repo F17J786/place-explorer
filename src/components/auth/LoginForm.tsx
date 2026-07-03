@@ -13,7 +13,11 @@ import type { LoginFormValues } from '@/types/auth.types';
 import Icon from 'react-native-vector-icons/Feather';
 import { COLORS } from '@/constants/colors';
 
-export const LoginForm = () => {
+type LoginFormProps = {
+  onSuccess?: () => void;
+};
+
+export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { authError, clearAuthError, handleLogin, isLoginLoading } = useAuth();
 
@@ -32,7 +36,7 @@ export const LoginForm = () => {
 
   const onSubmit = (values: LoginFormValues) => {
     clearAuthError();
-    handleLogin(values);
+    handleLogin(values, onSuccess);
   };
 
   const handleForgotPassword = () => {

@@ -42,12 +42,15 @@ export const useAuth = () => {
     [dispatch, saveData],
   );
 
-  const handleLogin = async (values: LoginFormValues) => {
+  const handleLogin = async (
+    values: LoginFormValues,
+    onSuccess?: () => void,
+  ) => {
     setAuthError(null);
     try {
       const user = await login(values).unwrap();
       await persistSession(user);
-      dispatch(setUser(user));
+      onSuccess?.();
     } catch (error) {
       setAuthError(getErrorMessage(error));
     }

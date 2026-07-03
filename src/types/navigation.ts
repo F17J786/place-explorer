@@ -1,15 +1,21 @@
+import type { NavigatorScreenParams } from '@react-navigation/native';
 import { OsmMarker } from '@/screens/Map/MapScreen';
 
+export type RedirectTarget = {
+  screen: keyof RootStackParamList;
+  params?: any;
+};
+
 export type RootStackParamList = {
-  Auth: undefined;
-  Main: undefined;
+  Auth: { redirectTo?: RedirectTarget } | undefined;
+  Main: NavigatorScreenParams<MainTabParamList> | undefined;
   PlaceDetail: undefined;
 };
 
 export type MainTabParamList = {
   Map: undefined;
   Favorites: undefined;
-  Profile: undefined;
+  Profile: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 export type PlaceDetailStackParamList = {

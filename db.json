@@ -570,13 +570,22 @@
       "id": "jaeW2U0GHrM"
     },
     {
-      "userId": 1,
+      "userId": 81,
       "osmId": "node_12453142101",
       "lat": 11.051708333333332,
       "lng": 106.66807333333333,
       "distanceMeters": 1393.6,
       "createdAt": "2026-07-02T03:30:05.491Z",
       "id": "SCTVJGW9tFE"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019089",
+      "lat": 11.051871666666667,
+      "lng": 106.66792500000001,
+      "distanceMeters": 1416.8,
+      "createdAt": "2026-07-02T04:23:57.356Z",
+      "id": "STNnejjHg5I"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

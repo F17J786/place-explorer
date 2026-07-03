@@ -239,7 +239,7 @@ export const placeDetailApi = api.injectEndpoints({
           const { data: checkins } = await axiosInstance.get<Checkin[]>(
             '/checkins',
             {
-              params: { osmId, _sort: 'createdAt' },
+              params: { osmId, _sort: '-createdAt' },
             },
           );
           console.log('checkins raw response:', checkins);
