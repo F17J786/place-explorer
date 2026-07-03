@@ -30,13 +30,14 @@ interface CustomTabBarProps {
 const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
   const activeIdx = state.index;
   const activeRoute = state.routes[activeIdx];
-  console.log('activeRoute name:', activeRoute?.name); // debug thử
+  console.log('activeRoute name:', activeRoute?.name);
   const focusedRouteName =
-    getFocusedRouteNameFromRoute(activeRoute) ?? 'MapScreen';
+    getFocusedRouteNameFromRoute(activeRoute) ?? activeRoute.name;
 
   console.log('focusedRouteName:', focusedRouteName);
 
-  const isMapTab = focusedRouteName === 'MapScreen';
+  const isMapTab =
+    activeRoute.name === 'Map' && focusedRouteName !== 'PlaceDetail';
 
   return (
     <View
