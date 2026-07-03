@@ -483,6 +483,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
   // ── Recent ──
   const [recentPoints, setRecentPoints] = useState<SearchSuggestion[]>([]);
   const [locating, setLocating] = useState(false);
+  const [isMapReady, setIsMapReady] = useState(false);
 
   // ─── Computed display values ──────────────────────────────────────────────
   // Giá trị thực sự hiển thị trong input (khác inputAText khi myLoc + focused)
@@ -525,15 +526,14 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
 
   useEffect(() => {
     const marker = routeParams?.selectedMarker;
-    if (!marker) return;
+    if (!marker || !isMapReady) return;
+
     setSelectedMarker(marker);
-    setTimeout(() => {
-      mapRef.current?.animateCamera({
-        center: marker.coordinate,
-        zoom: 19,
-      });
-    }, 300);
-  }, [routeParams?.selectedMarker, routeParams?.navKey]);
+    mapRef.current?.animateCamera({
+      center: marker.coordinate,
+      zoom: 19,
+    });
+  }, [routeParams?.selectedMarker, routeParams?.navKey, isMapReady]);
 
   useEffect(() => {
     sortedRef.current = [...markers].sort((a, b) => b.score - a.score);
@@ -1033,6 +1033,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
       {/* ── Map ── */}
       <MapView
         ref={mapRef}
+        onMapReady={() => setIsMapReady(true)}
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={initialRegion}
