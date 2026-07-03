@@ -161,9 +161,10 @@ export const FavoritesScreen = () => {
 
   const osmIds = useMemo(() => favorites.map(f => f.osmId), [favorites]);
 
-  const { data: places = [] } = useGetPlacesByOsmIdsQuery(osmIds, {
-    skip: osmIds.length === 0,
-  });
+  const { data: places = [], isFetching: isPlacesFetching } =
+    useGetPlacesByOsmIdsQuery(osmIds, {
+      skip: osmIds.length === 0,
+    });
 
   const placesMap = useMemo(
     () => Object.fromEntries(places.map(p => [p.osmId, p])),
@@ -388,7 +389,7 @@ export const FavoritesScreen = () => {
       </View>
 
       {/* ── List ── */}
-      {isLoading ? (
+      {isLoading || isPlacesFetching ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#1A56DB" />
         </View>
