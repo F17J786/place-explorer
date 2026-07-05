@@ -13,7 +13,6 @@ import { axiosInstance } from '@/services/axiosInstance';
 
 export const placeDetailApi = api.injectEndpoints({
   endpoints: builder => ({
-    // ─── Place record (cache) ─────────────────────────────────────────────────
     getPlaceByOsmId: builder.query<PlaceRecord | null, string>({
       queryFn: async (osmId, _api, _extra, baseQuery) => {
         const result = await baseQuery({ url: '/places', params: { osmId } });
@@ -47,7 +46,6 @@ export const placeDetailApi = api.injectEndpoints({
       Omit<PlaceRecord, 'id' | 'createdAt'>
     >({
       queryFn: async (payload, _api, _extra, baseQuery) => {
-        // Check existing
         const existing = await baseQuery({
           url: '/places',
           params: { osmId: payload.osmId },
@@ -72,7 +70,6 @@ export const placeDetailApi = api.injectEndpoints({
       ],
     }),
 
-    // ─── Reviews ─────────────────────────────────────────────────────────────
     getReviewsByOsmId: builder.query<Review[], string>({
       queryFn: async osmId => {
         try {
@@ -171,7 +168,6 @@ export const placeDetailApi = api.injectEndpoints({
       ],
     }),
 
-    // ─── Favorites ───────────────────────────────────────────────────────────
     getFavoriteByUser: builder.query<
       Favorite | null,
       { userId: string; osmId: string }
@@ -230,7 +226,6 @@ export const placeDetailApi = api.injectEndpoints({
       ],
     }),
 
-    // ─── Checkins ────────────────────────────────────────────────────────────
     getCheckinsByOsmId: builder.query<Checkin[], string>({
       queryFn: async osmId => {
         try {
@@ -286,7 +281,6 @@ export const placeDetailApi = api.injectEndpoints({
       ],
     }),
 
-    // ─── Profile (reviewer) ──────────────────────────────────────────────────
     getUserById: builder.query<
       { id: string; name: string; avatar: string; email?: string },
       string

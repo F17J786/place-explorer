@@ -35,12 +35,13 @@ import {
   useCreateCheckinMutation,
   useUpsertPlaceMutation,
 } from '@/store/api/placeDetailApi';
-import { showToast, type OsmMarker } from '../Map/MapScreen'; // adjust path
+import { type OsmMarker } from '@/types/mapScreen.type';
 import { PlaceDetailStackParamList } from '@/types/navigation';
 import MediaThumb, { MediaLightbox } from '@/components/review/MediaThumb';
 import { promptForEnableLocationIfNeeded } from 'react-native-android-location-enabler';
 import Geolocation from '@react-native-community/geolocation';
 import { Review, Checkin } from '@/types/placeDetail.types';
+import { showToast } from '@/utils/toast';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 

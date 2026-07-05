@@ -1,5 +1,5 @@
 import type { NavigatorScreenParams } from '@react-navigation/native';
-import { OsmMarker } from '@/screens/Map/MapScreen';
+import { OsmMarker } from './mapScreen.type';
 
 export type RedirectTarget = {
   screen: keyof RootStackParamList;

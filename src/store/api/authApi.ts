@@ -42,7 +42,6 @@ export const authApi = api.injectEndpoints({
     }),
     register: builder.mutation<User, RegisterUserPayload>({
       queryFn: async (payload, _api, _extraOptions, baseQuery) => {
-        // GET all users, không filter params
         const existingResult = await baseQuery({
           url: '/users',
         });
@@ -53,7 +52,6 @@ export const authApi = api.injectEndpoints({
 
         const existingUsers = existingResult.data as User[];
 
-        // Filter client-side
         const emailExists = existingUsers.some(
           u => u.email.toLowerCase() === payload.email.toLowerCase(),
         );

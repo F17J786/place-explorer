@@ -473,7 +473,7 @@ export const ProfileReviewScreen = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
-  list: { paddingBottom: 24 },
+  list: {},
 
   profileHeader: {
     alignItems: 'center',

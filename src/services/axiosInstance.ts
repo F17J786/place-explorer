@@ -26,10 +26,10 @@ axiosInstance.interceptors.request.use(async config => {
   });
 
   console.log('=== REQUEST ===');
-  console.log('baseURL:', config.baseURL); // thêm dòng này
+  console.log('baseURL:', config.baseURL);
   console.log('URL:', config.url);
-  console.log('Full URL:', (config.baseURL ?? '') + config.url); // full URL thật
-  console.log('Params:', config.params); // thêm dòng này
+  console.log('Full URL:', (config.baseURL ?? '') + config.url);
+  console.log('Params:', config.params);
   console.log('Method:', config.method);
   console.log('Token exists:', !!credentials);
   const fullUrl = axios.getUri(config);

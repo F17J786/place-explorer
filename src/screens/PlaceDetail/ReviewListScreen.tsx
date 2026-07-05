@@ -1002,7 +1002,7 @@ export const ReviewListScreen = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
 
-  list: { padding: 14, paddingBottom: 0, gap: 10 },
+  list: { padding: 14, paddingBottom: 8, gap: 10 },
 
   // Summary
   summaryCard: {

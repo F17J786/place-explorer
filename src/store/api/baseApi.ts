@@ -1,6 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { BASE_URL } from '@/constants/api';
 import { axiosBaseQuery } from '@/services/axiosBaseQuery';
 
 export const api = createApi({

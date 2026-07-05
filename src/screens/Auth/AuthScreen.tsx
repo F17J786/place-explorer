@@ -19,7 +19,6 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '@/navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-const TAB_ANIMATION_MS = 100;
 const CARD_HORIZONTAL_MARGIN = 24;
 const CARD_PADDING = 28;
 const LOGO_SQUARE_SIZE = 18;
@@ -64,7 +63,7 @@ export const AuthScreen = () => {
       style={[styles.screen, { paddingTop: insets.top }]}
       enableOnAndroid
       keyboardShouldPersistTaps="handled"
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerStyle={styles.keyboardScrollContent}
     >
       <ScrollView
         contentContainerStyle={[
@@ -90,7 +89,7 @@ export const AuthScreen = () => {
                 activeTab === 'login' ? styles.tabActive : styles.tabInactive,
               ]}
               onPress={() => handleTabSwitch('login')}
-              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              hitSlop={styles.hitSlop}
             >
               <Text
                 style={[
@@ -112,7 +111,7 @@ export const AuthScreen = () => {
                   : styles.tabInactive,
               ]}
               onPress={() => handleTabSwitch('register')}
-              hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+              hitSlop={styles.hitSlop}
             >
               <Text
                 style={[
@@ -232,5 +231,14 @@ const styles = StyleSheet.create({
   tabTextInactive: {
     color: AUTH_COLORS.tabInactive,
     fontWeight: '400',
+  },
+  keyboardScrollContent: {
+    flexGrow: 1,
+  },
+  hitSlop: {
+    top: 8,
+    bottom: 8,
+    left: 8,
+    right: 8,
   },
 });

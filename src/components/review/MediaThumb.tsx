@@ -6,9 +6,7 @@ import {
   StyleSheet,
   Modal,
   Dimensions,
-  FlatList,
   StatusBar,
-  Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Video from 'react-native-video';
@@ -23,7 +21,6 @@ const COLORS = {
   overlayDark: 'rgba(0,0,0,0.85)',
 };
 
-// ── helpers ───────────────────────────────────────────────────────────────────
 const getImageFull = (url: string) =>
   url.replace('/image/upload/', '/image/upload/q_auto,f_auto/');
 
@@ -37,9 +34,6 @@ const getVideoThumbnail = (videoUrl: string) =>
   videoUrl
     .replace('/video/upload/', '/video/upload/so_0/')
     .replace(/\.[^/.]+$/, '.jpg');
-
-// ── VideoFullscreen ───────────────────────────────────────────────────────────
-// Modal riêng cho video vì ImageViewing không handle video
 
 const VideoFullscreen = ({
   url,
@@ -74,9 +68,6 @@ const VideoFullscreen = ({
   </Modal>
 );
 
-// ── MediaLightbox ─────────────────────────────────────────────────────────────
-// Quản lý state lightbox cho cả list media (ảnh + video mixed)
-
 export const MediaLightbox = ({
   mediaUrls,
   mediaTypes,
@@ -92,7 +83,7 @@ export const MediaLightbox = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [videoVisible, setVideoVisible] = useState(
-    mediaTypes[initialIndex] === 'video', // nếu bấm thẳng vào video thì mở luôn
+    mediaTypes[initialIndex] === 'video',
   );
 
   const images = mediaUrls.map((url, i) => {
@@ -105,7 +96,7 @@ export const MediaLightbox = ({
   const handleIndexChange = (index: number) => {
     setCurrentIndex(index);
     if (mediaTypes[index] === 'video') {
-      setVideoVisible(true); // tự động mở video khi vuốt tới
+      setVideoVisible(true);
     }
   };
 
@@ -124,7 +115,6 @@ export const MediaLightbox = ({
         visible={visible && videoVisible}
         onClose={() => {
           setVideoVisible(false);
-          // nếu list chỉ có video thì đóng hẳn lightbox
           if (mediaTypes.every(t => t === 'video')) {
             onClose();
           }
@@ -133,8 +123,6 @@ export const MediaLightbox = ({
     </>
   );
 };
-
-// ── MediaThumb ────────────────────────────────────────────────────────────────
 
 const MediaThumb = ({
   url,
@@ -177,8 +165,6 @@ const MediaThumb = ({
 
 export default MediaThumb;
 
-// ── Styles ────────────────────────────────────────────────────────────────────
-
 const styles = StyleSheet.create({
   mediaThumb: {
     width: 140,
@@ -197,8 +183,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.overlay,
     borderRadius: 8,
   },
-
-  // Video modal
   videoModal: {
     flex: 1,
     backgroundColor: COLORS.black,
@@ -217,8 +201,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
     borderRadius: 20,
   },
-
-  // Lightbox footer
   lightboxFooter: {
     alignItems: 'center',
     paddingBottom: 40,

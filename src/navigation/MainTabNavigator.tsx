@@ -1,17 +1,10 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Platform,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Feather from 'react-native-vector-icons/Feather';
 
 import { COLORS } from '@/constants/colors';
-import { ProfileScreen } from '@/screens/Profile';
 import type { MainTabParamList } from '@/navigation/types';
 import { MapScreen } from '@/screens/Map';
 import { FavoritesScreen } from '@/screens/Favorites';
@@ -99,7 +92,7 @@ const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
 
 const tabBarStyles = StyleSheet.create({
   wrapper: {
-    height: 100, // 68 bar + 14 bottom + 14 buffer
+    height: 100,
     backgroundColor: COLORS.bg,
   },
 

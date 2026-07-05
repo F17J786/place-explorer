@@ -12,7 +12,7 @@ import { COLORS } from '@/constants/colors';
 import { useProfile } from '@/hooks/useProfile';
 import { updateProfileSchema } from '@/schemas/profile.schema';
 import type { UpdateProfileFormValues } from '@/types/profile.types';
-import { showToast } from '../Map/MapScreen';
+import { showToast } from '@/utils/toast';
 
 interface PersonalInfoScreenProps {
   navigation?: any;

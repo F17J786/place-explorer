@@ -38,7 +38,6 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (values: RegisterFormValues) => {
-    console.log('🔥 onSubmit called:', values);
     clearAuthError();
     handleRegister(values);
   };
@@ -114,7 +113,7 @@ export const RegisterForm = () => {
             rightSlot={
               <TouchableOpacity
                 onPress={() => setIsPasswordVisible(v => !v)}
-                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                hitSlop={styles.hitSlop}
               >
                 <Icon
                   name={isPasswordVisible ? 'eye-off' : 'eye'}
@@ -148,7 +147,7 @@ export const RegisterForm = () => {
             rightSlot={
               <TouchableOpacity
                 onPress={() => setIsConfirmPasswordVisible(v => !v)}
-                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                hitSlop={styles.hitSlop}
               >
                 <Icon
                   name={isConfirmPasswordVisible ? 'eye-off' : 'eye'}
@@ -173,5 +172,11 @@ export const RegisterForm = () => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+  },
+  hitSlop: {
+    top: 8,
+    bottom: 8,
+    left: 8,
+    right: 8,
   },
 });

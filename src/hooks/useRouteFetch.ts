@@ -1,0 +1,52 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+import MapView from 'react-native-maps';
+import { fetchRoute } from '@/store/api/osrm';
+import { showToast } from '@/utils/toast';
+import { RoutePoint } from '@/types/mapScreen.type';
+
+export const useRouteFetch = (
+  pointA: RoutePoint | null,
+  pointB: RoutePoint | null,
+  mapRef: React.RefObject<MapView | null>,
+) => {
+  const [routeCoords, setRouteCoords] = useState<
+    { latitude: number; longitude: number }[]
+  >([]);
+  const [routeLoading, setRouteLoading] = useState(false);
+  const routeCancelRef = useRef(false);
+
+  const doFetchRoute = useCallback(async () => {
+    if (!pointA || !pointB) return;
+
+    routeCancelRef.current = false;
+    setRouteLoading(true);
+    setRouteCoords([]);
+    const coords = await fetchRoute(pointA.coordinate, pointB.coordinate);
+    setRouteLoading(false);
+    if (routeCancelRef.current) return;
+
+    if (coords.length === 0) {
+      showToast('Không tìm được đường đi. Hãy thử lại');
+      return;
+    }
+
+    setRouteCoords(coords);
+    mapRef.current?.fitToCoordinates(coords, {
+      edgePadding: { top: 80, right: 40, bottom: 340, left: 40 },
+      animated: true,
+    });
+  }, [pointA, pointB, mapRef]);
+
+  useEffect(() => {
+    if (pointA && pointB) doFetchRoute();
+    else setRouteCoords([]);
+  }, [pointA, pointB]);
+
+  const clearRoute = useCallback(() => {
+    routeCancelRef.current = true;
+    setRouteLoading(false);
+    setRouteCoords([]);
+  }, []);
+
+  return { routeCoords, routeLoading, clearRoute };
+};

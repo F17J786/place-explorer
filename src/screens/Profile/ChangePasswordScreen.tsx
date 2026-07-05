@@ -11,7 +11,7 @@ import { COLORS } from '@/constants/colors';
 import { useProfile } from '@/hooks/useProfile';
 import { changePasswordSchema } from '@/schemas/profile.schema';
 import type { ChangePasswordFormValues } from '@/types/profile.types';
-import { showToast } from '../Map/MapScreen';
+import { showToast } from '@/utils/toast';
 
 interface ChangePasswordScreenProps {
   navigation?: any;
@@ -85,7 +85,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
               rightSlot={
                 <TouchableOpacity
                   onPress={() => setIsOldVisible(v => !v)}
-                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                  hitSlop={styles.hitSlop}
                 >
                   <Icon
                     name={isOldVisible ? 'eye-off' : 'eye'}
@@ -122,7 +122,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
               rightSlot={
                 <TouchableOpacity
                   onPress={() => setIsNewVisible(v => !v)}
-                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                  hitSlop={styles.hitSlop}
                 >
                   <Icon
                     name={isNewVisible ? 'eye-off' : 'eye'}
@@ -159,7 +159,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
               rightSlot={
                 <TouchableOpacity
                   onPress={() => setIsConfirmVisible(v => !v)}
-                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                  hitSlop={styles.hitSlop}
                 >
                   <Icon
                     name={isConfirmVisible ? 'eye-off' : 'eye'}
@@ -189,5 +189,11 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+  },
+  hitSlop: {
+    top: 8,
+    bottom: 8,
+    left: 8,
+    right: 8,
   },
 });

@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { AUTH_COLORS, AUTH_TYPOGRAPHY } from '@/constants/authTheme';
-import { DEFAULT_AVATAR_URL } from '@/constants/api';
 import { useImagePicker } from '@/hooks/useImagePicker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -49,14 +48,14 @@ export const AvatarPicker = ({ value, onChange, error }: AvatarPickerProps) => {
           <TouchableOpacity
             style={styles.actionButton}
             onPress={handlePickFromGallery}
-            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+            hitSlop={styles.hitSlop}
           >
             <Text style={styles.actionButtonText}>Chọn ảnh</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.actionButton, styles.actionButtonOutline]}
             onPress={handlePickFromCamera}
-            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+            hitSlop={styles.hitSlop}
           >
             <Text style={styles.actionButtonOutlineText}>Chụp ảnh</Text>
           </TouchableOpacity>
@@ -129,5 +128,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: AUTH_COLORS.error,
     marginTop: 4,
+  },
+  hitSlop: {
+    top: 8,
+    bottom: 8,
+    left: 8,
+    right: 8,
   },
 });
