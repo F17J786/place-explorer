@@ -1,0 +1,46 @@
+import React from 'react';
+import { View, FlatList } from 'react-native';
+import MediaThumb from '@/components/review/MediaThumb';
+import { styles } from '@/constants/stylesPlaceDetailScreen';
+import { SectionHeader } from '@/components/placedetail/SectionHeader';
+import type { LightboxState } from '@/types/PlaceDetail.types';
+
+type MediaItem = { url: string; type: 'image' | 'video'; id: string };
+
+type MediaGallerySectionProps = {
+  allMedia: MediaItem[];
+  onOpenLightbox: (state: LightboxState) => void;
+};
+
+export const MediaGallerySection = ({
+  allMedia,
+  onOpenLightbox,
+}: MediaGallerySectionProps) => {
+  if (allMedia.length === 0) return null;
+
+  return (
+    <View style={styles.section}>
+      <SectionHeader title="Ảnh & Video" />
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={allMedia}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.mediaGalleryContent}
+        renderItem={({ item, index }) => (
+          <MediaThumb
+            url={item.url}
+            type={item.type}
+            onPress={() =>
+              onOpenLightbox({
+                urls: allMedia.map(m => m.url),
+                types: allMedia.map(m => m.type),
+                index,
+              })
+            }
+          />
+        )}
+      />
+    </View>
+  );
+};

@@ -83,3 +83,9 @@ export interface UpdateReviewPayload {
   mediaTypes: ('image' | 'video')[];
   createdAt: string;
 }
+
+export type LightboxState = {
+  urls: string[];
+  types: ('image' | 'video')[];
+  index: number;
+} | null;

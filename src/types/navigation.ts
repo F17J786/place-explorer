@@ -1,5 +1,9 @@
-import type { NavigatorScreenParams } from '@react-navigation/native';
+import type {
+  NavigatorScreenParams,
+  RouteProp,
+} from '@react-navigation/native';
 import { OsmMarker } from './mapScreen.type';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type RedirectTarget = {
   screen: keyof RootStackParamList;
@@ -30,3 +34,13 @@ export type ProfileStackParamList = {
   PersonalInfo: undefined;
   ChangePassword: undefined;
 };
+
+export type PlaceDetailRouteProp = RouteProp<
+  PlaceDetailStackParamList,
+  'PlaceDetailHome'
+>;
+
+export type PlaceDetailNavProp = NativeStackNavigationProp<
+  PlaceDetailStackParamList,
+  'PlaceDetailHome'
+>;

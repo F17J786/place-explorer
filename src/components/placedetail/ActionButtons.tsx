@@ -1,0 +1,65 @@
+import React from 'react';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { COLORS } from '@/constants/constantsPlaceDetailScreen';
+import { styles } from '@/constants/stylesPlaceDetailScreen';
+
+type ActionButtonsProps = {
+  isLoggedIn: boolean;
+  isFavorited: boolean;
+  checkinLoading: boolean;
+  onSearchRoute: () => void;
+  onCheckin: () => void;
+  onToggleFavorite: () => void;
+};
+
+export const ActionButtons = ({
+  isLoggedIn,
+  isFavorited,
+  checkinLoading,
+  onSearchRoute,
+  onCheckin,
+  onToggleFavorite,
+}: ActionButtonsProps) => (
+  <View style={styles.actionRow}>
+    <TouchableOpacity
+      style={[styles.actionBtn, styles.actionBtnOutline]}
+      onPress={onSearchRoute}
+    >
+      <Icon name="directions" size={18} color={COLORS.primary} />
+      <Text style={styles.actionBtnOutlineText}>Chỉ đường</Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity
+      style={[
+        styles.actionBtn,
+        styles.actionBtnPrimary,
+        (!isLoggedIn || checkinLoading) && styles.actionBtnDisabled,
+      ]}
+      onPress={onCheckin}
+      disabled={!isLoggedIn || checkinLoading}
+    >
+      {checkinLoading ? (
+        <ActivityIndicator color={COLORS.white} size="small" />
+      ) : (
+        <>
+          <Icon2 name="map-marker-check" size={18} color={COLORS.white} />
+          <Text style={styles.actionBtnPrimaryText}>Check-in</Text>
+        </>
+      )}
+    </TouchableOpacity>
+
+    <TouchableOpacity
+      style={[styles.actionBtn, styles.actionBtnOutline, styles.actionBtnIcon]}
+      onPress={onToggleFavorite}
+    >
+      <Ionicons
+        name={isFavorited ? 'heart' : 'heart-outline'}
+        size={22}
+        color={COLORS.primary}
+      />
+    </TouchableOpacity>
+  </View>
+);
