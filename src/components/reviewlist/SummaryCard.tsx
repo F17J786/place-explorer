@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { COLORS } from '@/constants/constantsReviewListScreen';
 import { styles } from '@/constants/stylesReviewListScreen';
-import { StarRow } from '@/components/reviewlist/StarRow';
+import { StarRow } from '../placedetail/StarRow';
 
 interface RatingDistItem {
   star: number;

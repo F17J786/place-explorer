@@ -17,8 +17,8 @@ import type { Review } from '@/types/placeDetail.types';
 import MediaThumb, { MediaLightbox } from '@/components/review/MediaThumb';
 import { COLORS } from '@/constants/constantsReviewListScreen';
 import { styles } from '@/constants/stylesReviewListScreen';
-import { StarRow } from '@/components/reviewlist/StarRow';
-import { Avatar } from '@/components/reviewlist/Avatar';
+import { StarRow } from '../placedetail/StarRow';
+import { Avatar } from '../placedetail/Avatar';
 
 type NavProp = NativeStackNavigationProp<
   PlaceDetailStackParamList,

@@ -89,3 +89,22 @@ export type LightboxState = {
   types: ('image' | 'video')[];
   index: number;
 } | null;
+
+export interface FlatMedia {
+  url: string;
+  type: 'image' | 'video';
+  reviewId: string;
+}
+
+export interface ProfileReviewPlace {
+  osmId: string;
+  osmType?: string;
+  name: string;
+  category?: string;
+  lat: number;
+  lng: number;
+  address?: string;
+  thumbnailUrl?: string;
+}
+
+export type ProfileReviewPlacesMap = Record<string, ProfileReviewPlace>;
