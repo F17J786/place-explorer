@@ -44,3 +44,12 @@ export type PlaceDetailNavProp = NativeStackNavigationProp<
   PlaceDetailStackParamList,
   'PlaceDetailHome'
 >;
+
+export type ReviewListRoutePropType = RouteProp<
+  PlaceDetailStackParamList,
+  'ReviewList'
+>;
+export type NavProp = NativeStackNavigationProp<
+  PlaceDetailStackParamList,
+  'ReviewList'
+>;
