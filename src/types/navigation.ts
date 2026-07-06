@@ -49,7 +49,8 @@ export type ReviewListRoutePropType = RouteProp<
   PlaceDetailStackParamList,
   'ReviewList'
 >;
-export type NavProp = NativeStackNavigationProp<
+
+export type CheckinListRoutePropType = RouteProp<
   PlaceDetailStackParamList,
-  'ReviewList'
+  'CheckinList'
 >;
