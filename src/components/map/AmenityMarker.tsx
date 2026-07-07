@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { COLORS, getConfig } from '@/constants/constantsMapScreen';
+import { COLORS, getConfig } from '@/constants/constants';
 
 interface AmenityMarkerProps {
   amenity: string;

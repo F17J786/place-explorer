@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Region } from 'react-native-maps';
-import { LAST_REGION_KEY } from '@/constants/constantsMapScreen';
+import { LAST_REGION_KEY } from '@/constants/constants';
 
 export const loadLastRegion = async (): Promise<Region | null> => {
   try {

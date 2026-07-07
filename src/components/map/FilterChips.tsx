@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { FILTERS, getConfig } from '@/constants/constantsMapScreen';
+import { FILTERS, getConfig } from '@/constants/constants';
 import { styles } from '@/constants/stylesMapScreen';
 
 interface FilterChipsProps {

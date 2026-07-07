@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
-import { COLORS } from '@/constants/constantsPlaceDetailScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesPlaceDetailScreen';
 import { SectionHeader } from '@/components/placedetail/SectionHeader';
 import { Avatar } from '@/components/placedetail/Avatar';

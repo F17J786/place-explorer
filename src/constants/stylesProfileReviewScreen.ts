@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, GRID_GAP } from '@/constants/constantsProfileReviewScreen';
+import { COLORS, GRID_GAP } from '@/constants/constants';
 
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },

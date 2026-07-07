@@ -13,7 +13,7 @@ import {
   CHECKIN_MAX_DISTANCE_METERS,
   EARTH_RADIUS_METERS,
   GEOLOCATION_OPTIONS,
-} from '@/constants/constantsPlaceDetailScreen';
+} from '@/constants/constants';
 
 type UseCheckinActionParams = {
   isLoggedIn: boolean;

@@ -15,7 +15,7 @@ import { Menu } from 'react-native-paper';
 import { PlaceDetailStackParamList } from '@/types/navigation';
 import type { Review } from '@/types/placeDetail.types';
 import MediaThumb, { MediaLightbox } from '@/components/review/MediaThumb';
-import { COLORS } from '@/constants/constantsReviewListScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import { StarRow } from '../placedetail/StarRow';
 import { Avatar } from '../placedetail/Avatar';

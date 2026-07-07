@@ -1,6 +1,6 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -8,7 +8,7 @@ import { AuthErrorBanner } from '@/components/auth/AuthErrorBanner';
 import { AuthInput } from '@/components/auth/AuthInput';
 import { AuthSubmitButton } from '@/components/auth/AuthSubmitButton';
 import { AvatarPicker } from '@/components/auth/AvatarPicker';
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 import { useProfile } from '@/hooks/useProfile';
 import { updateProfileSchema } from '@/schemas/profile.schema';
 import type { UpdateProfileFormValues } from '@/types/profile.types';

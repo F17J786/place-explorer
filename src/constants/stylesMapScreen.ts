@@ -1,5 +1,5 @@
 import { StyleSheet, StatusBar } from 'react-native';
-import { COLORS } from './constantsMapScreen';
+import { COLORS } from './constants';
 
 export const styles = StyleSheet.create({
   container: { flex: 1 },

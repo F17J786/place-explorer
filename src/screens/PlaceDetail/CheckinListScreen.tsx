@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useGetCheckinsByOsmIdQuery } from '@/store/api/placeDetailApi';
 import { CheckinItem } from '@/components/checkinlist/CheckinItem';
-import { COLORS } from '@/constants/constantsCheckinListScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesCheckinListScreen';
 import { CheckinListRoutePropType } from '@/types/navigation';
 

@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Feather from 'react-native-vector-icons/Feather';
 
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 import type { MainTabParamList } from '@/navigation/types';
 import { MapScreen } from '@/screens/Map';
 import { FavoritesScreen } from '@/screens/Favorites';

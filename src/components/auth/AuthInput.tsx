@@ -1,3 +1,4 @@
+import { COLORS } from '@/constants/constants';
 import React, { useState } from 'react';
 import {
   Platform,
@@ -17,17 +18,6 @@ interface AuthInputProps extends TextInputProps {
   rightSlot?: React.ReactNode;
   containerStyle?: ViewStyle;
 }
-
-const COLORS = {
-  primary: '#1A6BF5',
-  inputBg: '#F7F9FC',
-  labelText: '#8A96A8',
-  placeholder: '#B0BAC9',
-  bodyText: '#1C2B4A',
-  error: '#E53E3E',
-  borderDefault: '#E2E8F4',
-  white: '#FFFFFF',
-};
 
 export const AuthInput = ({
   label,
@@ -101,16 +91,16 @@ const styles = StyleSheet.create({
   },
   containerFocused: {
     borderWidth: 1,
-    borderColor: COLORS.primary,
+    borderColor: COLORS.primaryAlt,
     ...Platform.select({
       ios: {
-        shadowColor: COLORS.primary,
+        shadowColor: COLORS.primaryAlt,
         shadowOpacity: 0.18,
       },
     }),
   },
   containerError: {
-    borderColor: COLORS.error,
+    borderColor: COLORS.error2,
   },
   input: {
     flex: 1,
@@ -130,6 +120,6 @@ const styles = StyleSheet.create({
     marginLeft: 7,
     marginTop: 4,
     fontSize: 12,
-    color: COLORS.error,
+    color: COLORS.error2,
   },
 });

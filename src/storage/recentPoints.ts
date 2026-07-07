@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MAX_RECENT, RECENT_STORAGE_KEY } from '@/constants/constantsMapScreen';
+import { MAX_RECENT, RECENT_STORAGE_KEY } from '@/constants/constants';
 import { SearchSuggestion } from '@/types/mapScreen.type';
 
 export const loadRecentFromStorage = async (): Promise<SearchSuggestion[]> => {

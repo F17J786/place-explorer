@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { MapType } from 'react-native-maps';
-import { COLORS, MAX_ZOOM, MIN_ZOOM } from '@/constants/constantsMapScreen';
+import { COLORS, MAX_ZOOM, MIN_ZOOM } from '@/constants/constants';
 import { styles } from '@/constants/stylesMapScreen';
 
 interface RightActionsProps {

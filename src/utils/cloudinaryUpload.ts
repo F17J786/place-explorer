@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_UPLOAD_PRESET,
-} from '@/constants/constantsReviewListScreen';
+} from '@/constants/constants';
 
 export const uploadImageToCloudinary = async (uri: string): Promise<string> => {
   const formData = new FormData();

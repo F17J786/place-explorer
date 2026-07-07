@@ -10,7 +10,7 @@ import { styles } from '@/constants/stylesPlaceDetailScreen';
 import {
   REVIEW_PREVIEW_LIMIT,
   CHECKIN_PREVIEW_LIMIT,
-} from '@/constants/constantsPlaceDetailScreen';
+} from '@/constants/constants';
 
 import { HeroSection } from '@/components/placedetail/HeroSection';
 import { InfoCard } from '@/components/placedetail/InfoCard';

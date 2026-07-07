@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useBottomSheet } from '@gorhom/bottom-sheet';
-import { COLORS } from '@/constants/constantsReviewListScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 
 interface FilterHandleComponentProps {

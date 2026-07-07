@@ -6,7 +6,7 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { FlatList, Text } from 'react-native';
 import { ReviewListRoutePropType } from '@/types/navigation';
 import { useGetReviewsByOsmIdQuery } from '@/store/api/placeDetailApi';
-import { COLORS } from '@/constants/constantsReviewListScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import { useReviewFilters } from '@/hooks/useReviewFilters';
 import { useReviewMutations } from '@/hooks/useReviewMutations';

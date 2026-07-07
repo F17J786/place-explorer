@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MediaThumb from '@/components/review/MediaThumb';
-import { COLORS } from '@/constants/constantsProfileReviewScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesProfileReviewScreen';
 import type { FlatMedia } from '@/types/placeDetail.types';
 import { Avatar } from '../placedetail/Avatar';

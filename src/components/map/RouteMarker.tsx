@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Marker } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { COLORS } from '@/constants/constantsMapScreen';
+import { COLORS } from '@/constants/constants';
 
 interface RouteMarkerProps {
   coordinate: { latitude: number; longitude: number };

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
-import { COLORS } from '@/constants/constantsCheckinListScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesCheckinListScreen';
 import type { Checkin } from '@/types/placeDetail.types';
 import { Avatar } from '../placedetail/Avatar';

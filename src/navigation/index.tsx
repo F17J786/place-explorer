@@ -3,12 +3,12 @@ import {
   NavigationContainer,
   useNavigationContainerRef,
 } from '@react-navigation/native';
-import { StatusBar, View } from 'react-native';
+import { StatusBar, StyleSheet, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { ActivityIndicator } from 'react-native-paper';
 
 import { RootNavigator } from '@/navigation/RootNavigator';
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 import type { RootStackParamList } from '@/navigation/types';
 import type { RootState } from '@/store';
 import { useBootstrap } from '@/hooks/useBootstrap';
@@ -106,7 +106,7 @@ export const AppNavigator = () => {
 
   if (!isReady) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={COLORS.primary} />
       </View>
     );
@@ -123,3 +123,11 @@ export const AppNavigator = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

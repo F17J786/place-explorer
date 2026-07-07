@@ -3,10 +3,7 @@ import { View, Text, FlatList } from 'react-native';
 import { useRoute, type RouteProp } from '@react-navigation/native';
 import { MediaLightbox } from '@/components/review/MediaThumb';
 import type { PlaceDetailStackParamList } from '@/types/navigation';
-import {
-  PREVIEW_LIMIT,
-  GRID_GAP,
-} from '@/constants/constantsProfileReviewScreen';
+import { PREVIEW_LIMIT, GRID_GAP } from '@/constants/constants';
 import { styles } from '@/constants/stylesProfileReviewScreen';
 import { useProfileReviewData } from '@/hooks/useProfileReviewData';
 import { useMediaLightbox } from '@/hooks/useMediaLightbox';

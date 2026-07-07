@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MediaThumb from '@/components/review/MediaThumb';
 import type { Review } from '@/types/placeDetail.types';
-import { COLORS } from '@/constants/constantsProfileReviewScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesProfileReviewScreen';
 import { StarRow } from '../placedetail/StarRow';
 

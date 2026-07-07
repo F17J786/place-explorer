@@ -6,7 +6,7 @@ import {
   MIN_IMAGE_SIZE,
   MAX_VIDEO_SIZE,
   MAX_VIDEO_DURATION,
-} from '@/constants/constantsReviewListScreen';
+} from '@/constants/constants';
 import type { MediaItem } from '@/types/reviewListScreen.types';
 
 interface UseMediaPickerParams {

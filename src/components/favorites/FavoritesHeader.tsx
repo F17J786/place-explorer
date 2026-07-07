@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesFavoritesScreen';
 
 type FavoritesHeaderProps = {

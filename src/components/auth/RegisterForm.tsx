@@ -11,7 +11,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { registerSchema } from '@/schemas/auth.schema';
 import type { RegisterFormValues } from '@/types/auth.types';
 import Icon from 'react-native-vector-icons/Feather';
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 
 export const RegisterForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);

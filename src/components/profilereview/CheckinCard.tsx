@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import type { Checkin } from '@/types/placeDetail.types';
-import { COLORS } from '@/constants/constantsProfileReviewScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesProfileReviewScreen';
 
 export const CheckinCard = ({

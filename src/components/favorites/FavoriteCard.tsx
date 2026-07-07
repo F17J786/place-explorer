@@ -2,12 +2,9 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 import type { Favorite, PlaceRecord } from '@/types/placeDetail.types';
-import {
-  CATEGORY_ICON,
-  CATEGORY_COLOR,
-} from '@/constants/constantsFavoritesScreen';
+import { CATEGORY_ICON, CATEGORY_COLOR } from '@/constants/constants';
 import { styles } from '@/constants/stylesFavoritesScreen';
 
 type FavoriteCardProps = {

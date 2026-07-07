@@ -11,7 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/Feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 import { ProfileMenuItem } from '@/components/profile/ProfileMenuItem';
 import { useProfile } from '@/hooks/useProfile';
 
@@ -38,7 +38,6 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.primary} />
 
-      {/* ── Header ── */}
       <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
         <Text style={styles.headerTitle}>Tài khoản</Text>
       </View>

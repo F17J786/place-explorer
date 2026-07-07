@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 
 interface ProfileMenuItemProps {
   icon: string;

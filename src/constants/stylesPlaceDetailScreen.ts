@@ -1,5 +1,5 @@
 import { StyleSheet, Platform, StatusBar } from 'react-native';
-import { COLORS } from '@/constants/constantsPlaceDetailScreen';
+import { COLORS } from '@/constants/constants';
 
 export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { COLORS, getConfig } from '@/constants/constantsMapScreen';
+import { COLORS, getConfig } from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
 import { styles } from '@/constants/stylesMapScreen';
 

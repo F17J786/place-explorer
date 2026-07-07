@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Region } from 'react-native-maps';
-import { OVERPASS_SERVERS } from '@/constants/constantsMapScreen';
+import { OVERPASS_SERVERS } from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
 
 export const fetchOverpassMarkers = async (

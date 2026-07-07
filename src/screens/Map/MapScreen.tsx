@@ -15,7 +15,7 @@ import {
   INITIAL_REGION,
   MAX_ZOOM,
   MIN_ZOOM,
-} from '@/constants/constantsMapScreen';
+} from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
 import { styles } from '@/constants/stylesMapScreen';
 import { loadLastRegion } from '@/storage/lastRegion';

@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { COLORS, getConfig } from '@/constants/constantsMapScreen';
+import { COLORS, getConfig } from '@/constants/constants';
 import { SearchSuggestion } from '@/types/mapScreen.type';
 import { styles } from '@/constants/stylesMapScreen';
 

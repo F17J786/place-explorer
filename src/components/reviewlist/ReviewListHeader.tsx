@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { COLORS } from '@/constants/constantsReviewListScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import type { Review } from '@/types/placeDetail.types';
 import type { FilterType, MediaItem } from '@/types/reviewListScreen.types';

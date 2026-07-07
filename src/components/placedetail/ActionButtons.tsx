@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { COLORS } from '@/constants/constantsPlaceDetailScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesPlaceDetailScreen';
 
 type ActionButtonsProps = {

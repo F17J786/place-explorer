@@ -6,7 +6,7 @@ import {
   BottomSheetBackdrop,
   useBottomSheetSpringConfigs,
 } from '@gorhom/bottom-sheet';
-import { COLORS, FILTER_OPTIONS } from '@/constants/constantsReviewListScreen';
+import { COLORS, FILTER_OPTIONS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import type { FilterType } from '@/types/reviewListScreen.types';
 import { FilterHandleComponent } from '@/components/reviewlist/FilterHandleComponent';

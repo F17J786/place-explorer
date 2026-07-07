@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { AuthErrorBanner } from '@/components/auth/AuthErrorBanner';
 import { AuthInput } from '@/components/auth/AuthInput';
 import { AuthSubmitButton } from '@/components/auth/AuthSubmitButton';
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 import { useProfile } from '@/hooks/useProfile';
 import { changePasswordSchema } from '@/schemas/profile.schema';
 import type { ChangePasswordFormValues } from '@/types/profile.types';

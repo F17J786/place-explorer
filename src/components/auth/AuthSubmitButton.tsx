@@ -48,7 +48,8 @@ export const AuthSubmitButton = ({
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         disabled={isLoading}
-        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+        hitSlop={styles.hitSlop}
+      >
         {isLoading ? (
           <ActivityIndicator color={AUTH_COLORS.white} />
         ) : (
@@ -75,5 +76,11 @@ const styles = StyleSheet.create({
   text: {
     ...AUTH_TYPOGRAPHY.button,
     color: AUTH_COLORS.white,
+  },
+  hitSlop: {
+    top: 8,
+    bottom: 8,
+    left: 8,
+    right: 8,
   },
 });

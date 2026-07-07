@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { Share } from 'react-native';
 import type { OsmMarker } from '@/types/mapScreen.type';
-import { SHARE_BASE_URL } from '@/constants/constantsPlaceDetailScreen';
+import { SHARE_BASE_URL } from '@/constants/constants';
 
 export const usePlaceShare = (
   place: OsmMarker,

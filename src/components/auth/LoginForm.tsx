@@ -11,7 +11,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { loginSchema } from '@/schemas/auth.schema';
 import type { LoginFormValues } from '@/types/auth.types';
 import Icon from 'react-native-vector-icons/Feather';
-import { COLORS } from '@/constants/colors';
+import { COLORS } from '@/constants/constants';
 
 type LoginFormProps = {
   onSuccess?: () => void;
@@ -85,7 +85,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             rightSlot={
               <TouchableOpacity
                 onPress={() => setIsPasswordVisible(v => !v)}
-                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                hitSlop={styles.hitSlop}
               >
                 <Icon
                   name={isPasswordVisible ? 'eye-off' : 'eye'}
@@ -101,7 +101,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
       <TouchableOpacity
         style={styles.forgotPassword}
         onPress={handleForgotPassword}
-        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        hitSlop={styles.hitSlop}
       ></TouchableOpacity>
 
       <AuthSubmitButton
@@ -121,5 +121,11 @@ const styles = StyleSheet.create({
   forgotPasswordText: {
     fontSize: 12,
     color: AUTH_COLORS.primaryLight,
+  },
+  hitSlop: {
+    top: 8,
+    bottom: 8,
+    left: 8,
+    right: 8,
   },
 });

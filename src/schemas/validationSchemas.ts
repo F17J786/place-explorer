@@ -1,4 +1,4 @@
-import { MAX_MEDIA } from '@/constants/constantsReviewListScreen';
+import { MAX_MEDIA } from '@/constants/constants';
 import { z } from 'zod';
 export const reviewSchema = z.object({
   rating: z.number().min(1, 'Vui lòng chọn số sao').max(5, 'Tối đa 5 sao'),

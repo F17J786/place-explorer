@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import type { OsmMarker } from '@/types/mapScreen.type';
-import { COLORS } from '@/constants/constantsPlaceDetailScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesPlaceDetailScreen';
 import { StarRow } from '@/components/placedetail/StarRow';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { COLORS } from '@/constants/constantsReviewListScreen';
+import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import { StarRow } from '../placedetail/StarRow';
 

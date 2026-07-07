@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { COLORS } from '@/constants/constantsMapScreen';
+import { COLORS } from '@/constants/constants';
 import { SearchSuggestion } from '@/types/mapScreen.type';
 import { styles } from '@/constants/stylesMapScreen';
 import { routeMarkerStyles } from './RouteMarker';

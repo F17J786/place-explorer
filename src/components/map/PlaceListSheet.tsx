@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { COLORS } from '@/constants/constantsMapScreen';
+import { COLORS } from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
 import { styles } from '@/constants/stylesMapScreen';
 import { MarkerRow } from './MarkerRow';
