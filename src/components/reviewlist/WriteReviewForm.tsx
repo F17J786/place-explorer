@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
   BackHandler,
 } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -50,6 +50,7 @@ export const WriteReviewForm = ({
   const [hint, setHint] = useState<{ text: string; index: number } | null>(
     null,
   );
+  const navigation = useNavigation();
 
   const {
     control,
@@ -85,13 +86,15 @@ export const WriteReviewForm = ({
             {
               text: 'Thoát',
               style: 'destructive',
-              onPress: () => onCancel?.(),
+              onPress: () => {
+                onCancel?.();
+                navigation.goBack();
+              },
             },
           ],
         );
         return true;
       };
-
       const sub = BackHandler.addEventListener(
         'hardwareBackPress',
         onBackPress,
