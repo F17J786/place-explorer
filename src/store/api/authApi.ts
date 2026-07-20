@@ -1,6 +1,7 @@
 import type { LoginFormValues } from '@/types/auth.types';
 import type { RegisterUserPayload, User } from '@/types/user';
 import { api } from '@/store/api/baseApi';
+import { isOfflineError } from '@/utils/offlineError';
 
 interface AuthApiError {
   status: number;
@@ -19,9 +20,18 @@ export const authApi = api.injectEndpoints({
         const result = await baseQuery({
           url: '/users',
           params: { email },
+          skipOfflineQueue: true,
         });
 
         if (result.error) {
+          if (isOfflineError(result.error)) {
+            return {
+              error: createAuthError(
+                0,
+                'Không có mạng. Vui lòng kết nối mạng để đăng nhập',
+              ),
+            };
+          }
           return { error: result.error };
         }
 
@@ -44,9 +54,18 @@ export const authApi = api.injectEndpoints({
       queryFn: async (payload, _api, _extraOptions, baseQuery) => {
         const existingResult = await baseQuery({
           url: '/users',
+          skipOfflineQueue: true,
         });
 
         if (existingResult.error) {
+          if (isOfflineError(existingResult.error)) {
+            return {
+              error: createAuthError(
+                0,
+                'Không có mạng. Vui lòng kết nối mạng để đăng ký',
+              ),
+            };
+          }
           return { error: existingResult.error };
         }
 
@@ -64,9 +83,18 @@ export const authApi = api.injectEndpoints({
           url: '/users',
           method: 'POST',
           data: payload,
+          skipOfflineQueue: true,
         });
 
         if (createResult.error) {
+          if (isOfflineError(createResult.error)) {
+            return {
+              error: createAuthError(
+                0,
+                'Không có mạng. Vui lòng kết nối mạng để đăng ký',
+              ),
+            };
+          }
           return { error: createResult.error };
         }
 

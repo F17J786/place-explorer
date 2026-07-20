@@ -29,24 +29,31 @@ export const useProfile = () => {
 
   const clearProfileError = () => setProfileError(null);
   const clearPasswordError = () => setPasswordError(null);
-  const { removeData } = useEncryptedStorage();
+  const { saveData, removeData } = useEncryptedStorage();
 
   const handleUpdateProfile = async (
     values: UpdateProfileFormValues,
-  ): Promise<boolean> => {
-    if (!user) return false;
+  ): Promise<{ success: boolean; queued: boolean }> => {
+    if (!user) return { success: false, queued: false };
     try {
       const updatedUser = await updateProfileMutation({
         id: user.id,
         ...values,
       }).unwrap();
       dispatch(setUser(updatedUser));
-      return true;
+
+      const queued = Boolean((updatedUser as any)?._pendingSync);
+
+      if (!queued) {
+        await saveData(STORAGE_KEYS.USER_PROFILE, updatedUser);
+      }
+
+      return { success: true, queued };
     } catch (e: any) {
       setProfileError(
         e?.data?.message ?? e?.data ?? 'Cập nhật thông tin thất bại',
       );
-      return false;
+      return { success: false, queued: false };
     }
   };
 

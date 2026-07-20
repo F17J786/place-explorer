@@ -42,7 +42,11 @@ export const useFavoriteAction = ({
     }
 
     if (isFavorited && favorite) {
-      await removeFavorite({ id: favorite.id, userId: user.id, osmId });
+      await removeFavorite({
+        id: favorite.id,
+        userId: String(user.id),
+        osmId,
+      });
       Alert.alert('Đã xoá', 'Đã xoá khỏi danh sách yêu thích.');
       return;
     }
@@ -59,7 +63,7 @@ export const useFavoriteAction = ({
     });
 
     await addFavorite({
-      userId: user.id,
+      userId: String(user.id),
       osmId,
       createdAt: new Date().toISOString(),
     });

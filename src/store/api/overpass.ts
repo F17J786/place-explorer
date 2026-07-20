@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Region } from 'react-native-maps';
 import { OVERPASS_SERVERS } from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
+import { isNetworkConnected } from '@/utils/isNetworkConnected';
 
 export const fetchOverpassMarkers = async (
   region: Region,
@@ -9,6 +10,12 @@ export const fetchOverpassMarkers = async (
   signal?: AbortSignal,
 ): Promise<OsmMarker[]> => {
   if (region.latitudeDelta > 1) return [];
+
+  const connected = await isNetworkConnected();
+  if (!connected) {
+    throw new Error('Không có mạng');
+  }
+
   const s = region.latitude - region.latitudeDelta / 2;
   const n = region.latitude + region.latitudeDelta / 2;
   const w = region.longitude - region.longitudeDelta / 2;

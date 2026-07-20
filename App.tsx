@@ -8,6 +8,7 @@ import { PaperProvider } from 'react-native-paper';
 import { AppNavigator } from '@/navigation';
 import { store } from '@/store';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { NetworkProvider } from '@/provider/NetworkProvider';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -15,18 +16,20 @@ const App = () => {
   return (
     <GestureHandlerRootView style={styles.root}>
       <Provider store={store}>
-        <SafeAreaProvider>
-          <PaperProvider>
-            <BottomSheetModalProvider>
-              <StatusBar
-                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-                backgroundColor="transparent"
-                translucent
-              />
-              <AppNavigator />
-            </BottomSheetModalProvider>
-          </PaperProvider>
-        </SafeAreaProvider>
+        <NetworkProvider>
+          <SafeAreaProvider>
+            <PaperProvider>
+              <BottomSheetModalProvider>
+                <StatusBar
+                  barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+                  backgroundColor="transparent"
+                  translucent
+                />
+                <AppNavigator />
+              </BottomSheetModalProvider>
+            </PaperProvider>
+          </SafeAreaProvider>
+        </NetworkProvider>
       </Provider>
     </GestureHandlerRootView>
   );

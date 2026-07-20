@@ -45,9 +45,11 @@ export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
 
   const onSubmit = async (values: UpdateProfileFormValues) => {
     clearProfileError();
-    const success = await handleUpdateProfile(values);
+    const { success, queued } = await handleUpdateProfile(values);
     if (success) {
-      showToast('Cập nhật thông tin thành công');
+      if (!queued) {
+        showToast('Cập nhật thông tin thành công');
+      }
       navigation.goBack();
     }
   };

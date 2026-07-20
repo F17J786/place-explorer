@@ -1,10 +1,15 @@
 import axios from 'axios';
 import { SearchSuggestion } from '@/types/mapScreen.type';
+import { isNetworkConnected } from '@/utils/isNetworkConnected';
 
 export const searchNominatim = async (
   query: string,
 ): Promise<SearchSuggestion[]> => {
   if (!query.trim() || query.length < 2) return [];
+
+  const connected = await isNetworkConnected();
+  if (!connected) return [];
+
   try {
     const res = await axios.get('https://nominatim.openstreetmap.org/search', {
       params: {

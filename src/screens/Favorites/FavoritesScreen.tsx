@@ -26,7 +26,15 @@ export const FavoritesScreen = () => {
     data: favorites = [],
     isLoading,
     refetch,
-  } = useGetFavoritesByUserQuery(user?.id ?? '', { skip: !user?.id });
+  } = useGetFavoritesByUserQuery(
+    {
+      userId: user?.id ?? '',
+      suppressOfflineToast: false,
+    },
+    {
+      skip: !user?.id,
+    },
+  );
 
   const osmIds = useMemo(() => favorites.map(f => f.osmId), [favorites]);
 

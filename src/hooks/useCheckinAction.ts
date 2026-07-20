@@ -4,12 +4,14 @@ import { promptForEnableLocationIfNeeded } from 'react-native-android-location-e
 import Geolocation from '@react-native-community/geolocation';
 import {
   useCreateCheckinMutation,
+  useGetCheckinsByOsmIdQuery,
   useUpsertPlaceMutation,
 } from '@/store/api/placeDetailApi';
 import type { OsmMarker } from '@/types/mapScreen.type';
 import type { User } from '@/types/user';
 import { showToast } from '@/utils/toast';
 import {
+  CHECKIN_COOLDOWN_MS,
   CHECKIN_MAX_DISTANCE_METERS,
   EARTH_RADIUS_METERS,
   GEOLOCATION_OPTIONS,
@@ -48,6 +50,7 @@ export const useCheckinAction = ({
 }: UseCheckinActionParams) => {
   const [checkinLoading, setCheckinLoading] = useState(false);
   const [createCheckin] = useCreateCheckinMutation();
+  const { data: checkins = [] } = useGetCheckinsByOsmIdQuery(osmId);
   const [upsertPlace] = useUpsertPlaceMutation();
 
   const handleCheckin = useCallback(async () => {
@@ -68,6 +71,22 @@ export const useCheckinAction = ({
     });
 
     setCheckinLoading(true);
+
+    const myLastCheckin = checkins.find(
+      c => String(c.userId) === String(user.id),
+    );
+    if (myLastCheckin) {
+      const elapsed = Date.now() - new Date(myLastCheckin.createdAt).getTime();
+      if (elapsed < CHECKIN_COOLDOWN_MS) {
+        const remainingMin = Math.ceil((CHECKIN_COOLDOWN_MS - elapsed) / 60000);
+        Alert.alert(
+          'Chưa thể check-in',
+          `Bạn vừa check-in tại đây. Thử lại sau ${remainingMin} phút.`,
+        );
+        setCheckinLoading(false);
+        return;
+      }
+    }
 
     try {
       const result = await PermissionsAndroid.requestMultiple([
@@ -153,6 +172,7 @@ export const useCheckinAction = ({
     amenityLabel,
     createCheckin,
     upsertPlace,
+    checkins,
   ]);
 
   return { checkinLoading, handleCheckin };

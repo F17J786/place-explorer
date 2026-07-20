@@ -10,10 +10,10 @@
     },
     {
       "id": "1",
-      "name": "Nguyễn Khoaaaa",
+      "name": "Nguyễn Khoaaa Nhuyễn Khoa ",
       "email": "abc@123.com",
       "password": "1234567",
-      "avatar": "https://avatars.githubusercontent.com/u/43445218",
+      "avatar": "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1784522235/works/images/xlwor9lqwvtaiq5xov3f.jpg",
       "createdAt": "2024-01-15T08:30:00Z"
     },
     {
@@ -367,6 +367,186 @@
       "thumbnailUrl": "https://i.pravatar.cc/150?img=29",
       "createdAt": "2026-07-02T02:36:05.479Z",
       "id": "cKEvdYfDEHg"
+    },
+    {
+      "osmId": "node_2614395023",
+      "osmType": "node",
+      "name": "Bún Bò Huế Nhân Trí 1",
+      "category": "restaurant",
+      "lat": 10.7622509,
+      "lng": 106.6762166,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
+      "createdAt": "2026-07-09T03:54:28.517Z",
+      "id": "8sCzlv8G0t8"
+    },
+    {
+      "osmId": "node_13629743723",
+      "osmType": "node",
+      "name": "Bún Riêu Chay",
+      "category": "restaurant",
+      "lat": 10.7679322,
+      "lng": 106.6716847,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
+      "createdAt": "2026-07-09T04:13:36.975Z",
+      "id": "mMEkusL9bek"
+    },
+    {
+      "osmId": "node_13607388956",
+      "osmType": "node",
+      "name": "Hủ Tiếu Chay Chú Quang",
+      "category": "restaurant",
+      "lat": 10.7624821,
+      "lng": 106.655196,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=43",
+      "createdAt": "2026-07-09T08:42:52.159Z",
+      "id": "0cowir36R7M"
+    },
+    {
+      "osmId": "node_12573947607",
+      "osmType": "node",
+      "name": "Cơm Tấm",
+      "category": "restaurant",
+      "lat": 10.7609741,
+      "lng": 106.6314602,
+      "address": "20C Đường Lương Minh Nguyệt, Ho Chi Minh City",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=10",
+      "createdAt": "2026-07-09T08:44:20.743Z",
+      "id": "SlOCUD35qjI"
+    },
+    {
+      "osmId": "node_13455849810",
+      "osmType": "node",
+      "name": "Bún cá sữa - Cơm rang giòn",
+      "category": "restaurant",
+      "lat": 10.8033493,
+      "lng": 106.6636197,
+      "address": "49 Trần Quốc Hoàn, Thành phố Hồ Chí Minh",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=2",
+      "createdAt": "2026-07-09T08:48:04.698Z",
+      "id": "iON9nfolepo"
+    },
+    {
+      "osmId": "node_3202583001",
+      "osmType": "node",
+      "name": "Quán Lẩu Dê 304",
+      "category": "restaurant",
+      "lat": 10.7966788,
+      "lng": 106.6649293,
+      "address": "359 Lê Văn Sỹ,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
+      "createdAt": "2026-07-09T08:48:44.849Z",
+      "id": "98BoLSfgpps"
+    },
+    {
+      "osmId": "node_12878325169",
+      "osmType": "node",
+      "name": "Kala Cà Phê & Món Chay",
+      "category": "restaurant",
+      "lat": 10.7956221,
+      "lng": 106.6681908,
+      "address": "41 Hẻm 226 Đường Lê Văn Sỹ,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=28",
+      "createdAt": "2026-07-09T09:00:45.190Z",
+      "id": "OO1JyFho14M"
+    },
+    {
+      "osmId": "node_12816068713",
+      "osmType": "node",
+      "name": "Quán Mì Nấm",
+      "category": "restaurant",
+      "lat": 10.7966415,
+      "lng": 106.6675088,
+      "address": "23 Tân Canh,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=25",
+      "createdAt": "2026-07-09T09:01:50.048Z",
+      "id": "JNgbt3vrlIk"
+    },
+    {
+      "osmId": "node_13081655342",
+      "osmType": "node",
+      "name": "Nhà Hàng Mộc Chay",
+      "category": "restaurant",
+      "lat": 10.8016736,
+      "lng": 106.633553,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=59",
+      "createdAt": "2026-07-09T09:02:58.109Z",
+      "id": "7bO7lZwMrMY"
+    },
+    {
+      "osmId": "node_12069333677",
+      "osmType": "node",
+      "name": "Nhà hàng Hải sản Hòn Thơm",
+      "category": "restaurant",
+      "lat": 10.8039306,
+      "lng": 106.6326517,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=39",
+      "createdAt": "2026-07-09T09:03:09.984Z",
+      "id": "oAzge7F5veA"
+    },
+    {
+      "osmId": "node_13279564667",
+      "osmType": "node",
+      "name": "Nhà Hàng Chay Chí Cao",
+      "category": "restaurant",
+      "lat": 10.8112046,
+      "lng": 106.6956158,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=5",
+      "createdAt": "2026-07-11T08:41:46.272Z",
+      "id": "J7jSabr_wgM"
+    },
+    {
+      "osmId": "node_13282555113",
+      "osmType": "node",
+      "name": "Phở Gia Long",
+      "category": "restaurant",
+      "lat": 10.9030842,
+      "lng": 106.6956071,
+      "address": "100 Gia Long,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
+      "createdAt": "2026-07-11T08:43:44.964Z",
+      "id": "tIK0o3mBqrI"
+    },
+    {
+      "osmId": "node_13720026346",
+      "osmType": "node",
+      "name": "Nhà thuốc Pharmacity",
+      "category": "pharmacy",
+      "lat": 11.0466014,
+      "lng": 106.678489,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
+      "createdAt": "2026-07-13T03:13:32.612Z",
+      "id": "nM8NiWIl6KU"
+    },
+    {
+      "osmId": "node_12680799270",
+      "osmType": "node",
+      "name": "Hạnh Dung",
+      "category": "restaurant",
+      "lat": 10.7712949,
+      "lng": 106.6501677,
+      "address": "113,115,117 Đường Âu Cơ,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
+      "createdAt": "2026-07-13T03:43:34.723Z",
+      "id": "R1NB3W3iW7Y"
+    },
+    {
+      "osmId": "node_9845754583",
+      "osmType": "node",
+      "name": "Mì Gia An Mỹ",
+      "category": "restaurant",
+      "lat": 11.0317566,
+      "lng": 106.6812355,
+      "address": "1074 Huỳnh Văn Lũy, Thủ Dầu Một",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
+      "createdAt": "2026-07-15T08:27:45.427Z",
+      "id": "uY8ac8sK9nY"
     }
   ],
   "reviews": [
@@ -431,16 +611,6 @@
       "mediaTypes": [],
       "createdAt": "2026-07-02T02:36:27.336Z",
       "id": "oZFsGmj8W0U"
-    },
-    {
-      "osmId": "node_12453142101",
-      "userId": 1,
-      "rating": 3,
-      "comment": "Okkkkkkkkk ",
-      "mediaUrls": [],
-      "mediaTypes": [],
-      "createdAt": "2026-07-07T09:47:10.389Z",
-      "id": "ucNNRY_92YU"
     }
   ],
   "favorites": [
@@ -449,12 +619,6 @@
       "osmId": "node_13720019089",
       "createdAt": "2026-06-24T08:01:21.919Z",
       "id": "__6vsOWMol0"
-    },
-    {
-      "userId": 1,
-      "osmId": "node_12645255890",
-      "createdAt": "2026-06-29T08:10:55.610Z",
-      "id": "BI4nGA5bEfg"
     },
     {
       "userId": 1,
@@ -529,12 +693,6 @@
       "id": "QtQmLPEzm4k"
     },
     {
-      "userId": 1,
-      "osmId": "node_8049390086",
-      "createdAt": "2026-06-29T08:14:32.077Z",
-      "id": "zN6dAcKRfwc"
-    },
-    {
       "userId": null,
       "osmId": "node_4089403710",
       "createdAt": "2026-06-30T04:26:19.954Z",
@@ -554,9 +712,15 @@
     },
     {
       "userId": 1,
+      "osmId": "node_12069333677",
+      "createdAt": "2026-07-09T09:07:07.918Z",
+      "id": "IeE0rKRqMhg"
+    },
+    {
+      "userId": 1,
       "osmId": "node_12453142101",
-      "createdAt": "2026-07-01T09:05:06.792Z",
-      "id": "sigIhW4C5uo"
+      "createdAt": "2026-07-17T02:55:24.797Z",
+      "id": "cqV2RnSl_Co"
     }
   ],
   "checkins": [
@@ -667,6 +831,96 @@
       "distanceMeters": 1416.8,
       "createdAt": "2026-07-02T04:23:57.356Z",
       "id": "STNnejjHg5I"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13282555113",
+      "lat": 10.91309,
+      "lng": 106.70229333333333,
+      "distanceMeters": 1330.7,
+      "createdAt": "2026-07-11T08:43:45.230Z",
+      "id": "kxoe7yq-Un0"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13282555113",
+      "lat": 10.91309,
+      "lng": 106.70229333333333,
+      "distanceMeters": 1330.7,
+      "createdAt": "2026-07-11T08:43:59.650Z",
+      "id": "s_ZLF8XXQfg"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13282555113",
+      "lat": 10.91309,
+      "lng": 106.70229333333333,
+      "distanceMeters": 1330.7,
+      "createdAt": "2026-07-11T08:44:57.506Z",
+      "id": "2uPjFQOq0sE"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019089",
+      "lat": 11.051969999999999,
+      "lng": 106.66784666666666,
+      "distanceMeters": 1429.7,
+      "createdAt": "2026-07-13T02:55:01.758Z",
+      "id": "w-QDDc0Y99o"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019090",
+      "lat": 11.050933333333335,
+      "lng": 106.66801666666667,
+      "distanceMeters": 1288.5,
+      "createdAt": "2026-07-13T03:44:17.787Z",
+      "id": "_VeZ4MHMgy8"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019088",
+      "lat": 11.050933333333335,
+      "lng": 106.66801666666667,
+      "distanceMeters": 1304.5,
+      "createdAt": "2026-07-13T04:16:39.852Z",
+      "id": "GcAds4qO8Xg"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019090",
+      "lat": 11.051333333333332,
+      "lng": 106.66783,
+      "distanceMeters": 1327.7,
+      "createdAt": "2026-07-13T06:58:28.296Z",
+      "id": "MnTiplgRKYc"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019088",
+      "lat": 11.051333333333332,
+      "lng": 106.66783,
+      "distanceMeters": 1343,
+      "createdAt": "2026-07-13T06:59:22.761Z",
+      "id": "U-_04qgU380"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019089",
+      "lat": 11.052126666666668,
+      "lng": 106.66796500000001,
+      "distanceMeters": 1427.7,
+      "createdAt": "2026-07-15T09:31:25.114Z",
+      "id": "XF86AoNSWCg"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019089",
+      "lat": 11.051835000000002,
+      "lng": 106.66788333333334,
+      "distanceMeters": 1418.6,
+      "createdAt": "2026-07-17T06:33:29.863Z",
+      "id": "cVVdoQUrDmU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

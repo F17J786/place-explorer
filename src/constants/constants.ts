@@ -106,6 +106,7 @@ export const OVERPASS_SERVERS = [
 ];
 
 export const CHECKIN_MAX_DISTANCE_METERS = 3000;
+export const CHECKIN_COOLDOWN_MS = 60 * 60 * 1000;
 export const EARTH_RADIUS_METERS = 6371000;
 
 export const GEOLOCATION_OPTIONS = {

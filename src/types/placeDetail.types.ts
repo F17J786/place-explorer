@@ -12,6 +12,7 @@ export interface Review {
     name: string;
     avatar: string;
   };
+  _pendingSync?: boolean;
 }
 
 export interface Favorite {
