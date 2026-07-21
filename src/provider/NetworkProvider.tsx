@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import NetInfo from '@react-native-community/netinfo';
 
 import { showToast } from '@/utils/toast';
-import { syncQueue, getQueue } from '@/services/offlineQueue';
+import { syncQueue, getQueue, type SyncResult } from '@/services/offlineQueue';
 import {
   NETWORK_TOAST_MESSAGE,
   SYNC_START_DELAY_MS,
@@ -12,13 +12,9 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setUser } from '@/store/slices/authSlice';
 import { useEncryptedStorage } from '@/hooks/useEncryptedStorage';
 import { STORAGE_KEYS } from '@/constants/storageKeys';
-import type { QueuedRequest } from '@/types/network.types';
-import {
-  clearPendingAvatarUpload,
-  getPendingAvatarUpload,
-} from '@/services/pendingAvatarUpload';
-import { uploadImageToCloudinary } from '@/utils/cloudinaryUpload';
 import { axiosInstance } from '@/services/axiosInstance';
+import { clearPendingTags, runPostSyncSideEffects } from '@/services/postSync';
+import { QueuedRequest } from '@/types/network.types';
 
 type ApiTagType = 'User' | 'Place' | 'Review' | 'Favorite' | 'Checkin';
 
@@ -26,9 +22,6 @@ const parseTag = (tag: string): { type: ApiTagType; id?: string } => {
   const [type, id] = tag.split(':');
   return id ? { type: type as ApiTagType, id } : { type: type as ApiTagType };
 };
-
-const collectTagsFromSynced = (synced: QueuedRequest[]) =>
-  synced.flatMap(req => req.invalidateTags ?? []).map(parseTag);
 
 let isSyncing = false;
 
@@ -41,73 +34,24 @@ export const NetworkProvider = ({ children }: NetworkProviderProps) => {
   const user = useAppSelector(state => state.auth.user);
   const userRef = useRef(user);
   userRef.current = user;
-  const { saveData } = useEncryptedStorage();
   const wasConnectedRef = useRef<boolean | null>(null);
 
   const handlePostSync = async (result: {
     synced: QueuedRequest[];
     failed: QueuedRequest[];
   }) => {
-    console.log(
-      '[NetworkProvider][DEBUG] handlePostSync result.synced =',
-      JSON.stringify(result.synced, null, 2),
-    );
+    const outcome = await runPostSyncSideEffects(result);
 
-    const tags = collectTagsFromSynced(result.synced);
-
-    const pendingAvatar = await getPendingAvatarUpload();
-    if (pendingAvatar) {
-      try {
-        const uploadedUrl = await uploadImageToCloudinary(
-          pendingAvatar.localUri,
-        );
-        await axiosInstance.patch(`/users/${pendingAvatar.userId}`, {
-          avatar: uploadedUrl,
-        });
-        await clearPendingAvatarUpload();
-        tags.push({ type: 'User', id: pendingAvatar.userId });
-
-        if (
-          userRef.current &&
-          String(userRef.current.id) === pendingAvatar.userId
-        ) {
-          const updatedUser = { ...userRef.current, avatar: uploadedUrl };
-          dispatch(setUser(updatedUser));
-          await saveData(STORAGE_KEYS.USER_PROFILE, updatedUser);
-        }
-      } catch (e) {
-        console.log(
-          '[NetworkProvider] Upload avatar pending thất bại, giữ lại để thử lần sau',
-          e,
-        );
-      }
+    if (outcome.updatedUser) {
+      dispatch(setUser(outcome.updatedUser));
+    } else if (outcome.avatarUpdated && userRef.current) {
+      const res = await axiosInstance.get(`/users/${userRef.current.id}`);
+      dispatch(setUser(res.data));
     }
 
-    const syncedProfileReq = result.synced.find(req =>
-      req.resourceKey?.startsWith('profile:'),
-    );
-
-    console.log(
-      '[NetworkProvider][DEBUG] syncedProfileReq =',
-      JSON.stringify(syncedProfileReq, null, 2),
-      'userRef.current =',
-      JSON.stringify(userRef.current, null, 2),
-    );
-
-    if (syncedProfileReq && userRef.current) {
-      try {
-        const res = await axiosInstance.get(`/users/${userRef.current.id}`);
-        const freshUser = res.data;
-        dispatch(setUser(freshUser));
-        await saveData(STORAGE_KEYS.USER_PROFILE, freshUser);
-        console.log('[NetworkProvider][DEBUG] Đã update Redux + storage');
-      } catch (e) {
-        console.log('[NetworkProvider] Fetch lại user sau sync thất bại', e);
-      }
-    }
-
-    if (tags.length > 0) {
-      dispatch(api.util.invalidateTags(tags));
+    if (outcome.tags.length > 0) {
+      dispatch(api.util.invalidateTags(outcome.tags));
+      await clearPendingTags();
     }
   };
 

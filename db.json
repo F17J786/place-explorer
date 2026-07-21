@@ -10,10 +10,10 @@
     },
     {
       "id": "1",
-      "name": "Nguyễn Khoaaa Nhuyễn Khoa ",
+      "name": "Nguyễn Khoaaa Nki",
       "email": "abc@123.com",
       "password": "1234567",
-      "avatar": "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1784522235/works/images/xlwor9lqwvtaiq5xov3f.jpg",
+      "avatar": "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1784600578/works/images/qgdohnvdroslpllxcdmb.jpg",
       "createdAt": "2024-01-15T08:30:00Z"
     },
     {
@@ -547,6 +547,54 @@
       "thumbnailUrl": "https://i.pravatar.cc/150?img=0",
       "createdAt": "2026-07-15T08:27:45.427Z",
       "id": "uY8ac8sK9nY"
+    },
+    {
+      "osmId": "node_4812716021",
+      "osmType": "node",
+      "name": "Com Tam Kieu Giang",
+      "category": "restaurant",
+      "lat": 10.4165896,
+      "lng": 106.3103275,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=7",
+      "createdAt": "2026-07-21T03:49:53.460Z",
+      "id": "l63B6w6afV4"
+    },
+    {
+      "osmId": "node_5246719121",
+      "osmType": "node",
+      "name": "Minh Tam Quán",
+      "category": "restaurant",
+      "lat": 10.4220551,
+      "lng": 106.3172792,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=6",
+      "createdAt": "2026-07-21T03:50:08.518Z",
+      "id": "htqPjGO2sDQ"
+    },
+    {
+      "osmId": "node_5359196921",
+      "osmType": "node",
+      "name": "Cháo má heo Hai gió",
+      "category": "restaurant",
+      "lat": 10.4212965,
+      "lng": 106.3165323,
+      "address": "",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=3",
+      "createdAt": "2026-07-21T03:52:19.589Z",
+      "id": "ekNuiQCaNFI"
+    },
+    {
+      "osmId": "node_4550116791",
+      "osmType": "node",
+      "name": "quán cà phê võng thủy điệp 2",
+      "category": "restaurant",
+      "lat": 10.3929946,
+      "lng": 106.3009005,
+      "address": "Quốc Lộ 1A,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=4",
+      "createdAt": "2026-07-21T03:52:57.472Z",
+      "id": "Ncr4CazxDu4"
     }
   ],
   "reviews": [
@@ -712,15 +760,33 @@
     },
     {
       "userId": 1,
-      "osmId": "node_12069333677",
-      "createdAt": "2026-07-09T09:07:07.918Z",
-      "id": "IeE0rKRqMhg"
-    },
-    {
-      "userId": 1,
       "osmId": "node_12453142101",
       "createdAt": "2026-07-17T02:55:24.797Z",
       "id": "cqV2RnSl_Co"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_5246719121",
+      "createdAt": "2026-07-21T03:51:05.161Z",
+      "id": "xgYbnqrjacM"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_4812716021",
+      "createdAt": "2026-07-21T03:52:03.876Z",
+      "id": "iD1e1J35pLg"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_5359196921",
+      "createdAt": "2026-07-21T03:52:19.677Z",
+      "id": "hZWw7pwXUNA"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_4550116791",
+      "createdAt": "2026-07-21T03:52:57.567Z",
+      "id": "p9KUWQejYPo"
     }
   ],
   "checkins": [

@@ -5,6 +5,8 @@ import { STORAGE_KEYS } from '@/constants/storageKeys';
 import { useEncryptedStorage } from '@/hooks/useEncryptedStorage';
 import { useAppDispatch } from '@/store/hooks';
 import { setUser } from '@/store/slices/authSlice';
+import { api } from '@/store/api/baseApi';
+import { readAndClearPendingTags } from '@/services/postSync';
 import { User } from '@/types/user';
 
 export const useBootstrap = () => {
@@ -23,6 +25,11 @@ export const useBootstrap = () => {
           if (user) {
             dispatch(setUser(user));
           }
+        }
+
+        const pendingTags = await readAndClearPendingTags();
+        if (pendingTags.length > 0) {
+          dispatch(api.util.invalidateTags(pendingTags));
         }
       } catch (e) {
         console.warn('Bootstrap error:', e);

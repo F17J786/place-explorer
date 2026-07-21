@@ -179,7 +179,7 @@ export const clearQueue = async () => {
   await AsyncStorage.removeItem(QUEUE_STORAGE_KEY);
 };
 
-interface SyncResult {
+export interface SyncResult {
   synced: QueuedRequest[];
   failed: QueuedRequest[];
 }
