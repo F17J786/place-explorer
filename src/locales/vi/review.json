@@ -1,0 +1,101 @@
+{
+  "validation": {
+    "rating": {
+      "required": "Vui lòng chọn số sao",
+      "max": "Tối đa 5 sao"
+    },
+    "comment": {
+      "required": "Vui lòng nhập nhận xét",
+      "minLength": "Nhận xét tối thiểu 10 ký tự",
+      "maxLength": "Nhận xét tối đa 1000 ký tự"
+    },
+    "media": {
+      "max": "Tối đa {{max}} ảnh/video"
+    }
+  },
+  "writeReview": {
+    "formTitle": "Viết đánh giá",
+    "ratingLabel": "Đánh giá của bạn",
+    "ratingHint": {
+      "1": "Rất tệ",
+      "2": "Tệ",
+      "3": "Bình thường",
+      "4": "Tốt",
+      "5": "Tuyệt vời"
+    },
+    "commentPlaceholder": "Chia sẻ trải nghiệm của bạn tại đây...",
+    "addMedia": "Thêm ảnh/video",
+    "cancel": "Hủy",
+    "submit": "Gửi đánh giá",
+    "updateSubmit": "Cập nhật đánh giá"
+  },
+  "unsavedChanges": {
+    "title": "Chưa gửi đánh giá",
+    "message": "Bạn có thay đổi chưa gửi. Muốn thoát không?",
+    "stay": "Ở lại",
+    "leave": "Thoát"
+  },
+  "uploadError": {
+    "title": "Lỗi",
+    "message": "Upload media thất bại. Vui lòng thử lại."
+  },
+  "filter": {
+    "title": "Bộ lọc",
+    "starChip": "{{star}} sao",
+    "clear": "Xóa",
+    "sortBy": "Sắp xếp theo",
+    "apply": "Áp dụng",
+    "option": {
+      "newest": "Mới nhất",
+      "star5": "⭐⭐⭐⭐⭐  5 sao",
+      "star4": "⭐⭐⭐⭐  4 sao",
+      "star3": "⭐⭐⭐  3 sao",
+      "star2": "⭐⭐  2 sao",
+      "star1": "⭐  1 sao"
+    }
+  },
+  "empty": {
+    "title": "Chưa có đánh giá nào",
+    "loginPrompt": "Đăng nhập để viết đánh giá"
+  },
+  "menu": {
+    "editReview": "Chỉnh sửa xếp hạng",
+    "deleteReview": "Xoá bài đánh giá"
+  },
+  "deleteConfirm": {
+    "title": "Xác nhận",
+    "message": "Bạn muốn xóa đánh giá này?",
+    "cancel": "Hủy"
+  },
+  "summary": {
+    "reviewCount": "{{count}} đánh giá"
+  },
+  "navTitle": "Danh sách đánh giá",
+  "mediaPicker": {
+    "limitReached": {
+      "title": "Giới hạn",
+      "message": "Tối đa {{max}} ảnh/video."
+    },
+    "videoTooLarge": {
+      "title": "Video quá lớn",
+      "message": "{{fileName}} vượt quá {{maxSizeMb}} MB."
+    },
+    "videoTooLong": {
+      "title": "Video quá dài",
+      "message": "{{fileName}} vượt quá {{maxSeconds}} giây."
+    },
+    "imageTooSmall": {
+      "title": "Ảnh quá nhỏ",
+      "message": "{{fileName}} nhỏ hơn {{minSizeKb}} KB."
+    },
+    "imageTooLarge": {
+      "title": "Ảnh quá lớn",
+      "message": "{{fileName}} vượt quá {{maxSizeMb}} MB."
+    },
+    "offline": {
+      "reviewAdded": "Đã thêm đánh giá!",
+      "reviewUpdated": "Đã cập nhật đánh giá!",
+      "reviewDeleted": "Đã xoá đánh giá!"
+    }
+  }
+}

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTranslation } from 'react-i18next';
 import { COLORS } from '@/constants/constants';
 import { SearchSuggestion } from '@/types/mapScreen.type';
 import { styles } from '@/constants/stylesMapScreen';
@@ -74,13 +75,16 @@ export const RoutePanel: React.FC<RoutePanelProps> = ({
   onSelectRecent,
   onSelectMyLocation,
 }) => {
+  const { t } = useTranslation('map');
   const showDropdown = routeCoordsEmpty && showRouteDropdownBase;
 
   return (
     <View style={styles.routePanel}>
       <View style={styles.routePanelHeader}>
         <Icon name="directions" size={18} color={COLORS.primary} />
-        <Text style={styles.routePanelTitle}>Chỉ đường</Text>
+        <Text style={styles.routePanelTitle}>
+          {t('placeDetail:actions.directions')}
+        </Text>
         <TouchableOpacity style={styles.routeCloseBtn} onPress={onClosePanel}>
           <Icon name="close" size={20} color={COLORS.textSec} />
         </TouchableOpacity>
@@ -119,12 +123,12 @@ export const RoutePanel: React.FC<RoutePanelProps> = ({
                 styles.routeInput,
                 inputAIsMyLoc && !inputAFocusHide && styles.routeInputMyLoc,
               ]}
-              placeholder="Chọn vị trí bắt đầu"
+              placeholder={t('routePanel.startPlaceholder')}
               placeholderTextColor={COLORS.textMuted}
               value={displayA}
               onFocus={() => onInputFocus('A')}
               onBlur={() => onInputBlur('A')}
-              onChangeText={t => onInputChange(t, 'A')}
+              onChangeText={text => onInputChange(text, 'A')}
             />
             {(inputAText.length > 0 || inputAIsMyLoc) && (
               <TouchableOpacity
@@ -147,12 +151,12 @@ export const RoutePanel: React.FC<RoutePanelProps> = ({
                 styles.routeInput,
                 inputBIsMyLoc && !inputBFocusHide && styles.routeInputMyLoc,
               ]}
-              placeholder="Chọn điểm đến"
+              placeholder={t('routePanel.destinationPlaceholder')}
               placeholderTextColor={COLORS.textMuted}
               value={displayB}
               onFocus={() => onInputFocus('B')}
               onBlur={() => onInputBlur('B')}
-              onChangeText={t => onInputChange(t, 'B')}
+              onChangeText={text => onInputChange(text, 'B')}
             />
             {(inputBText.length > 0 || inputBIsMyLoc) && (
               <TouchableOpacity
@@ -174,7 +178,7 @@ export const RoutePanel: React.FC<RoutePanelProps> = ({
         <View style={styles.routeLoadingRow}>
           <ActivityIndicator size="small" color={COLORS.primary} />
           <Text style={styles.routeLoadingText}>
-            {locating ? 'Đang lấy vị trí hiện tại...' : 'Đang tìm đường...'}
+            {locating ? t('status.locating') : t('routePanel.findingRoute')}
           </Text>
         </View>
       )}
@@ -227,14 +231,18 @@ export const RoutePanel: React.FC<RoutePanelProps> = ({
                         color={COLORS.primary}
                       />
                     </View>
-                    <Text style={styles.myLocText}>Vị trí của bạn</Text>
+                    <Text style={styles.myLocText}>
+                      {t('routePanel.yourLocation')}
+                    </Text>
                   </TouchableOpacity>
                 )}
 
               {recentPoints.length > 0 && (
                 <>
                   <View style={styles.recentHeader}>
-                    <Text style={styles.recentHeaderText}>Gần đây</Text>
+                    <Text style={styles.recentHeaderText}>
+                      {t('routePanel.recent')}
+                    </Text>
                   </View>
                   {recentPoints.map(s => (
                     <TouchableOpacity

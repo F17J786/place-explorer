@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { AUTH_COLORS, AUTH_TYPOGRAPHY } from '@/constants/authTheme';
 import { useImagePicker } from '@/hooks/useImagePicker';
@@ -12,6 +13,7 @@ interface AvatarPickerProps {
 }
 
 export const AvatarPicker = ({ value, onChange, error }: AvatarPickerProps) => {
+  const { t } = useTranslation('auth');
   const { pickFromGallery, pickFromCamera } = useImagePicker();
   const avatarUri = value;
 
@@ -31,7 +33,7 @@ export const AvatarPicker = ({ value, onChange, error }: AvatarPickerProps) => {
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.label}>Ảnh đại diện</Text>
+      <Text style={styles.label}>{t('register.avatarLabel')}</Text>
       <View style={styles.row}>
         {avatarUri ? (
           <Image source={{ uri: avatarUri }} style={styles.avatar} />
@@ -50,14 +52,18 @@ export const AvatarPicker = ({ value, onChange, error }: AvatarPickerProps) => {
             onPress={handlePickFromGallery}
             hitSlop={styles.hitSlop}
           >
-            <Text style={styles.actionButtonText}>Chọn ảnh</Text>
+            <Text style={styles.actionButtonText}>
+              {t('register.avatarPickGallery')}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.actionButton, styles.actionButtonOutline]}
             onPress={handlePickFromCamera}
             hitSlop={styles.hitSlop}
           >
-            <Text style={styles.actionButtonOutlineText}>Chụp ảnh</Text>
+            <Text style={styles.actionButtonOutlineText}>
+              {t('register.avatarPickCamera')}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
 import { COLORS } from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
 import { styles } from '@/constants/stylesMapScreen';
@@ -19,12 +20,14 @@ export const PlaceListSheet: React.FC<PlaceListSheetProps> = ({
   selectedAmenity,
   onSelectMarker,
 }) => {
+  const { t } = useTranslation('map');
+
   return (
     <View style={styles.bottomSheet}>
       <View style={styles.sheetHeader}>
         <View style={styles.sheetHeaderTitleRow}>
           <Icon name="place" size={20} color={COLORS.primary} />
-          <Text style={styles.sheetTitle}>Địa điểm trong vùng</Text>
+          <Text style={styles.sheetTitle}>{t('placeList.title')}</Text>
         </View>
         <View style={styles.liveChip}>
           <Text style={styles.liveText}>{'LIVE\nFEED'}</Text>
@@ -36,8 +39,8 @@ export const PlaceListSheet: React.FC<PlaceListSheetProps> = ({
           <Icon name="zoom-in" size={32} color="#CBD5E1" />
           <Text style={styles.emptyText}>
             {selectedAmenity
-              ? 'Không có địa điểm trong vùng này'
-              : 'Chọn danh mục để xem địa điểm'}
+              ? t('placeList.emptyInArea')
+              : t('placeList.selectCategory')}
           </Text>
         </View>
       ) : (

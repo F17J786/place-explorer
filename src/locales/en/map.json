@@ -1,0 +1,32 @@
+{
+  "status": {
+    "locating": "Getting current location...",
+    "loadingPlaces": "Loading places..."
+  },
+  "popup": {
+    "detail": "Details"
+  },
+  "placeList": {
+    "title": "Places nearby",
+    "emptyInArea": "No places in this area",
+    "selectCategory": "Select a category to view places"
+  },
+  "routePanel": {
+    "startPlaceholder": "Choose starting point",
+    "destinationPlaceholder": "Choose destination",
+    "findingRoute": "Finding route...",
+    "yourLocation": "Your location",
+    "recent": "Recent"
+  },
+  "searchBar": {
+    "placeholder": "Search places...",
+    "displayLabel": "SHOWN",
+    "searching": "Searching..."
+  },
+  "location": {
+    "gpsError": "Error getting current location. Try again"
+  },
+  "routeFetch": {
+    "notFound": "Could not find a route. Please try again"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "status": {
+    "locating": "Đang lấy vị trí hiện tại...",
+    "loadingPlaces": "Đang tải địa điểm..."
+  },
+  "popup": {
+    "detail": "Chi tiết"
+  },
+  "placeList": {
+    "title": "Địa điểm trong vùng",
+    "emptyInArea": "Không có địa điểm trong vùng này",
+    "selectCategory": "Chọn danh mục để xem địa điểm"
+  },
+  "routePanel": {
+    "startPlaceholder": "Chọn vị trí bắt đầu",
+    "destinationPlaceholder": "Chọn điểm đến",
+    "findingRoute": "Đang tìm đường...",
+    "yourLocation": "Vị trí của bạn",
+    "recent": "Gần đây"
+  },
+  "searchBar": {
+    "placeholder": "Tìm địa điểm...",
+    "displayLabel": "HIỂN\nTHỊ",
+    "searching": "Đang tìm..."
+  },
+  "location": {
+    "gpsError": "Lỗi lấy vị trí hiện tại. Thử lại"
+  },
+  "routeFetch": {
+    "notFound": "Không tìm được đường đi. Hãy thử lại"
+  }
+}

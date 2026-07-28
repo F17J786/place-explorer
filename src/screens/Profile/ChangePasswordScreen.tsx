@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Icon from 'react-native-vector-icons/Feather';
+import { useTranslation } from 'react-i18next';
 
 import { AuthErrorBanner } from '@/components/auth/AuthErrorBanner';
 import { AuthInput } from '@/components/auth/AuthInput';
@@ -12,14 +13,18 @@ import { useProfile } from '@/hooks/useProfile';
 import { changePasswordSchema } from '@/schemas/profile.schema';
 import type { ChangePasswordFormValues } from '@/types/profile.types';
 import { showToast } from '@/utils/toast';
+import { createErrorTranslator } from '@/utils/formError';
 
 interface ChangePasswordScreenProps {
   navigation?: any;
 }
 
+const translateError = createErrorTranslator('profile');
+
 export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
   navigation,
 }) => {
+  const { t } = useTranslation('profile');
   const [isOldVisible, setIsOldVisible] = useState(false);
   const [isNewVisible, setIsNewVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
@@ -50,7 +55,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
     clearPasswordError();
     const success = await handleChangePassword(values);
     if (success) {
-      showToast('Đổi mật khẩu thành công');
+      showToast(t('changePassword.successMessage'));
       navigation.goBack();
     }
   };
@@ -70,15 +75,15 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
           render={({ field: { onChange, onBlur, value } }) => (
             <AuthInput
               containerStyle={{ backgroundColor: COLORS.inputBg2 }}
-              label="Mật khẩu hiện tại"
-              placeholder="••••••••"
+              label={t('changePassword.oldPasswordLabel')}
+              placeholder={t('auth:register.passwordPlaceholder')}
               secureTextEntry={!isOldVisible}
               autoCapitalize="none"
               autoCorrect={false}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              error={errors.oldPassword?.message}
+              error={translateError(errors.oldPassword?.message)}
               leftSlot={
                 <Icon name="lock" size={18} color={COLORS.placeholder} />
               }
@@ -104,8 +109,8 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
           render={({ field: { onChange, onBlur, value } }) => (
             <AuthInput
               containerStyle={{ backgroundColor: COLORS.inputBg2 }}
-              label="Mật khẩu mới"
-              placeholder="••••••••"
+              label={t('changePassword.newPasswordLabel')}
+              placeholder={t('auth:register.passwordPlaceholder')}
               secureTextEntry={!isNewVisible}
               autoCapitalize="none"
               autoCorrect={false}
@@ -115,7 +120,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
                 trigger('confirmNewPassword');
               }}
               onBlur={onBlur}
-              error={errors.newPassword?.message}
+              error={translateError(errors.newPassword?.message)}
               leftSlot={
                 <Icon name="lock" size={18} color={COLORS.placeholder} />
               }
@@ -141,8 +146,8 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
           render={({ field: { onChange, onBlur, value } }) => (
             <AuthInput
               containerStyle={{ backgroundColor: COLORS.inputBg2 }}
-              label="Xác nhận mật khẩu mới"
-              placeholder="••••••••"
+              label={t('changePassword.confirmNewPasswordLabel')}
+              placeholder={t('auth:register.passwordPlaceholder')}
               secureTextEntry={!isConfirmVisible}
               autoCapitalize="none"
               autoCorrect={false}
@@ -152,7 +157,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
                 trigger('confirmNewPassword');
               }}
               onBlur={onBlur}
-              error={errors.confirmNewPassword?.message}
+              error={translateError(errors.confirmNewPassword?.message)}
               leftSlot={
                 <Icon name="lock" size={18} color={COLORS.placeholder} />
               }
@@ -173,7 +178,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
         />
 
         <AuthSubmitButton
-          title="Đổi mật khẩu"
+          title={t('changePassword.submitButton')}
           isLoading={isChangePasswordLoading}
           onPress={handleSubmit(onSubmit)}
         />

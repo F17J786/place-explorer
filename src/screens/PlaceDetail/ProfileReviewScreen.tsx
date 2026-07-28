@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { useRoute, type RouteProp } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { MediaLightbox } from '@/components/review/MediaThumb';
 import type { PlaceDetailStackParamList } from '@/types/navigation';
 import { PREVIEW_LIMIT, GRID_GAP } from '@/constants/constants';
@@ -15,6 +16,7 @@ import { CheckinCard } from '@/components/profilereview/CheckinCard';
 type RoutePropType = RouteProp<PlaceDetailStackParamList, 'ProfileReview'>;
 
 export const ProfileReviewScreen = () => {
+  const { t } = useTranslation('profileReview');
   const route = useRoute<RoutePropType>();
   const { userId, name: initialName, avatar: initialAvatar } = route.params;
 
@@ -72,7 +74,7 @@ export const ProfileReviewScreen = () => {
           return (
             <ProfileReviewCard
               item={item}
-              placeName={place?.name ?? 'Địa điểm'}
+              placeName={place?.name ?? t('common:unknownPlace')}
               placeAddress={place?.address}
               onOpenPlace={() => openPlace(item.osmId)}
               onOpenMedia={index => openReviewMedia(item, index)}
@@ -82,9 +84,9 @@ export const ProfileReviewScreen = () => {
         ListFooterComponent={
           <View>
             <View style={[styles.section, styles.sectionExtraPadding]}>
-              <Text style={styles.sectionTitle}>Tất cả check-in</Text>
+              <Text style={styles.sectionTitle}>{t('allCheckins')}</Text>
               {checkins.length === 0 && !checkinsLoading && (
-                <Text style={styles.emptyInlineText}>Chưa có check-in nào</Text>
+                <Text style={styles.emptyInlineText}>{t('noCheckins')}</Text>
               )}
             </View>
             {checkins.length > 0 && (
@@ -97,7 +99,7 @@ export const ProfileReviewScreen = () => {
                   return (
                     <CheckinCard
                       item={item}
-                      placeName={place?.name ?? 'Địa điểm'}
+                      placeName={place?.name ?? t('common:unknownPlace')}
                       placeAddress={place?.address}
                       onOpenPlace={() => openPlace(item.osmId)}
                     />

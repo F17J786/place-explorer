@@ -7,10 +7,13 @@ import {
   ChangePasswordScreen,
 } from '@/screens/Profile';
 import { createScreenOptions } from '@/screens/PlaceDetail';
+import { useTranslation } from 'react-i18next';
 
 const ProfileStack = createNativeStackNavigator();
 
 export const ProfileStackNavigator = () => {
+  const { t } = useTranslation();
+
   return (
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
       <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
@@ -18,14 +21,20 @@ export const ProfileStackNavigator = () => {
         name="PersonalInfo"
         component={PersonalInfoScreen}
         options={({ navigation }) =>
-          createScreenOptions({ navigation, title: 'Thông tin cá nhân' })
+          createScreenOptions({
+            navigation,
+            title: t('profile:menu.personalInfo'),
+          })
         }
       />
       <ProfileStack.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}
         options={({ navigation }) =>
-          createScreenOptions({ navigation, title: 'Đổi mật khẩu' })
+          createScreenOptions({
+            navigation,
+            title: t('profile:menu.changePassword'),
+          })
         }
       />
     </ProfileStack.Navigator>

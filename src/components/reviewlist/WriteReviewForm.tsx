@@ -14,11 +14,12 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 import {
   reviewSchema,
   type ReviewFormValues,
 } from '@/schemas/validationSchemas';
-import { MAX_MEDIA, COLORS, RATING_HINT_LABELS } from '@/constants/constants';
+import { MAX_MEDIA, COLORS, RATING_HINT_KEYS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import type { MediaItem } from '@/types/reviewListScreen.types';
 import { useMediaPicker } from '@/hooks/useMediaPicker';
@@ -26,6 +27,7 @@ import {
   uploadImageToCloudinary,
   uploadVideoToCloudinary,
 } from '@/utils/cloudinaryUpload';
+import { createErrorTranslator } from '@/utils/formError';
 
 interface WriteReviewFormProps {
   initialRating?: number;
@@ -37,15 +39,18 @@ interface WriteReviewFormProps {
   loading: boolean;
 }
 
+const translateError = createErrorTranslator('review');
+
 export const WriteReviewForm = ({
   initialRating = 0,
   initialComment = '',
   initialMedia = [],
-  submitLabel = 'Gửi đánh giá',
+  submitLabel,
   onSubmit,
   onCancel,
   loading,
 }: WriteReviewFormProps) => {
+  const { t } = useTranslation('review');
   const [uploading, setUploading] = useState(false);
   const [hint, setHint] = useState<{ text: string; index: number } | null>(
     null,
@@ -78,21 +83,17 @@ export const WriteReviewForm = ({
     useCallback(() => {
       const onBackPress = () => {
         if (!isDirty) return false;
-        Alert.alert(
-          'Chưa gửi đánh giá',
-          'Bạn có thay đổi chưa gửi. Muốn thoát không?',
-          [
-            { text: 'Ở lại', style: 'cancel' },
-            {
-              text: 'Thoát',
-              style: 'destructive',
-              onPress: () => {
-                onCancel?.();
-                navigation.goBack();
-              },
+        Alert.alert(t('unsavedChanges.title'), t('unsavedChanges.message'), [
+          { text: t('unsavedChanges.stay'), style: 'cancel' },
+          {
+            text: t('unsavedChanges.leave'),
+            style: 'destructive',
+            onPress: () => {
+              onCancel?.();
+              navigation.goBack();
             },
-          ],
-        );
+          },
+        ]);
         return true;
       };
       const sub = BackHandler.addEventListener(
@@ -100,7 +101,7 @@ export const WriteReviewForm = ({
         onBackPress,
       );
       return () => sub.remove();
-    }, [isDirty, onCancel]),
+    }, [isDirty, onCancel, t]),
   );
 
   const onValid = async (values: ReviewFormValues) => {
@@ -118,7 +119,7 @@ export const WriteReviewForm = ({
       );
       onSubmit(values.rating, values.comment, uploadedMedia);
     } catch {
-      Alert.alert('Lỗi', 'Upload media thất bại. Vui lòng thử lại.');
+      Alert.alert(t('uploadError.title'), t('uploadError.message'));
     } finally {
       setUploading(false);
     }
@@ -128,9 +129,9 @@ export const WriteReviewForm = ({
 
   return (
     <View style={styles.formCard}>
-      <Text style={styles.formTitle}>Viết đánh giá</Text>
+      <Text style={styles.formTitle}>{t('writeReview.formTitle')}</Text>
 
-      <Text style={styles.ratingLabel}>Đánh giá của bạn</Text>
+      <Text style={styles.ratingLabel}>{t('writeReview.ratingLabel')}</Text>
       <Controller
         control={control}
         name="rating"
@@ -149,7 +150,7 @@ export const WriteReviewForm = ({
                   onPress={() => {
                     onChange(i);
                     setHint({
-                      text: RATING_HINT_LABELS[i],
+                      text: t(RATING_HINT_KEYS[i]),
                       index: i,
                     });
                     setTimeout(() => setHint(null), 1500);
@@ -169,7 +170,9 @@ export const WriteReviewForm = ({
         )}
       />
       {errors.rating && (
-        <Text style={styles.errorText}>{errors.rating.message}</Text>
+        <Text style={styles.errorText}>
+          {translateError(errors.rating.message)}
+        </Text>
       )}
 
       <Controller
@@ -178,7 +181,7 @@ export const WriteReviewForm = ({
         render={({ field: { value, onChange, onBlur } }) => (
           <TextInput
             style={[styles.reviewInput, errors.comment && styles.inputError]}
-            placeholder="Chia sẻ trải nghiệm của bạn tại đây..."
+            placeholder={t('writeReview.commentPlaceholder')}
             placeholderTextColor={COLORS.textLight}
             multiline
             numberOfLines={4}
@@ -190,7 +193,9 @@ export const WriteReviewForm = ({
         )}
       />
       {errors.comment && (
-        <Text style={styles.errorText}>{errors.comment.message}</Text>
+        <Text style={styles.errorText}>
+          {translateError(errors.comment.message)}
+        </Text>
       )}
 
       {media.length > 0 && (
@@ -232,7 +237,9 @@ export const WriteReviewForm = ({
         {media.length === 0 && (
           <TouchableOpacity style={styles.mediaPickerBtn} onPress={pickMedia}>
             <Icon name="add-photo-alternate" size={20} color={COLORS.primary} />
-            <Text style={styles.mediaPickerText}>Thêm ảnh/video</Text>
+            <Text style={styles.mediaPickerText}>
+              {t('writeReview.addMedia')}
+            </Text>
             <Text style={styles.mediaCount}>
               {media.length}/{MAX_MEDIA}
             </Text>
@@ -245,7 +252,9 @@ export const WriteReviewForm = ({
               onPress={onCancel}
               disabled={isLoading}
             >
-              <Text style={styles.cancelBtnText}>Hủy</Text>
+              <Text style={styles.cancelBtnText}>
+                {t('writeReview.cancel')}
+              </Text>
             </TouchableOpacity>
           )}
           <TouchableOpacity
@@ -260,7 +269,9 @@ export const WriteReviewForm = ({
             ) : (
               <>
                 <Icon name="send" size={15} color={COLORS.white} />
-                <Text style={styles.submitBtnText}>{submitLabel}</Text>
+                <Text style={styles.submitBtnText}>
+                  {submitLabel ?? t('writeReview.submit')}
+                </Text>
               </>
             )}
           </TouchableOpacity>

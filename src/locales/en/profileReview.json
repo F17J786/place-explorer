@@ -1,0 +1,18 @@
+{
+  "unknownPlace": "Place",
+  "allCheckins": "All check-ins",
+  "noCheckins": "No check-ins yet",
+  "allReviews": "All reviews",
+  "noReviews": "No reviews yet",
+  "distanceMeters": "{{value}}m",
+  "distanceKm": "{{value}}km",
+  "stats": {
+    "reviews": "Reviews",
+    "media": "Photos/Videos"
+  },
+  "mediaSection": {
+    "title": "Posted photos & videos",
+    "collapse": "Collapse"
+  },
+  "navTitle": "Profile"
+}

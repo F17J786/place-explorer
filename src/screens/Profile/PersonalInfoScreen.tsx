@@ -3,6 +3,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Icon from 'react-native-vector-icons/Feather';
+import { useTranslation } from 'react-i18next';
 
 import { AuthErrorBanner } from '@/components/auth/AuthErrorBanner';
 import { AuthInput } from '@/components/auth/AuthInput';
@@ -13,14 +14,18 @@ import { useProfile } from '@/hooks/useProfile';
 import { updateProfileSchema } from '@/schemas/profile.schema';
 import type { UpdateProfileFormValues } from '@/types/profile.types';
 import { showToast } from '@/utils/toast';
+import { createErrorTranslator } from '@/utils/formError';
 
 interface PersonalInfoScreenProps {
   navigation?: any;
 }
 
+const translateError = createErrorTranslator('profile');
+
 export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
   navigation,
 }) => {
+  const { t } = useTranslation('profile');
   const {
     user,
     profileError,
@@ -48,7 +53,7 @@ export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
     const { success, queued } = await handleUpdateProfile(values);
     if (success) {
       if (!queued) {
-        showToast('Cập nhật thông tin thành công');
+        showToast(t('personalInfo.updateSuccess'));
       }
       navigation.goBack();
     }
@@ -70,7 +75,7 @@ export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
             <AvatarPicker
               value={value}
               onChange={onChange}
-              error={errors.avatar?.message}
+              error={translateError(errors.avatar?.message)}
             />
           )}
         />
@@ -84,14 +89,14 @@ export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
               leftSlot={
                 <Icon name="user" size={18} color={COLORS.placeholder} />
               }
-              label="Họ và tên"
-              placeholder="Nguyễn Văn A"
+              label={t('auth:register.fullNameLabel')}
+              placeholder={t('auth:register.fullNamePlaceholder')}
               autoCapitalize="words"
               autoCorrect={false}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              error={errors.name?.message}
+              error={translateError(errors.name?.message)}
             />
           )}
         />
@@ -105,21 +110,21 @@ export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
               leftSlot={
                 <Icon name="mail" size={18} color={COLORS.placeholder} />
               }
-              label="Email"
-              placeholder="you@example.com"
+              label={t('auth:register.emailLabel')}
+              placeholder={t('auth:register.emailPlaceholder')}
               keyboardType="email-address"
               autoCapitalize="none"
               autoCorrect={false}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              error={errors.email?.message}
+              error={translateError(errors.email?.message)}
             />
           )}
         />
 
         <AuthSubmitButton
-          title="Lưu thay đổi"
+          title={t('personalInfo.submitButton')}
           isLoading={isUpdateProfileLoading}
           onPress={handleSubmit(onSubmit)}
         />

@@ -1,0 +1,60 @@
+{
+  "actions": {
+    "directions": "Chỉ đường",
+    "checkin": "Check-in"
+  },
+  "checkinSection": {
+    "title": "Check-in",
+    "empty": "Chưa có check-in nào"
+  },
+  "infoCard": {
+    "reviewCount": "({{count}} đánh giá)",
+    "website": "Website"
+  },
+  "mediaGallery": {
+    "title": "Ảnh & Video"
+  },
+  "reviewSection": {
+    "title": "Đánh giá",
+    "empty": "Chưa có đánh giá nào",
+    "emptyHint": "Nhấn để xem & viết đánh giá"
+  },
+  "navTitle": {
+    "detail": "Chi tiết địa điểm"
+  },
+  "checkinAction": {
+    "loginRequired": {
+      "title": "Yêu cầu đăng nhập",
+      "message": "Bạn cần đăng nhập để check-in."
+    },
+    "tooSoon": {
+      "title": "Chưa thể check-in",
+      "message": "Bạn vừa check-in tại đây. Thử lại sau {{minutes}} phút."
+    },
+    "tooFar": {
+      "title": "Quá xa",
+      "message": "Bạn đang cách {{distance}}m. Cần trong phạm vi {{maxDistance}}m để check-in."
+    },
+    "success": {
+      "title": "Check-in thành công!",
+      "message": "Bạn đã check-in tại {{placeName}}"
+    },
+    "locationError": {
+      "title": "Lỗi vị trí",
+      "message": "Không thể lấy vị trí. Kiểm tra quyền GPS."
+    }
+  },
+  "favoriteAction": {
+    "loginRequired": {
+      "message": "Bạn cần đăng nhập để thêm vào yêu thích."
+    },
+    "removed": {
+      "title": "Đã xoá",
+      "message": "Đã xoá khỏi danh sách yêu thích."
+    },
+    "added": {
+      "title": "Đã lưu",
+      "message": "Đã thêm vào danh sách yêu thích!"
+    }
+  }
+}

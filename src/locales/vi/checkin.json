@@ -1,0 +1,12 @@
+{
+  "empty": {
+    "title": "Chưa có check-in nào",
+    "subtitle": "Hãy là người đầu tiên check-in tại đây!"
+  },
+  "checkinCount": "{{count}} lượt check-in",
+  "distanceAway": "Cách {{distance}}m",
+  "navTitle": "Danh sách check in",
+  "offline": {
+    "checkinSuccess": "Đã check-in thành công!"
+  }
+}

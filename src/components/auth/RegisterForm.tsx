@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 
 import { AuthErrorBanner } from '@/components/auth/AuthErrorBanner';
 import { AuthInput } from '@/components/auth/AuthInput';
@@ -12,8 +13,11 @@ import { registerSchema } from '@/schemas/auth.schema';
 import type { RegisterFormValues } from '@/types/auth.types';
 import Icon from 'react-native-vector-icons/Feather';
 import { COLORS } from '@/constants/constants';
+import { createErrorTranslator } from '@/utils/formError';
 
 export const RegisterForm = () => {
+  const translateError = createErrorTranslator('auth');
+  const { t } = useTranslation('auth');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
@@ -53,7 +57,7 @@ export const RegisterForm = () => {
           <AvatarPicker
             value={value}
             onChange={onChange}
-            error={errors.avatar?.message}
+            error={translateError(errors.avatar?.message)}
           />
         )}
       />
@@ -64,14 +68,14 @@ export const RegisterForm = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
             leftSlot={<Icon name="user" size={18} color={COLORS.placeholder} />}
-            label="Họ và tên"
-            placeholder="Nguyễn Văn A"
+            label={t('register.fullNameLabel')}
+            placeholder={t('register.fullNamePlaceholder')}
             autoCapitalize="words"
             autoCorrect={false}
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
-            error={errors.fullName?.message}
+            error={translateError(errors.fullName?.message)}
           />
         )}
       />
@@ -82,15 +86,15 @@ export const RegisterForm = () => {
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
             leftSlot={<Icon name="mail" size={18} color={COLORS.placeholder} />}
-            label="Email"
-            placeholder="you@example.com"
+            label={t('register.emailLabel')}
+            placeholder={t('register.emailPlaceholder')}
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
-            error={errors.email?.message}
+            error={translateError(errors.email?.message)}
           />
         )}
       />
@@ -100,15 +104,15 @@ export const RegisterForm = () => {
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
-            label="Mật khẩu"
-            placeholder="••••••••"
+            label={t('register.passwordLabel')}
+            placeholder={t('register.passwordPlaceholder')}
             secureTextEntry={!isPasswordVisible}
             autoCapitalize="none"
             autoCorrect={false}
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
-            error={errors.password?.message}
+            error={translateError(errors.password?.message)}
             leftSlot={<Icon name="lock" size={18} color={COLORS.placeholder} />}
             rightSlot={
               <TouchableOpacity
@@ -131,8 +135,8 @@ export const RegisterForm = () => {
         name="confirmPassword"
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
-            label="Xác nhận mật khẩu"
-            placeholder="••••••••"
+            label={t('register.confirmPasswordLabel')}
+            placeholder={t('register.confirmPasswordPlaceholder')}
             secureTextEntry={!isConfirmPasswordVisible}
             autoCapitalize="none"
             autoCorrect={false}
@@ -142,7 +146,7 @@ export const RegisterForm = () => {
               trigger('confirmPassword');
             }}
             onBlur={onBlur}
-            error={errors.confirmPassword?.message}
+            error={translateError(errors.confirmPassword?.message)}
             leftSlot={<Icon name="lock" size={18} color={COLORS.placeholder} />}
             rightSlot={
               <TouchableOpacity
@@ -161,7 +165,7 @@ export const RegisterForm = () => {
       />
 
       <AuthSubmitButton
-        title="Tạo tài khoản"
+        title={t('register.submitButton')}
         isLoading={isRegisterLoading}
         onPress={handleSubmit(onSubmit)}
       />

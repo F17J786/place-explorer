@@ -1,4 +1,5 @@
 import { api } from '@/store/api/baseApi';
+import i18n from 'i18next';
 import type {
   Review,
   Favorite,
@@ -168,7 +169,7 @@ export const placeDetailApi = api.injectEndpoints({
             `Review:${payload.osmId}`,
             `Review:user-${payload.userId}`,
           ],
-          offlineSuccessMessage: 'Đã thêm đánh giá!',
+          offlineSuccessMessage: i18n.t('review:offline.reviewAdded'),
         });
 
         if (result.error) {
@@ -230,7 +231,7 @@ export const placeDetailApi = api.injectEndpoints({
           invalidateTagsOnSync: [
             `Review:${(body as UpdateReviewPayload).osmId}`,
           ],
-          offlineSuccessMessage: 'Đã cập nhật đánh giá!',
+          offlineSuccessMessage: i18n.t('review:offline.reviewUpdated'),
         });
 
         if (result.error) {
@@ -297,7 +298,7 @@ export const placeDetailApi = api.injectEndpoints({
           method: 'DELETE',
           resourceKey,
           invalidateTagsOnSync: [`Review:${osmId}`, `Review:user-${userId}`],
-          offlineSuccessMessage: 'Đã xoá đánh giá!',
+          offlineSuccessMessage: i18n.t('review:offline.reviewDeleted'),
         });
 
         if (result.error) {
@@ -417,7 +418,7 @@ export const placeDetailApi = api.injectEndpoints({
             `Favorite:${payload.userId}-${payload.osmId}`,
             `Favorite:list-${payload.userId}`,
           ],
-          offlineSuccessMessage: 'Đã thêm vào yêu thích!',
+          offlineSuccessMessage: i18n.t('common:favoriteAdded'),
         });
 
         if (result.error) {
@@ -551,7 +552,7 @@ export const placeDetailApi = api.injectEndpoints({
             `Favorite:${userId}-${osmId}`,
             `Favorite:list-${userId}`,
           ],
-          offlineSuccessMessage: 'Đã xoá khỏi yêu thích!',
+          offlineSuccessMessage: i18n.t('common:favoriteRemoved'),
         });
 
         if (result.error) {
@@ -668,7 +669,7 @@ export const placeDetailApi = api.injectEndpoints({
             `Checkin:${payload.osmId}`,
             `Checkin:user-${payload.userId}`,
           ],
-          offlineSuccessMessage: 'Đã check-in thành công!',
+          offlineSuccessMessage: i18n.t('checkin:offline.checkinSuccess'),
         });
 
         if (result.error) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTranslation } from 'react-i18next';
 
 import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesFavoritesScreen';
@@ -26,6 +27,8 @@ export const FavoritesHeader = ({
   onToggleAll,
   onDelete,
 }: FavoritesHeaderProps) => {
+  const { t } = useTranslation('favorites');
+
   if (isSelectMode) {
     return (
       <View style={styles.header}>
@@ -34,7 +37,9 @@ export const FavoritesHeader = ({
         </TouchableOpacity>
         <View style={styles.headerRow}>
           <Text style={styles.headerTitle}>
-            {selectedCount > 0 ? `Đã chọn ${selectedCount}` : 'Chọn địa điểm'}
+            {selectedCount > 0
+              ? t('header.selectedCount', { count: selectedCount })
+              : t('header.selectPrompt')}
           </Text>
           <View style={styles.headerRight}>
             <TouchableOpacity
@@ -42,7 +47,9 @@ export const FavoritesHeader = ({
               onPress={onToggleAll}
             >
               <Text style={styles.headerTextBtnLabel}>
-                {isAllSelected ? 'Bỏ chọn' : 'Chọn tất cả'}
+                {isAllSelected
+                  ? t('header.deselectAll')
+                  : t('header.selectAll')}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -57,7 +64,7 @@ export const FavoritesHeader = ({
                   selectedCount === 0 && { opacity: 0.4 },
                 ]}
               >
-                Xoá
+                {t('common:button.delete')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -69,13 +76,15 @@ export const FavoritesHeader = ({
   return (
     <View style={styles.header}>
       <View style={styles.headerRow}>
-        <Text style={styles.headerTitle}>Yêu thích</Text>
+        <Text style={styles.headerTitle}>{t('header.title')}</Text>
         {hasFavorites && (
           <TouchableOpacity
             style={styles.headerTextBtn}
             onPress={onEnterSelectMode}
           >
-            <Text style={styles.headerTextBtnLabel}>Xoá</Text>
+            <Text style={styles.headerTextBtnLabel}>
+              {t('common:button.delete')}
+            </Text>
           </TouchableOpacity>
         )}
       </View>

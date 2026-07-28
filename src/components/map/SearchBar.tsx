@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
 import { COLORS, getConfig } from '@/constants/constants';
 import { SearchSuggestion } from '@/types/mapScreen.type';
 import { styles } from '@/constants/stylesMapScreen';
@@ -38,6 +39,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onSelectSuggestion,
   onOpenRoutePanel,
 }) => {
+  const { t } = useTranslation('map');
   const showSuggestions =
     searchFocused && (suggestions.length > 0 || searchLoading);
 
@@ -54,7 +56,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           />
           <TextInput
             style={styles.searchInput}
-            placeholder="Tìm địa điểm..."
+            placeholder={t('searchBar.placeholder')}
             placeholderTextColor={COLORS.textMuted}
             value={searchQuery}
             onChangeText={onChangeText}
@@ -70,7 +72,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         </View>
         <View style={styles.statsBox}>
           <Text style={styles.statsValue}>{resultCount}</Text>
-          <Text style={styles.statsLabel}>{'HIỂN\nTHỊ'}</Text>
+          <Text style={styles.statsLabel}>{t('searchBar.displayLabel')}</Text>
         </View>
         <TouchableOpacity
           style={styles.routeToggleBtn}
@@ -85,7 +87,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           {searchLoading && (
             <View style={styles.suggestLoading}>
               <ActivityIndicator size="small" color={COLORS.primary} />
-              <Text style={styles.suggestLoadingText}>Đang tìm...</Text>
+              <Text style={styles.suggestLoadingText}>
+                {t('searchBar.searching')}
+              </Text>
             </View>
           )}
           {suggestions.map(s => (

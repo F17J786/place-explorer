@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import NetInfo from '@react-native-community/netinfo';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
 import type { AxiosError, AxiosRequestConfig } from 'axios';
+import i18n from 'i18next';
 
 import { axiosInstance } from '@/services/axiosInstance';
 import { addToQueue } from '@/services/offlineQueue';
@@ -83,8 +84,7 @@ export const axiosBaseQuery =
           return {
             error: {
               status: OFFLINE_ERROR_STATUS,
-              message:
-                'Không có mạng, thao tác đã bị huỷ do triệt tiêu request trước đó',
+              message: i18n.t('common:offline.cancelledByNewerRequest'),
               isOffline: true,
               queued: false,
               cancelled: true,
@@ -100,7 +100,7 @@ export const axiosBaseQuery =
         return {
           error: {
             status: OFFLINE_ERROR_STATUS,
-            message: 'Không có mạng, đã lưu để đồng bộ sau',
+            message: i18n.t('common:offline.queuedForSync'),
             isOffline: true,
             queued: true,
           },
@@ -153,7 +153,7 @@ export const axiosBaseQuery =
       return {
         error: {
           status: OFFLINE_ERROR_STATUS,
-          message: 'Không có mạng',
+          message: i18n.t('common:offline.noConnection'),
           isOffline: true,
         },
       };

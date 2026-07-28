@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { Alert, PermissionsAndroid } from 'react-native';
 import { promptForEnableLocationIfNeeded } from 'react-native-android-location-enabler';
 import Geolocation from '@react-native-community/geolocation';
+import { useTranslation } from 'react-i18next';
 import {
   useCreateCheckinMutation,
   useGetCheckinsByOsmIdQuery,
@@ -48,6 +49,7 @@ export const useCheckinAction = ({
   place,
   amenityLabel,
 }: UseCheckinActionParams) => {
+  const { t } = useTranslation('placeDetail');
   const [checkinLoading, setCheckinLoading] = useState(false);
   const [createCheckin] = useCreateCheckinMutation();
   const { data: checkins = [] } = useGetCheckinsByOsmIdQuery(osmId);
@@ -55,7 +57,10 @@ export const useCheckinAction = ({
 
   const handleCheckin = useCallback(async () => {
     if (!isLoggedIn || !user) {
-      Alert.alert('Yêu cầu đăng nhập', 'Bạn cần đăng nhập để check-in.');
+      Alert.alert(
+        t('checkinAction.loginRequired.title'),
+        t('checkinAction.loginRequired.message'),
+      );
       return;
     }
 
@@ -80,8 +85,8 @@ export const useCheckinAction = ({
       if (elapsed < CHECKIN_COOLDOWN_MS) {
         const remainingMin = Math.ceil((CHECKIN_COOLDOWN_MS - elapsed) / 60000);
         Alert.alert(
-          'Chưa thể check-in',
-          `Bạn vừa check-in tại đây. Thử lại sau ${remainingMin} phút.`,
+          t('checkinAction.tooSoon.title'),
+          t('checkinAction.tooSoon.message', { minutes: remainingMin }),
         );
         setCheckinLoading(false);
         return;
@@ -108,7 +113,7 @@ export const useCheckinAction = ({
       try {
         await promptForEnableLocationIfNeeded();
       } catch {
-        showToast('Chưa có vị trí hiện tại. Thử lại');
+        showToast(t('common:location.notAvailable'));
         setCheckinLoading(false);
         return;
       }
@@ -127,10 +132,11 @@ export const useCheckinAction = ({
 
           if (distance > CHECKIN_MAX_DISTANCE_METERS) {
             Alert.alert(
-              'Quá xa',
-              `Bạn đang cách ${Math.round(
-                distance,
-              )}m. Cần trong phạm vi 100m để check-in.`,
+              t('checkinAction.tooFar.title'),
+              t('checkinAction.tooFar.message', {
+                distance: Math.round(distance),
+                maxDistance: CHECKIN_MAX_DISTANCE_METERS,
+              }),
             );
             setCheckinLoading(false);
             return;
@@ -146,15 +152,15 @@ export const useCheckinAction = ({
           });
 
           Alert.alert(
-            'Check-in thành công!',
-            `Bạn đã check-in tại ${place.name}`,
+            t('checkinAction.success.title'),
+            t('checkinAction.success.message', { placeName: place.name }),
           );
           setCheckinLoading(false);
         },
         err => {
           Alert.alert(
-            'Lỗi vị trí',
-            'Không thể lấy vị trí. Kiểm tra quyền GPS.',
+            t('checkinAction.locationError.title'),
+            t('checkinAction.locationError.message'),
           );
           setCheckinLoading(false);
           console.warn(err);
@@ -173,6 +179,7 @@ export const useCheckinAction = ({
     createCheckin,
     upsertPlace,
     checkins,
+    t,
   ]);
 
   return { checkinLoading, handleCheckin };

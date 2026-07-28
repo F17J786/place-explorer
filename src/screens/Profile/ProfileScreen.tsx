@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   Alert,
   Image,
@@ -10,28 +10,45 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useTranslation } from 'react-i18next';
 
 import { COLORS } from '@/constants/constants';
 import { ProfileMenuItem } from '@/components/profile/ProfileMenuItem';
+import { LanguagePickerSheet } from '@/components/profile/LanguagePickerSheet';
 import { useProfile } from '@/hooks/useProfile';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface ProfileScreenProps {
   navigation?: any;
 }
 
+const LANGUAGE_LABELS: Record<string, string> = {
+  en: 'English',
+  vi: 'Tiếng Việt',
+};
+
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation('profile');
   const { user, handleLogout } = useProfile();
+  const { currentLanguage, setLanguage } = useLanguage();
+  const languageSheetRef = useRef<BottomSheetModal>(null);
 
   const confirmLogout = () => {
-    Alert.alert('Đăng xuất', 'Bạn có chắc chắn muốn đăng xuất?', [
-      { text: 'Hủy', style: 'cancel' },
+    Alert.alert(t('logout.title'), t('logout.message'), [
+      { text: t('logout.cancel'), style: 'cancel' },
       {
-        text: 'Đăng xuất',
+        text: t('logout.confirm'),
         style: 'destructive',
         onPress: handleLogout,
       },
     ]);
+  };
+
+  const handleSelectLanguage = async (lang: 'en' | 'vi') => {
+    await setLanguage(lang);
+    languageSheetRef.current?.dismiss();
   };
 
   return (
@@ -39,7 +56,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
       <StatusBar barStyle="light-content" backgroundColor={COLORS.primary} />
 
       <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
-        <Text style={styles.headerTitle}>Tài khoản</Text>
+        <Text style={styles.headerTitle}>{t('title')}</Text>
       </View>
       <ScrollView
         contentContainerStyle={styles.content}
@@ -66,28 +83,42 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
         <View style={styles.menuGroup}>
           <ProfileMenuItem
             icon="user"
-            label="Thông tin cá nhân"
-            subtitle="Cập nhật họ tên, email, ảnh đại diện"
+            label={t('menu.personalInfo')}
+            subtitle={t('menu.personalInfoSubtitle')}
             onPress={() => navigation.navigate('PersonalInfo')}
           />
           <View style={styles.divider} />
           <ProfileMenuItem
             icon="lock"
-            label="Đổi mật khẩu"
-            subtitle="Thay đổi mật khẩu đăng nhập"
+            label={t('menu.changePassword')}
+            subtitle={t('menu.changePasswordSubtitle')}
             onPress={() => navigation.navigate('ChangePassword')}
+          />
+          <View style={styles.divider} />
+          <ProfileMenuItem
+            icon="translate"
+            iconSet="MaterialIcons"
+            label={t('menu.language')}
+            rightText={LANGUAGE_LABELS[currentLanguage]}
+            onPress={() => languageSheetRef.current?.present()}
           />
         </View>
 
         <View style={styles.menuGroup}>
           <ProfileMenuItem
             icon="log-out"
-            label="Đăng xuất"
+            label={t('menu.logout')}
             onPress={confirmLogout}
             danger
           />
         </View>
       </ScrollView>
+
+      <LanguagePickerSheet
+        ref={languageSheetRef}
+        currentLanguage={currentLanguage}
+        onSelect={handleSelectLanguage}
+      />
     </View>
   );
 };

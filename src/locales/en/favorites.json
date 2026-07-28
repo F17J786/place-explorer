@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "Favorites",
+    "selectPrompt": "Select places",
+    "selectedCount": "{{count}} selected",
+    "selectAll": "Select all",
+    "deselectAll": "Deselect all"
+  },
+  "empty": {
+    "title": "No favorite places yet",
+    "subtitle": "Long press the heart icon on the map to save a place."
+  },
+  "deleteConfirm": {
+    "singleTitle": "Remove place",
+    "singleMessage": "Remove \"{{name}}\" from favorites?",
+    "multipleTitle": "Remove favorite places",
+    "multipleMessage": "Do you want to remove {{count}} selected places?",
+    "doneTitle": "Removed",
+    "doneMessage_one": "Removed {{count}} place from favorites.",
+    "doneMessage_other": "Removed {{count}} places from favorites."
+  }
+}

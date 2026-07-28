@@ -1,12 +1,16 @@
 import { MAX_MEDIA } from '@/constants/constants';
 import { z } from 'zod';
+
 export const reviewSchema = z.object({
-  rating: z.number().min(1, 'Vui lòng chọn số sao').max(5, 'Tối đa 5 sao'),
+  rating: z
+    .number()
+    .min(1, { message: 'validation.rating.required' })
+    .max(5, { message: 'validation.rating.max' }),
   comment: z
     .string()
-    .min(1, 'Vui lòng nhập nhận xét')
-    .min(10, 'Nhận xét tối thiểu 10 ký tự')
-    .max(1000, 'Nhận xét tối đa 1000 ký tự'),
+    .min(1, { message: 'validation.comment.required' })
+    .min(10, { message: 'validation.comment.minLength' })
+    .max(1000, { message: 'validation.comment.maxLength' }),
   media: z
     .array(
       z.object({
@@ -17,7 +21,7 @@ export const reviewSchema = z.object({
         duration: z.number().optional(),
       }),
     )
-    .max(MAX_MEDIA, `Tối đa ${MAX_MEDIA} ảnh/video`),
+    .max(MAX_MEDIA, { message: 'validation.media.max' }),
 });
 
 export type ReviewFormValues = z.infer<typeof reviewSchema>;

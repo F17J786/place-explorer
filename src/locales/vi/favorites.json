@@ -1,0 +1,21 @@
+{
+  "header": {
+    "title": "Yêu thích",
+    "selectPrompt": "Chọn địa điểm",
+    "selectedCount": "Đã chọn {{count}}",
+    "selectAll": "Chọn tất cả",
+    "deselectAll": "Bỏ chọn"
+  },
+  "empty": {
+    "title": "Chưa có địa điểm yêu thích",
+    "subtitle": "Nhấn giữ biểu tượng tim trên bản đồ để lưu địa điểm."
+  },
+  "deleteConfirm": {
+    "singleTitle": "Xoá địa điểm",
+    "singleMessage": "Xoá \"{{name}}\" khỏi yêu thích?",
+    "multipleTitle": "Xoá địa điểm yêu thích",
+    "multipleMessage": "Bạn muốn xoá {{count}} địa điểm đã chọn?",
+    "doneTitle": "Đã xoá",
+    "doneMessage": "Đã xoá {{count}} địa điểm khỏi danh sách yêu thích."
+  }
+}

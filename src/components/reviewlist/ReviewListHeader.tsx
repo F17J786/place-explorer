@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
 import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import type { Review } from '@/types/placeDetail.types';
@@ -47,6 +48,8 @@ export const ReviewListHeader = ({
   onOpenFilter,
   onClearFilter,
 }: ReviewListHeaderProps) => {
+  const { t } = useTranslation('review');
+
   return (
     <View>
       {reviews.length > 0 && avgRating && (
@@ -67,7 +70,7 @@ export const ReviewListHeader = ({
               | 'image'
               | 'video',
           }))}
-          submitLabel="Cập nhật"
+          submitLabel={t('writeReview.updateSubmit')}
           onSubmit={onUpdate}
           onCancel={onEditCancel}
           loading={updating}
@@ -83,16 +86,16 @@ export const ReviewListHeader = ({
           <View style={styles.iconWrapper}>
             <Icon name="tune" size={18} color={COLORS.primary} />
           </View>
-          <Text style={styles.filterBtnText}>Bộ lọc</Text>
+          <Text style={styles.filterBtnText}>{t('filter.title')}</Text>
         </TouchableOpacity>
         {activeFilter !== 'newest' && (
           <TouchableOpacity
             onPress={onClearFilter}
             style={styles.filterClearChip}
           >
-            <Text
-              style={styles.filterClearChipText}
-            >{`${activeFilter} sao`}</Text>
+            <Text style={styles.filterClearChipText}>
+              {t('filter.starChip', { star: activeFilter })}
+            </Text>
             <Icon
               name="close"
               size={12}

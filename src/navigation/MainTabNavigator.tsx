@@ -1,19 +1,17 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
+import { useTranslation } from 'react-i18next';
 
 import { COLORS } from '@/constants/constants';
 import type { MainTabParamList } from '@/navigation/types';
 import { MapScreen } from '@/screens/Map';
 import { FavoritesScreen } from '@/screens/Favorites';
-
-const TABS = [
-  { key: 'Map', label: 'Bản đồ', icon: 'map' },
-  { key: 'Favorites', label: '', icon: 'heart', isFab: true },
-  { key: 'Profile', label: 'Tài khoản', icon: 'user' },
-] as const;
+import { PlaceDetailStackNavigator } from './PlaceDetailStackNavigator';
+import { ProfileStackNavigator } from './ProfileStackNavigator';
 
 interface CustomTabBarProps {
   state: { index: number; routes: { name: string; key: string }[] };
@@ -21,13 +19,18 @@ interface CustomTabBarProps {
 }
 
 const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
+  const { t } = useTranslation('common');
+
+  const TABS = [
+    { key: 'Map', label: t('tabs.map'), icon: 'map' },
+    { key: 'Favorites', label: '', icon: 'heart', isFab: true },
+    { key: 'Profile', label: t('tabs.profile'), icon: 'user' },
+  ] as const;
+
   const activeIdx = state.index;
   const activeRoute = state.routes[activeIdx];
-  console.log('activeRoute name:', activeRoute?.name);
   const focusedRouteName =
     getFocusedRouteNameFromRoute(activeRoute) ?? activeRoute.name;
-
-  console.log('focusedRouteName:', focusedRouteName);
 
   const isMapTab =
     activeRoute.name === 'Map' && focusedRouteName !== 'PlaceDetail';
@@ -37,7 +40,7 @@ const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
       style={isMapTab ? tabBarStyles.wrapperFloating : tabBarStyles.wrapper}
     >
       <View style={isMapTab ? tabBarStyles.barFloating : tabBarStyles.bar}>
-        {TABS.map((tab, idx) => {
+        {TABS.map(tab => {
           const isFab = 'isFab' in tab && tab.isFab;
           const isActive = !isFab && state.routes[activeIdx]?.name === tab.key;
 
@@ -48,7 +51,7 @@ const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
                 style={tabBarStyles.fabContainer}
                 activeOpacity={0.85}
                 onPress={() => navigation.navigate(tab.key)}
-                accessibilityLabel="Hỗ trợ"
+                accessibilityLabel={t('tabs.favoritesAccessibility')}
                 accessibilityRole="button"
               >
                 <View style={tabBarStyles.fab}>
@@ -174,11 +177,6 @@ const tabBarStyles = StyleSheet.create({
   },
 });
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { PlaceDetailStackNavigator } from './PlaceDetailStackNavigator';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import { ProfileStackNavigator } from './ProfileStackNavigator';
-
 const MapStack = createNativeStackNavigator();
 const FavStack = createNativeStackNavigator();
 
@@ -209,6 +207,7 @@ function FavoritesStackScreen() {
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 export const MainTabNavigator = () => {
+  const { t } = useTranslation('common');
   return (
     <Tab.Navigator
       tabBar={props => <CustomTabBar {...props} />}
@@ -221,7 +220,7 @@ export const MainTabNavigator = () => {
       <Tab.Screen
         name="Profile"
         component={ProfileStackNavigator}
-        options={{ title: 'Tài khoản' }}
+        options={{ title: t('tabs.profile') }}
       />
     </Tab.Navigator>
   );

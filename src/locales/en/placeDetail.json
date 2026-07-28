@@ -1,0 +1,61 @@
+{
+  "actions": {
+    "directions": "Directions",
+    "checkin": "Check in"
+  },
+  "checkinSection": {
+    "title": "Check-ins",
+    "empty": "No check-ins yet"
+  },
+  "infoCard": {
+    "reviewCount_one": "({{count}} review)",
+    "reviewCount_other": "({{count}} reviews)",
+    "website": "Website"
+  },
+  "mediaGallery": {
+    "title": "Photos & Videos"
+  },
+  "reviewSection": {
+    "title": "Reviews",
+    "empty": "No reviews yet",
+    "emptyHint": "Tap to view & write a review"
+  },
+  "navTitle": {
+    "detail": "Place Details"
+  },
+  "checkinAction": {
+    "loginRequired": {
+      "title": "Login required",
+      "message": "You need to log in to check in."
+    },
+    "tooSoon": {
+      "title": "Can't check in yet",
+      "message": "You just checked in here. Try again in {{minutes}} minutes."
+    },
+    "tooFar": {
+      "title": "Too far",
+      "message": "You are {{distance}}m away. You need to be within {{maxDistance}}m to check in."
+    },
+    "success": {
+      "title": "Checked in successfully!",
+      "message": "You checked in at {{placeName}}"
+    },
+    "locationError": {
+      "title": "Location error",
+      "message": "Could not get location. Check GPS permission."
+    }
+  },
+  "favoriteAction": {
+    "loginRequired": {
+      "message": "You need to log in to add to favorites."
+    },
+    "removed": {
+      "title": "Removed",
+      "message": "Removed from favorites."
+    },
+    "added": {
+      "title": "Saved",
+      "message": "Added to favorites!"
+    }
+  }
+}

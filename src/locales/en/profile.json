@@ -1,0 +1,56 @@
+{
+  "title": "Account",
+  "logout": {
+    "title": "Log out",
+    "message": "Are you sure you want to log out?",
+    "cancel": "Cancel",
+    "confirm": "Log out"
+  },
+  "menu": {
+    "personalInfo": "Personal Information",
+    "personalInfoSubtitle": "Update name, email, avatar",
+    "changePassword": "Change Password",
+    "changePasswordSubtitle": "Change your login password",
+    "language": "Language",
+    "logout": "Log out"
+  },
+  "language": {
+    "title": "Select language"
+  },
+  "validation": {
+    "name": {
+      "required": "Please enter your full name",
+      "minLength": "Full name must be at least 2 characters"
+    },
+    "email": {
+      "required": "Please enter your email",
+      "invalid": "Invalid email address"
+    },
+    "avatar": {
+      "required": "Please select an avatar"
+    },
+    "oldPassword": {
+      "required": "Please enter your current password"
+    },
+    "newPassword": {
+      "required": "Please enter your new password",
+      "minLength": "New password must be at least 6 characters",
+      "sameAsOld": "New password must be different from current password"
+    },
+    "confirmNewPassword": {
+      "required": "Please confirm your new password",
+      "mismatch": "Passwords do not match"
+    }
+  },
+  "personalInfo": {
+    "submitButton": "Save Changes",
+    "updateSuccess": "Profile updated successfully"
+  },
+  "changePassword": {
+    "oldPasswordLabel": "Current Password",
+    "newPasswordLabel": "New Password",
+    "confirmNewPasswordLabel": "Confirm New Password",
+    "submitButton": "Change Password",
+    "successMessage": "Password changed successfully"
+  }
+}

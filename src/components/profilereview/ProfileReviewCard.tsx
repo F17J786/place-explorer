@@ -6,6 +6,7 @@ import type { Review } from '@/types/placeDetail.types';
 import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesProfileReviewScreen';
 import { StarRow } from '../placedetail/StarRow';
+import { formatDate } from '@/utils/dateFormat';
 
 export const ProfileReviewCard = ({
   item,
@@ -45,9 +46,7 @@ export const ProfileReviewCard = ({
 
       <View style={styles.cardTopMeta}>
         <StarRow rating={item.rating} size={13} />
-        <Text style={styles.dateText}>
-          {new Date(item.createdAt).toLocaleDateString('vi-VN')}
-        </Text>
+        <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
       </View>
 
       {!!item.comment && <Text style={styles.comment}>{item.comment}</Text>}

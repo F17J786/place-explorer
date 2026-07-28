@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { Alert } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import {
   useAddFavoriteMutation,
   useRemoveFavoriteMutation,
@@ -28,6 +29,7 @@ export const useFavoriteAction = ({
   place,
   amenityLabel,
 }: UseFavoriteActionParams) => {
+  const { t } = useTranslation('placeDetail');
   const [addFavorite] = useAddFavoriteMutation();
   const [removeFavorite] = useRemoveFavoriteMutation();
   const [upsertPlace] = useUpsertPlaceMutation();
@@ -35,8 +37,8 @@ export const useFavoriteAction = ({
   const handleToggleFavorite = useCallback(async () => {
     if (!isLoggedIn || !user) {
       Alert.alert(
-        'Yêu cầu đăng nhập',
-        'Bạn cần đăng nhập để thêm vào yêu thích.',
+        t('checkinAction.loginRequired.title'),
+        t('favoriteAction.loginRequired.message'),
       );
       return;
     }
@@ -47,7 +49,10 @@ export const useFavoriteAction = ({
         userId: String(user.id),
         osmId,
       });
-      Alert.alert('Đã xoá', 'Đã xoá khỏi danh sách yêu thích.');
+      Alert.alert(
+        t('favoriteAction.removed.title'),
+        t('favoriteAction.removed.message'),
+      );
       return;
     }
 
@@ -68,7 +73,10 @@ export const useFavoriteAction = ({
       createdAt: new Date().toISOString(),
     });
 
-    Alert.alert('Đã lưu', 'Đã thêm vào danh sách yêu thích!');
+    Alert.alert(
+      t('favoriteAction.added.title'),
+      t('favoriteAction.added.message'),
+    );
   }, [
     isLoggedIn,
     user,
@@ -80,6 +88,7 @@ export const useFavoriteAction = ({
     addFavorite,
     removeFavorite,
     upsertPlace,
+    t,
   ]);
 
   return { handleToggleFavorite };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
 import { COLORS, getConfig } from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
 import { styles } from '@/constants/stylesMapScreen';
@@ -20,6 +21,8 @@ export const MarkerPopup: React.FC<MarkerPopupProps> = ({
   onDetail,
   onRoute,
 }) => {
+  const { t } = useTranslation('map');
+
   return (
     <Animated.View
       style={[
@@ -72,11 +75,13 @@ export const MarkerPopup: React.FC<MarkerPopupProps> = ({
           <View style={styles.popupActions}>
             <TouchableOpacity style={styles.popupDetailBtn} onPress={onDetail}>
               <Icon name="info" size={14} color={COLORS.white} />
-              <Text style={styles.popupDetailText}>Chi tiết</Text>
+              <Text style={styles.popupDetailText}>{t('popup.detail')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.popupRouteBtn} onPress={onRoute}>
               <Icon name="directions" size={14} color={COLORS.primary} />
-              <Text style={styles.popupRouteBtnText}>Chỉ đường</Text>
+              <Text style={styles.popupRouteBtnText}>
+                {t('placeDetail:actions.directions')}
+              </Text>
             </TouchableOpacity>
           </View>
         </>

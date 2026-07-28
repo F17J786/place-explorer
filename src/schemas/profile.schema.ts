@@ -3,26 +3,33 @@ import { z } from 'zod';
 export const updateProfileSchema = z.object({
   name: z
     .string()
-    .min(1, 'Vui lòng nhập họ và tên')
-    .min(2, 'Họ và tên phải có ít nhất 2 ký tự'),
-  email: z.string().min(1, 'Vui lòng nhập email').email('Email không hợp lệ'),
-  avatar: z.string().min(1, 'Vui lòng chọn ảnh đại diện'),
+    .min(1, { message: 'validation.name.required' })
+    .min(2, { message: 'validation.name.minLength' }),
+  email: z
+    .string()
+    .min(1, { message: 'validation.email.required' })
+    .email({ message: 'validation.email.invalid' }),
+  avatar: z.string().min(1, { message: 'validation.avatar.required' }),
 });
 
 export const changePasswordSchema = z
   .object({
-    oldPassword: z.string().min(1, 'Vui lòng nhập mật khẩu hiện tại'),
+    oldPassword: z
+      .string()
+      .min(1, { message: 'validation.oldPassword.required' }),
     newPassword: z
       .string()
-      .min(1, 'Vui lòng nhập mật khẩu mới')
-      .min(6, 'Mật khẩu mới phải có ít nhất 6 ký tự'),
-    confirmNewPassword: z.string().min(1, 'Vui lòng xác nhận mật khẩu mới'),
+      .min(1, { message: 'validation.newPassword.required' })
+      .min(6, { message: 'validation.newPassword.minLength' }),
+    confirmNewPassword: z
+      .string()
+      .min(1, { message: 'validation.confirmNewPassword.required' }),
   })
   .refine(data => data.newPassword === data.confirmNewPassword, {
-    message: 'Mật khẩu xác nhận không khớp',
+    message: 'validation.confirmNewPassword.mismatch',
     path: ['confirmNewPassword'],
   })
   .refine(data => data.newPassword !== data.oldPassword, {
-    message: 'Mật khẩu mới phải khác mật khẩu hiện tại',
+    message: 'validation.newPassword.sameAsOld',
     path: ['newPassword'],
   });

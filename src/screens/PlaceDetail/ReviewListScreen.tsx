@@ -4,6 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { FlatList, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { ReviewListRoutePropType } from '@/types/navigation';
 import { useGetReviewsByOsmIdQuery } from '@/store/api/placeDetailApi';
 import { COLORS } from '@/constants/constants';
@@ -15,6 +16,7 @@ import { ReviewListHeader } from '@/components/reviewlist/ReviewListHeader';
 import { FilterBottomSheet } from '@/components/reviewlist/FilterBottomSheet';
 
 export const ReviewListScreen = () => {
+  const { t } = useTranslation('review');
   const route = useRoute<ReviewListRoutePropType>();
   const { osmId } = route.params;
 
@@ -87,9 +89,9 @@ export const ReviewListScreen = () => {
                 size={52}
                 color={COLORS.textLight}
               />
-              <Text style={styles.emptyTitle}>Chưa có đánh giá nào</Text>
+              <Text style={styles.emptyTitle}>{t('empty.title')}</Text>
               {!isLoggedIn && (
-                <Text style={styles.emptyText}>Đăng nhập để viết đánh giá</Text>
+                <Text style={styles.emptyText}>{t('empty.loginPrompt')}</Text>
               )}
             </View>
           )

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { useBottomSheet } from '@gorhom/bottom-sheet';
+import { useTranslation } from 'react-i18next';
 import { styles } from '@/constants/stylesReviewListScreen';
 
 interface FilterApplyButtonProps {
@@ -8,6 +9,7 @@ interface FilterApplyButtonProps {
 }
 
 export const FilterApplyButton = ({ onApply }: FilterApplyButtonProps) => {
+  const { t } = useTranslation('review');
   const { close } = useBottomSheet();
   return (
     <TouchableOpacity
@@ -17,7 +19,7 @@ export const FilterApplyButton = ({ onApply }: FilterApplyButtonProps) => {
         close();
       }}
     >
-      <Text style={styles.bsApplyText}>Áp dụng</Text>
+      <Text style={styles.bsApplyText}>{t('filter.apply')}</Text>
     </TouchableOpacity>
   );
 };

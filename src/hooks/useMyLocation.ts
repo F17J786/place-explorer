@@ -2,9 +2,11 @@ import { useCallback, useState } from 'react';
 import { PermissionsAndroid } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import { promptForEnableLocationIfNeeded } from 'react-native-android-location-enabler';
+import { useTranslation } from 'react-i18next';
 import { showToast } from '@/utils/toast';
 
 export const useMyLocation = () => {
+  const { t } = useTranslation('map');
   const [locationPermission, setLocationPermission] = useState(false);
   const [myLocationCoord, setMyLocationCoord] = useState<{
     latitude: number;
@@ -52,14 +54,14 @@ export const useMyLocation = () => {
       hasPerm = await requestPermission();
     }
     if (!hasPerm) {
-      showToast('Chưa có vị trí hiện tại. Thử lại');
+      showToast(t('common:location.notAvailable'));
       return null;
     }
 
     try {
       await promptForEnableLocationIfNeeded();
     } catch {
-      showToast('Chưa có vị trí hiện tại. Thử lại');
+      showToast(t('common:location.notAvailable'));
       return null;
     }
 
@@ -69,7 +71,7 @@ export const useMyLocation = () => {
     const coord = await getMyCoord();
     setLocating(false);
     return coord;
-  }, [locationPermission, myLocationCoord, getMyCoord, requestPermission]);
+  }, [locationPermission, myLocationCoord, getMyCoord, requestPermission, t]);
 
   const startTracking = useCallback(
     async (
@@ -82,7 +84,7 @@ export const useMyLocation = () => {
         try {
           await promptForEnableLocationIfNeeded();
         } catch {
-          showToast('Chưa có vị trí hiện tại. Thử lại');
+          showToast(t('common:location.notAvailable'));
           return;
         }
 
@@ -99,7 +101,7 @@ export const useMyLocation = () => {
           },
           err => {
             console.log('GPS error:', err);
-            showToast('Lỗi lấy vị trí hiện tại. Thử lại');
+            showToast(t('location.gpsError'));
             setLocating(false);
           },
           { enableHighAccuracy: true, timeout: 10000 },
@@ -109,7 +111,7 @@ export const useMyLocation = () => {
         setLocating(false);
       }
     },
-    [requestPermission],
+    [requestPermission, t],
   );
 
   return {

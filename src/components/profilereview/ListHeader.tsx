@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
 import MediaThumb from '@/components/review/MediaThumb';
 import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesProfileReviewScreen';
@@ -36,6 +37,8 @@ export const ListHeader = ({
   previewLimit,
   gridGap,
 }: ListHeaderProps) => {
+  const { t } = useTranslation('profileReview');
+
   return (
     <View>
       <View style={styles.profileHeader}>
@@ -44,12 +47,12 @@ export const ListHeader = ({
         <View style={styles.statsRow}>
           <View style={styles.statItem}>
             <Text style={styles.statNum}>{reviewsCount}</Text>
-            <Text style={styles.statLabel}>Đánh giá</Text>
+            <Text style={styles.statLabel}>{t('stats.reviews')}</Text>
           </View>
           <View style={styles.statDivider} />
           <View style={styles.statItem}>
             <Text style={styles.statNum}>{allMediaCount}</Text>
-            <Text style={styles.statLabel}>Ảnh/Video</Text>
+            <Text style={styles.statLabel}>{t('stats.media')}</Text>
           </View>
         </View>
       </View>
@@ -57,11 +60,13 @@ export const ListHeader = ({
       {allMediaCount > 0 && (
         <View style={styles.section}>
           <View style={styles.sectionHeaderRow}>
-            <Text style={styles.sectionTitle}>Ảnh & video đã đăng</Text>
+            <Text style={styles.sectionTitle}>{t('mediaSection.title')}</Text>
             {allMediaCount > previewLimit && (
               <TouchableOpacity onPress={onToggleShowAllMedia}>
                 <Text style={styles.sectionAction}>
-                  {showAllMedia ? 'Thu gọn' : 'Xem tất cả'}
+                  {showAllMedia
+                    ? t('mediaSection.collapse')
+                    : t('common:seeAll')}
                 </Text>
               </TouchableOpacity>
             )}
@@ -100,9 +105,9 @@ export const ListHeader = ({
       )}
 
       <View style={[styles.section, styles.sectionExtraPadding]}>
-        <Text style={styles.sectionTitle}>Tất cả đánh giá</Text>
+        <Text style={styles.sectionTitle}>{t('allReviews')}</Text>
         {reviewsEmpty && !reviewsLoading && (
-          <Text style={styles.emptyInlineText}>Chưa có đánh giá nào</Text>
+          <Text style={styles.emptyInlineText}>{t('noReviews')}</Text>
         )}
       </View>
     </View>

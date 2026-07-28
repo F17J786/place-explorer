@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Alert } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import type { Favorite, PlaceRecord } from '@/types/placeDetail.types';
 
@@ -16,6 +17,7 @@ export const useFavoritesSelection = ({
   userId,
   removeFavorite,
 }: UseFavoritesSelectionParams) => {
+  const { t } = useTranslation('favorites');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [isSelectMode, setIsSelectMode] = useState(false);
 
@@ -53,12 +55,14 @@ export const useFavoritesSelection = ({
   const handleDeleteSingle = useCallback(
     (item: Favorite) => {
       Alert.alert(
-        'Xoá địa điểm',
-        `Xoá "${placesMap[item.osmId]?.name ?? item.osmId}" khỏi yêu thích?`,
+        t('deleteConfirm.singleTitle'),
+        t('deleteConfirm.singleMessage', {
+          name: placesMap[item.osmId]?.name ?? item.osmId,
+        }),
         [
-          { text: 'Huỷ', style: 'cancel' },
+          { text: t('common:button.cancel'), style: 'cancel' },
           {
-            text: 'Xoá',
+            text: t('common:button.delete'),
             style: 'destructive',
             onPress: () =>
               removeFavorite({
@@ -70,18 +74,18 @@ export const useFavoritesSelection = ({
         ],
       );
     },
-    [placesMap, removeFavorite, userId],
+    [placesMap, removeFavorite, userId, t],
   );
 
   const handleDelete = useCallback(() => {
     const count = selectedIds.size;
     Alert.alert(
-      'Xoá địa điểm yêu thích',
-      `Bạn muốn xoá ${count} địa điểm đã chọn?`,
+      t('deleteConfirm.multipleTitle'),
+      t('deleteConfirm.multipleMessage', { count }),
       [
-        { text: 'Huỷ', style: 'cancel' },
+        { text: t('common:button.cancel'), style: 'cancel' },
         {
-          text: 'Xoá',
+          text: t('common:button.delete'),
           style: 'destructive',
           onPress: async () => {
             const toDelete = favorites.filter((f: Favorite) =>
@@ -98,14 +102,14 @@ export const useFavoritesSelection = ({
             );
             setSelectedIds(new Set());
             Alert.alert(
-              'Đã xoá',
-              `Đã xoá ${count} địa điểm khỏi danh sách yêu thích.`,
+              t('deleteConfirm.doneTitle'),
+              t('deleteConfirm.doneMessage', { count }),
             );
           },
         },
       ],
     );
-  }, [selectedIds, favorites, removeFavorite, userId]);
+  }, [selectedIds, favorites, removeFavorite, userId, t]);
 
   return {
     selectedIds,

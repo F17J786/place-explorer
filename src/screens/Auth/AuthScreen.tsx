@@ -10,11 +10,17 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
+import CountryFlag from 'react-native-country-flag';
+import Icon from 'react-native-vector-icons/Feather';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 import { LoginForm } from '@/components/auth/LoginForm';
 import { RegisterForm } from '@/components/auth/RegisterForm';
+import { LanguagePickerSheet } from '@/components/profile/LanguagePickerSheet';
 import { AUTH_COLORS } from '@/constants/authTheme';
 import type { AuthTab } from '@/types/auth.types';
+import { useLanguage } from '@/hooks/useLanguage';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '@/navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -29,12 +35,21 @@ type AuthRouteProp = RouteProp<RootStackParamList, 'Auth'>;
 type AuthNavProp = NativeStackNavigationProp<RootStackParamList, 'Auth'>;
 
 export const AuthScreen = () => {
+  const { t } = useTranslation('auth');
   const route = useRoute<AuthRouteProp>();
   const navigation = useNavigation<AuthNavProp>();
   const redirectTo = route.params?.redirectTo;
 
   const insets = useSafeAreaInsets();
   const [activeTab, setActiveTab] = useState<AuthTab>('login');
+
+  const { currentLanguage, setLanguage } = useLanguage();
+  const languageSheetRef = useRef<BottomSheetModal>(null);
+
+  const handleSelectLanguage = async (lang: 'en' | 'vi') => {
+    await setLanguage(lang);
+    languageSheetRef.current?.dismiss();
+  };
 
   const formOpacity = useRef(new Animated.Value(1)).current;
   const formTranslateY = useRef(new Animated.Value(0)).current;
@@ -65,6 +80,20 @@ export const AuthScreen = () => {
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={styles.keyboardScrollContent}
     >
+      <TouchableOpacity
+        style={[styles.langButton, { top: insets.top - 10 }]}
+        onPress={() => languageSheetRef.current?.present()}
+        hitSlop={styles.hitSlop}
+      >
+        <View style={styles.langFlagWrapper}>
+          <CountryFlag
+            isoCode={currentLanguage === 'en' ? 'gb' : 'vn'}
+            size={23}
+          />
+        </View>
+        <Icon name="chevron-down" size={16} color={AUTH_COLORS.tabInactive} />
+      </TouchableOpacity>
+
       <ScrollView
         contentContainerStyle={[
           styles.scrollContent,
@@ -99,7 +128,7 @@ export const AuthScreen = () => {
                     : styles.tabTextInactive,
                 ]}
               >
-                Đăng nhập
+                {t('tabs.login')}
               </Text>
             </TouchableOpacity>
 
@@ -121,7 +150,7 @@ export const AuthScreen = () => {
                     : styles.tabTextInactive,
                 ]}
               >
-                Đăng ký
+                {t('tabs.register')}
               </Text>
             </TouchableOpacity>
           </View>
@@ -140,6 +169,11 @@ export const AuthScreen = () => {
           </Animated.View>
         </View>
       </ScrollView>
+      <LanguagePickerSheet
+        ref={languageSheetRef}
+        currentLanguage={currentLanguage}
+        onSelect={handleSelectLanguage}
+      />
     </KeyboardAwareScrollView>
   );
 };
@@ -240,5 +274,21 @@ const styles = StyleSheet.create({
     bottom: 8,
     left: 8,
     right: 8,
+  },
+  langButton: {
+    position: 'absolute',
+    right: 20,
+    zIndex: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  langFlagWrapper: {
+    width: 21,
+    height: 21,
+    borderRadius: 14,
+    overflow: 'hidden',
+    marginRight: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

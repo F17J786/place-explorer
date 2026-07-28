@@ -1,0 +1,42 @@
+{
+  "button": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "retry": "Retry",
+    "delete": "Delete"
+  },
+  "error": {
+    "noConnection": "No internet connection",
+    "generic": "Something went wrong"
+  },
+  "loading": "Loading...",
+  "anonymousUser": "Anonymous user",
+  "unknownPlace": "Place",
+  "seeAll": "See all",
+  "tabs": {
+    "map": "Map",
+    "profile": "Account",
+    "favoritesAccessibility": "Favorites"
+  },
+  "batteryPermission": {
+    "title": "Background permission needed",
+    "message": "For PlaceExplorer to sync data when offline, please go to Battery → Unrestricted to keep the app running smoothly.",
+    "later": "Later",
+    "openSettings": "Open Settings"
+  },
+  "location": {
+    "notAvailable": "Current location not available. Try again"
+  },
+  "offline": {
+    "noConnection": "No internet connection",
+    "queuedForSync": "No internet connection, saved to sync later",
+    "cancelledByNewerRequest": "No internet connection, action was cancelled by a newer request",
+    "favoriteRestoreFailed": "Could not restore the original favorite after the request was cancelled",
+    "queuedSuccess": "Saved, will sync when back online",
+    "syncSuccess": "Offline data synced",
+    "syncFailed": "Sync failed, please try again later"
+  },
+  "favoriteAdded": "Added to favorites!",
+  "favoriteRemoved": "Removed from favorites!"
+}

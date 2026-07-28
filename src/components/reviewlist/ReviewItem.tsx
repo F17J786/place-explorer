@@ -12,6 +12,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Menu } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
 import { PlaceDetailStackParamList } from '@/types/navigation';
 import type { Review } from '@/types/placeDetail.types';
 import MediaThumb, { MediaLightbox } from '@/components/review/MediaThumb';
@@ -19,6 +20,7 @@ import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import { StarRow } from '../placedetail/StarRow';
 import { Avatar } from '../placedetail/Avatar';
+import { formatDate } from '@/utils/dateFormat';
 
 type NavProp = NativeStackNavigationProp<
   PlaceDetailStackParamList,
@@ -38,6 +40,7 @@ export const ReviewItem = ({
   onEdit,
   onDelete,
 }: ReviewItemProps) => {
+  const { t } = useTranslation('review');
   const isOwn = currentUserId === String(item.userId);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [menuVisible, setMenuVisible] = useState(false);
@@ -49,6 +52,18 @@ export const ReviewItem = ({
       name: item.user?.name,
       avatar: item.user?.avatar,
     });
+  };
+
+  const confirmDelete = () => {
+    setMenuVisible(false);
+    Alert.alert(t('deleteConfirm.title'), t('deleteConfirm.message'), [
+      { text: t('deleteConfirm.cancel'), style: 'cancel' },
+      {
+        text: t('common:button.delete'),
+        style: 'destructive',
+        onPress: () => onDelete(item.id, String(item.userId)),
+      },
+    ]);
   };
 
   return (
@@ -63,13 +78,11 @@ export const ReviewItem = ({
           activeOpacity={0.6}
         >
           <Text style={styles.userName}>
-            {item.user?.name ?? 'Người dùng ẩn danh'}
+            {item.user?.name ?? t('common:anonymousUser')}
           </Text>
           <View style={styles.ratingRow}>
             <StarRow rating={item.rating} size={13} />
-            <Text style={styles.dateText}>
-              {new Date(item.createdAt).toLocaleDateString('vi-VN')}
-            </Text>
+            <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
           </View>
         </TouchableOpacity>
         {isOwn && (
@@ -98,22 +111,12 @@ export const ReviewItem = ({
               ]}
             >
               <Icon2 name="pencil-outline" size={16} color={COLORS.text} />
-              <Text style={styles.menuItemText}>Chỉnh sửa xếp hạng</Text>
+              <Text style={styles.menuItemText}>{t('menu.editReview')}</Text>
             </Pressable>
 
             <Pressable
               android_ripple={{ color: 'rgba(239,68,68,0.1)' }}
-              onPress={() => {
-                setMenuVisible(false);
-                Alert.alert('Xác nhận', 'Bạn muốn xóa đánh giá này?', [
-                  { text: 'Hủy', style: 'cancel' },
-                  {
-                    text: 'Xóa',
-                    style: 'destructive',
-                    onPress: () => onDelete(item.id, String(item.userId)),
-                  },
-                ]);
-              }}
+              onPress={confirmDelete}
               style={({ pressed }) => [
                 styles.menuItem,
                 pressed && { backgroundColor: COLORS.border },
@@ -121,7 +124,7 @@ export const ReviewItem = ({
             >
               <Icon2 name="delete-outline" size={16} color={COLORS.danger} />
               <Text style={[styles.menuItemText, { color: COLORS.danger }]}>
-                Xoá bài đánh giá
+                {t('menu.deleteReview')}
               </Text>
             </Pressable>
           </Menu>

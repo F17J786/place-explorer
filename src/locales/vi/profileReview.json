@@ -1,0 +1,17 @@
+{
+  "allCheckins": "Tất cả check-in",
+  "noCheckins": "Chưa có check-in nào",
+  "allReviews": "Tất cả đánh giá",
+  "noReviews": "Chưa có đánh giá nào",
+  "distanceMeters": "{{value}}m",
+  "distanceKm": "{{value}}km",
+  "stats": {
+    "reviews": "Đánh giá",
+    "media": "Ảnh/Video"
+  },
+  "mediaSection": {
+    "title": "Ảnh & video đã đăng",
+    "collapse": "Thu gọn"
+  },
+  "navTitle": "Trang cá nhân"
+}

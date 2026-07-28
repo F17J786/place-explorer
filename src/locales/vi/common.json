@@ -1,0 +1,42 @@
+{
+  "button": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "retry": "Thử lại",
+    "delete": "Xoá"
+  },
+  "error": {
+    "noConnection": "Không có kết nối mạng",
+    "generic": "Đã có lỗi xảy ra"
+  },
+  "loading": "Đang tải...",
+  "anonymousUser": "Người dùng ẩn danh",
+  "unknownPlace": "Địa điểm",
+  "seeAll": "Xem tất cả",
+  "tabs": {
+    "map": "Bản đồ",
+    "profile": "Tài khoản",
+    "favoritesAccessibility": "Yêu thích"
+  },
+  "batteryPermission": {
+    "title": "Cần cấp quyền chạy nền",
+    "message": "Để PlaceExplorer đồng bộ dữ liệu khi mất mạng, vui lòng vào Pin → Không hạn chế để app hoạt động ổn định.",
+    "later": "Để sau",
+    "openSettings": "Mở Settings"
+  },
+  "location": {
+    "notAvailable": "Chưa có vị trí hiện tại. Thử lại"
+  },
+  "offline": {
+    "noConnection": "Không có mạng",
+    "queuedForSync": "Không có mạng, đã lưu để đồng bộ sau",
+    "cancelledByNewerRequest": "Không có mạng, thao tác đã bị huỷ do triệt tiêu request trước đó",
+    "favoriteRestoreFailed": "Không thể khôi phục favorite gốc sau khi request bị triệt tiêu",
+    "queuedSuccess": "Đã lưu, sẽ đồng bộ khi có mạng",
+    "syncSuccess": "Đã đồng bộ dữ liệu offline",
+    "syncFailed": "Đồng bộ thất bại, thử lại sau"
+  },
+  "favoriteAdded": "Đã thêm vào yêu thích!",
+  "favoriteRemoved": "Đã xoá khỏi yêu thích!"
+}

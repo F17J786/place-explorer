@@ -9,6 +9,7 @@ import {
 import MapView, { PROVIDER_GOOGLE, MapType, Polyline } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useRoute } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 import {
   COLORS,
@@ -40,6 +41,7 @@ interface MapScreenProps {
 }
 
 export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
+  const { t } = useTranslation('map');
   const mapRef = useRef<MapView>(null);
   const popupAnim = useRef(new Animated.Value(0)).current;
 
@@ -195,7 +197,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
         <View style={styles.loadingBadge}>
           <ActivityIndicator size="small" color={COLORS.primary} />
           <Text style={styles.loadingText}>
-            {locating ? 'Đang lấy vị trí hiện tại...' : 'Đang tải địa điểm...'}
+            {locating ? t('status.locating') : t('status.loadingPlaces')}
           </Text>
         </View>
       )}

@@ -1,0 +1,56 @@
+{
+  "title": "Tài khoản",
+  "logout": {
+    "title": "Đăng xuất",
+    "message": "Bạn có chắc chắn muốn đăng xuất?",
+    "cancel": "Hủy",
+    "confirm": "Đăng xuất"
+  },
+  "menu": {
+    "personalInfo": "Thông tin cá nhân",
+    "personalInfoSubtitle": "Cập nhật họ tên, email, ảnh đại diện",
+    "changePassword": "Đổi mật khẩu",
+    "changePasswordSubtitle": "Thay đổi mật khẩu đăng nhập",
+    "language": "Ngôn ngữ",
+    "logout": "Đăng xuất"
+  },
+  "language": {
+    "title": "Chọn ngôn ngữ"
+  },
+  "validation": {
+    "name": {
+      "required": "Vui lòng nhập họ và tên",
+      "minLength": "Họ và tên phải có ít nhất 2 ký tự"
+    },
+    "email": {
+      "required": "Vui lòng nhập email",
+      "invalid": "Email không hợp lệ"
+    },
+    "avatar": {
+      "required": "Vui lòng chọn ảnh đại diện"
+    },
+    "oldPassword": {
+      "required": "Vui lòng nhập mật khẩu hiện tại"
+    },
+    "newPassword": {
+      "required": "Vui lòng nhập mật khẩu mới",
+      "minLength": "Mật khẩu mới phải có ít nhất 6 ký tự",
+      "sameAsOld": "Mật khẩu mới phải khác mật khẩu hiện tại"
+    },
+    "confirmNewPassword": {
+      "required": "Vui lòng xác nhận mật khẩu mới",
+      "mismatch": "Mật khẩu xác nhận không khớp"
+    }
+  },
+  "personalInfo": {
+    "submitButton": "Lưu thay đổi",
+    "updateSuccess": "Cập nhật thông tin thành công"
+  },
+  "changePassword": {
+    "oldPasswordLabel": "Mật khẩu hiện tại",
+    "newPasswordLabel": "Mật khẩu mới",
+    "confirmNewPasswordLabel": "Xác nhận mật khẩu mới",
+    "submitButton": "Đổi mật khẩu",
+    "successMessage": "Đổi mật khẩu thành công"
+  }
+}

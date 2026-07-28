@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import MediaThumb from '@/components/review/MediaThumb';
 import { styles } from '@/constants/stylesPlaceDetailScreen';
 import { SectionHeader } from '@/components/placedetail/SectionHeader';
@@ -16,11 +17,13 @@ export const MediaGallerySection = ({
   allMedia,
   onOpenLightbox,
 }: MediaGallerySectionProps) => {
+  const { t } = useTranslation('placeDetail');
+
   if (allMedia.length === 0) return null;
 
   return (
     <View style={styles.section}>
-      <SectionHeader title="Ảnh & Video" />
+      <SectionHeader title={t('mediaGallery.title')} />
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}

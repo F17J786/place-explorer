@@ -1,0 +1,102 @@
+{
+  "validation": {
+    "rating": {
+      "required": "Please select a rating",
+      "max": "Maximum 5 stars"
+    },
+    "comment": {
+      "required": "Please enter a comment",
+      "minLength": "Comment must be at least 10 characters",
+      "maxLength": "Comment must not exceed 1000 characters"
+    },
+    "media": {
+      "max": "Maximum {{max}} photos/videos"
+    }
+  },
+  "writeReview": {
+    "formTitle": "Write a Review",
+    "ratingLabel": "Your Rating",
+    "ratingHint": {
+      "1": "Very Poor",
+      "2": "Poor",
+      "3": "Average",
+      "4": "Good",
+      "5": "Excellent"
+    },
+    "commentPlaceholder": "Share your experience here...",
+    "addMedia": "Add photo/video",
+    "cancel": "Cancel",
+    "submit": "Submit Review",
+    "updateSubmit": "Update Review"
+  },
+  "unsavedChanges": {
+    "title": "Review not submitted",
+    "message": "You have unsaved changes. Do you want to leave?",
+    "stay": "Stay",
+    "leave": "Leave"
+  },
+  "uploadError": {
+    "title": "Error",
+    "message": "Media upload failed. Please try again."
+  },
+  "filter": {
+    "title": "Filter",
+    "starChip": "{{star}} stars",
+    "clear": "Clear",
+    "sortBy": "Sort by",
+    "apply": "Apply",
+    "option": {
+      "newest": "Newest",
+      "star5": "⭐⭐⭐⭐⭐  5 stars",
+      "star4": "⭐⭐⭐⭐  4 stars",
+      "star3": "⭐⭐⭐  3 stars",
+      "star2": "⭐⭐  2 stars",
+      "star1": "⭐  1 star"
+    }
+  },
+  "empty": {
+    "title": "No reviews yet",
+    "loginPrompt": "Log in to write a review"
+  },
+  "menu": {
+    "editReview": "Edit rating",
+    "deleteReview": "Delete review"
+  },
+  "deleteConfirm": {
+    "title": "Confirm",
+    "message": "Do you want to delete this review?",
+    "cancel": "Cancel"
+  },
+  "summary": {
+    "reviewCount_one": "{{count}} review",
+    "reviewCount_other": "{{count}} reviews"
+  },
+  "navTitle": "Review List",
+  "mediaPicker": {
+    "limitReached": {
+      "title": "Limit reached",
+      "message": "Maximum {{max}} photos/videos."
+    },
+    "videoTooLarge": {
+      "title": "Video too large",
+      "message": "{{fileName}} exceeds {{maxSizeMb}} MB."
+    },
+    "videoTooLong": {
+      "title": "Video too long",
+      "message": "{{fileName}} exceeds {{maxSeconds}} seconds."
+    },
+    "imageTooSmall": {
+      "title": "Image too small",
+      "message": "{{fileName}} is smaller than {{minSizeKb}} KB."
+    },
+    "imageTooLarge": {
+      "title": "Image too large",
+      "message": "{{fileName}} exceeds {{maxSizeMb}} MB."
+    },
+    "offline": {
+      "reviewAdded": "Review added!",
+      "reviewUpdated": "Review updated!",
+      "reviewDeleted": "Review deleted!"
+    }
+  }
+}

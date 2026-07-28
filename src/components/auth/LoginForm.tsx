@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslation } from 'react-i18next';
 
 import { AuthErrorBanner } from '@/components/auth/AuthErrorBanner';
 import { AuthInput } from '@/components/auth/AuthInput';
@@ -12,14 +13,17 @@ import { loginSchema } from '@/schemas/auth.schema';
 import type { LoginFormValues } from '@/types/auth.types';
 import Icon from 'react-native-vector-icons/Feather';
 import { COLORS } from '@/constants/constants';
+import { createErrorTranslator } from '@/utils/formError';
 
 type LoginFormProps = {
   onSuccess?: () => void;
 };
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
+  const { t } = useTranslation('auth');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { authError, clearAuthError, handleLogin, isLoginLoading } = useAuth();
+  const translateError = createErrorTranslator('auth');
 
   const {
     control,
@@ -53,15 +57,15 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
             leftSlot={<Icon name="mail" size={18} color={COLORS.placeholder} />}
-            label="Email"
-            placeholder="you@example.com"
+            label={t('login.emailLabel')}
+            placeholder={t('login.emailPlaceholder')}
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
-            error={errors.email?.message}
+            error={translateError(errors.email?.message)}
           />
         )}
       />
@@ -71,8 +75,8 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         name="password"
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
-            label="Mật khẩu"
-            placeholder="••••••••"
+            label={t('login.passwordLabel')}
+            placeholder={t('login.passwordPlaceholder')}
             secureTextEntry={!isPasswordVisible}
             autoCapitalize="none"
             returnKeyType="done"
@@ -80,7 +84,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
             value={value}
             onChangeText={onChange}
             onBlur={onBlur}
-            error={errors.password?.message}
+            error={translateError(errors.password?.message)}
             leftSlot={<Icon name="lock" size={18} color={COLORS.placeholder} />}
             rightSlot={
               <TouchableOpacity
@@ -102,10 +106,14 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
         style={styles.forgotPassword}
         onPress={handleForgotPassword}
         hitSlop={styles.hitSlop}
-      ></TouchableOpacity>
+      >
+        <Text style={styles.forgotPasswordText}>
+          {t('login.forgotPassword')}
+        </Text>
+      </TouchableOpacity>
 
       <AuthSubmitButton
-        title="Đăng nhập"
+        title={t('login.submitButton')}
         isLoading={isLoginLoading}
         onPress={handleSubmit(onSubmit)}
       />

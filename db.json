@@ -10,10 +10,10 @@
     },
     {
       "id": "1",
-      "name": "Nguyễn Khoaaa Nki",
+      "name": "Nguyễn Khoaaa Nkiiiiiiiii",
       "email": "abc@123.com",
       "password": "1234567",
-      "avatar": "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1784600578/works/images/qgdohnvdroslpllxcdmb.jpg",
+      "avatar": "https://res.cloudinary.com/dzjbxwjvs/image/upload/v1784618578/works/images/d86lao8ghjcrivaj4ldm.jpg",
       "createdAt": "2024-01-15T08:30:00Z"
     },
     {
@@ -787,6 +787,12 @@
       "osmId": "node_4550116791",
       "createdAt": "2026-07-21T03:52:57.567Z",
       "id": "p9KUWQejYPo"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019089",
+      "createdAt": "2026-07-27T09:58:01.048Z",
+      "id": "7CxorXvTI7M"
     }
   ],
   "checkins": [
@@ -987,6 +993,15 @@
       "distanceMeters": 1418.6,
       "createdAt": "2026-07-17T06:33:29.863Z",
       "id": "cVVdoQUrDmU"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019089",
+      "lat": 11.051895000000002,
+      "lng": 106.66797,
+      "distanceMeters": 1413.9,
+      "createdAt": "2026-07-27T09:57:33.116Z",
+      "id": "o7smyq175jg"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

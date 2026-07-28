@@ -131,20 +131,20 @@ export const MIN_IMAGE_SIZE = 10 * 1024;
 export const MAX_VIDEO_SIZE = 75 * 1024 * 1024;
 export const MAX_VIDEO_DURATION = 30;
 
-export const RATING_HINT_LABELS = [
+export const RATING_HINT_KEYS = [
   '',
-  'Rất tệ',
-  'Tệ',
-  'Bình thường',
-  'Tốt',
-  'Tuyệt vời',
+  'writeReview.ratingHint.1',
+  'writeReview.ratingHint.2',
+  'writeReview.ratingHint.3',
+  'writeReview.ratingHint.4',
+  'writeReview.ratingHint.5',
 ] as const;
 
-export const FILTER_OPTIONS: { id: FilterType; label: string }[] = [
-  { id: 'newest', label: 'Mới nhất' },
-  { id: 5, label: '⭐⭐⭐⭐⭐  5 sao' },
-  { id: 4, label: '⭐⭐⭐⭐  4 sao' },
-  { id: 3, label: '⭐⭐⭐  3 sao' },
-  { id: 2, label: '⭐⭐  2 sao' },
-  { id: 1, label: '⭐  1 sao' },
+export const FILTER_OPTIONS: { id: FilterType; labelKey: string }[] = [
+  { id: 'newest', labelKey: 'filter.option.newest' },
+  { id: 5, labelKey: 'filter.option.star5' },
+  { id: 4, labelKey: 'filter.option.star4' },
+  { id: 3, labelKey: 'filter.option.star3' },
+  { id: 2, labelKey: 'filter.option.star2' },
+  { id: 1, labelKey: 'filter.option.star1' },
 ];

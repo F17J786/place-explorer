@@ -6,6 +6,7 @@ import {
   BottomSheetBackdrop,
   useBottomSheetSpringConfigs,
 } from '@gorhom/bottom-sheet';
+import { useTranslation } from 'react-i18next';
 import { COLORS, FILTER_OPTIONS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import type { FilterType } from '@/types/reviewListScreen.types';
@@ -21,6 +22,7 @@ export const FilterBottomSheet = forwardRef<
   BottomSheetModal,
   FilterBottomSheetProps
 >(({ activeFilter, onApply }, ref) => {
+  const { t } = useTranslation('review');
   const [temp, setTemp] = useState<FilterType>(activeFilter);
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 80,
@@ -39,7 +41,9 @@ export const FilterBottomSheet = forwardRef<
       snapPoints={['38%']}
       enablePanDownToClose
       enableDynamicSizing={false}
-      handleComponent={() => <FilterHandleComponent title="Bộ lọc" />}
+      handleComponent={() => (
+        <FilterHandleComponent title={t('filter.title')} />
+      )}
       backgroundStyle={styles.bsBackground}
       animationConfigs={animationConfigs}
       backdropComponent={props => (
@@ -53,14 +57,14 @@ export const FilterBottomSheet = forwardRef<
       footerComponent={() => (
         <View style={styles.bsFooter}>
           <TouchableOpacity style={styles.bsClearBtn} onPress={handleClear}>
-            <Text style={styles.bsClearText}>Xóa</Text>
+            <Text style={styles.bsClearText}>{t('filter.clear')}</Text>
           </TouchableOpacity>
           <FilterApplyButton onApply={handleApply} />
         </View>
       )}
     >
       <View style={styles.bsContent}>
-        <Text style={styles.bsSectionTitle}>Sắp xếp theo</Text>
+        <Text style={styles.bsSectionTitle}>{t('filter.sortBy')}</Text>
         <View style={styles.bsChipRow}>
           {FILTER_OPTIONS.map(opt => (
             <TouchableOpacity
@@ -82,7 +86,7 @@ export const FilterBottomSheet = forwardRef<
                   temp === opt.id && styles.bsChipTextActive,
                 ]}
               >
-                {opt.label}
+                {t(opt.labelKey)}
               </Text>
             </TouchableOpacity>
           ))}

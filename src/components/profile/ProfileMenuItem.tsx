@@ -1,24 +1,31 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import { COLORS } from '@/constants/constants';
 
 interface ProfileMenuItemProps {
   icon: string;
+  iconSet?: 'Feather' | 'MaterialIcons';
   label: string;
   subtitle?: string;
+  rightText?: string;
   onPress: () => void;
   danger?: boolean;
 }
 
 export const ProfileMenuItem = ({
   icon,
+  iconSet = 'Feather',
   label,
   subtitle,
+  rightText,
   onPress,
   danger = false,
 }: ProfileMenuItemProps) => {
+  const IconComponent = iconSet === 'MaterialIcons' ? MaterialIcon : Icon;
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -31,7 +38,7 @@ export const ProfileMenuItem = ({
           danger ? styles.iconWrapperDanger : styles.iconWrapperDefault,
         ]}
       >
-        <Icon
+        <IconComponent
           name={icon}
           size={20}
           color={danger ? COLORS.error : COLORS.primary}
@@ -44,6 +51,8 @@ export const ProfileMenuItem = ({
         </Text>
         {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
       </View>
+
+      {rightText ? <Text style={styles.rightText}>{rightText}</Text> : null}
 
       {!danger && (
         <Icon name="chevron-right" size={20} color={COLORS.placeholder} />
@@ -89,5 +98,10 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontSize: 12,
     color: COLORS.textSecondary,
+  },
+  rightText: {
+    fontSize: 14,
+    color: COLORS.textSecondary,
+    marginRight: 4,
   },
 });

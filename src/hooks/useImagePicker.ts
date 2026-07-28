@@ -6,6 +6,8 @@ import {
   type CameraOptions,
   type ImageLibraryOptions,
 } from 'react-native-image-picker';
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 const IMAGE_PICKER_OPTIONS: ImageLibraryOptions & CameraOptions = {
   mediaType: 'photo',
@@ -23,10 +25,10 @@ const requestCameraPermission = async (): Promise<boolean> => {
   const granted = await PermissionsAndroid.request(
     PermissionsAndroid.PERMISSIONS.CAMERA,
     {
-      title: 'Quyền truy cập camera',
-      message: 'Ứng dụng cần quyền camera để chụp ảnh đại diện',
-      buttonPositive: 'Đồng ý',
-      buttonNegative: 'Huỷ',
+      title: i18n.t('auth:imagePicker.cameraPermission.title'),
+      message: i18n.t('auth:imagePicker.cameraPermission.message'),
+      buttonPositive: i18n.t('auth:imagePicker.cameraPermission.accept'),
+      buttonNegative: i18n.t('common:button.cancel'),
     },
   );
 
@@ -34,6 +36,8 @@ const requestCameraPermission = async (): Promise<boolean> => {
 };
 
 export const useImagePicker = () => {
+  const { t } = useTranslation('auth');
+
   const pickFromGallery = useCallback(async (): Promise<string | null> => {
     const result = await launchImageLibrary(IMAGE_PICKER_OPTIONS);
 
@@ -48,7 +52,10 @@ export const useImagePicker = () => {
     const hasPermission = await requestCameraPermission();
 
     if (!hasPermission) {
-      Alert.alert('Lỗi', 'Cần quyền camera để chụp ảnh');
+      Alert.alert(
+        t('imagePicker.error.title'),
+        t('imagePicker.error.cameraPermissionNeeded'),
+      );
       return null;
     }
 
@@ -59,33 +66,37 @@ export const useImagePicker = () => {
     }
 
     return result.assets[0].uri;
-  }, []);
+  }, [t]);
 
   const showImagePickerOptions = useCallback(
     (onImageSelected: (uri: string) => void) => {
-      Alert.alert('Ảnh đại diện', 'Chọn cách thêm ảnh', [
-        {
-          text: 'Thư viện ảnh',
-          onPress: async () => {
-            const uri = await pickFromGallery();
-            if (uri) {
-              onImageSelected(uri);
-            }
+      Alert.alert(
+        t('imagePicker.chooser.title'),
+        t('imagePicker.chooser.message'),
+        [
+          {
+            text: t('imagePicker.chooser.gallery'),
+            onPress: async () => {
+              const uri = await pickFromGallery();
+              if (uri) {
+                onImageSelected(uri);
+              }
+            },
           },
-        },
-        {
-          text: 'Chụp ảnh',
-          onPress: async () => {
-            const uri = await pickFromCamera();
-            if (uri) {
-              onImageSelected(uri);
-            }
+          {
+            text: t('imagePicker.chooser.camera'),
+            onPress: async () => {
+              const uri = await pickFromCamera();
+              if (uri) {
+                onImageSelected(uri);
+              }
+            },
           },
-        },
-        { text: 'Huỷ', style: 'cancel' },
-      ]);
+          { text: t('common:button.cancel'), style: 'cancel' },
+        ],
+      );
     },
-    [pickFromCamera, pickFromGallery],
+    [pickFromCamera, pickFromGallery, t],
   );
 
   return { pickFromGallery, pickFromCamera, showImagePickerOptions };

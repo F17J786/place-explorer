@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import type { OsmMarker } from '@/types/mapScreen.type';
 import type {
   PlaceDetailRouteProp,
@@ -29,12 +30,14 @@ import { usePlaceNavigation } from '@/hooks/usePlaceNavigation';
 import type { LightboxState } from '@/types/PlaceDetail.types';
 
 export const PlaceDetailScreen = () => {
+  const { t } = useTranslation('placeDetail');
   const navigation = useNavigation<PlaceDetailNavProp>();
   const route = useRoute<PlaceDetailRouteProp>();
   const { place } = route.params as { place: OsmMarker };
 
   const osmId: string = (place as any).osmId ?? `node_${place.id}`;
-  const amenityLabel = place.tags?.amenity ?? place.amenity ?? 'Địa điểm';
+  const amenityLabel =
+    place.tags?.amenity ?? place.amenity ?? t('common:unknownPlace');
 
   const scrollRef = useRef<ScrollView>(null);
   const [lightbox, setLightbox] = useState<LightboxState>(null);
