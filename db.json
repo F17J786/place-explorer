@@ -760,12 +760,6 @@
     },
     {
       "userId": 1,
-      "osmId": "node_12453142101",
-      "createdAt": "2026-07-17T02:55:24.797Z",
-      "id": "cqV2RnSl_Co"
-    },
-    {
-      "userId": 1,
       "osmId": "node_5246719121",
       "createdAt": "2026-07-21T03:51:05.161Z",
       "id": "xgYbnqrjacM"
@@ -793,6 +787,12 @@
       "osmId": "node_13720019089",
       "createdAt": "2026-07-27T09:58:01.048Z",
       "id": "7CxorXvTI7M"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_12453142101",
+      "createdAt": "2026-07-30T01:24:41.838Z",
+      "id": "DBjKlwxzZe8"
     }
   ],
   "checkins": [

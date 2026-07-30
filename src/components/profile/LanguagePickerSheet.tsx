@@ -1,14 +1,16 @@
 import React, { forwardRef, useMemo } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import {
+import BottomSheet, {
   BottomSheetModal,
   BottomSheetView,
   BottomSheetBackdrop,
 } from '@gorhom/bottom-sheet';
 import CountryFlag from 'react-native-country-flag';
+import i18n from 'i18next';
 
 import { COLORS } from '@/constants/constants';
 import { SUPPORTED_LANGUAGES, SupportedLanguage } from '@/locales';
+import { showToast } from '@/utils/toast';
 
 const LANGUAGE_LABELS: Record<SupportedLanguage, string> = {
   en: 'English',
@@ -18,27 +20,40 @@ const LANGUAGE_LABELS: Record<SupportedLanguage, string> = {
 interface LanguagePickerSheetProps {
   currentLanguage: SupportedLanguage;
   onSelect: (lang: SupportedLanguage) => void;
+  isKeyboardOpen?: boolean;
 }
 
 export const LanguagePickerSheet = forwardRef<
   BottomSheetModal,
   LanguagePickerSheetProps
 >(({ currentLanguage, onSelect }, ref) => {
-  const snapPoints = useMemo(() => ['18%'], []);
+  const handleSelect = (lang: SupportedLanguage) => {
+    if (lang === currentLanguage) {
+      onSelect(lang);
+      return;
+    }
+
+    // Dịch message theo đúng ngôn ngữ MỚI được chọn (lng: lang),
+    // không phụ thuộc i18n.language hiện tại — tránh race condition với changeLanguage() bất đồng bộ
+    const message = i18n.t('common:languageChanged', {
+      language: LANGUAGE_LABELS[lang],
+      lng: lang,
+    });
+
+    onSelect(lang);
+    showToast(message);
+  };
 
   return (
     <BottomSheetModal
       ref={ref}
-      snapPoints={snapPoints}
-      enableDynamicSizing={false}
-      keyboardBehavior="interactive"
-      keyboardBlurBehavior="restore"
-      android_keyboardInputMode="adjustPan"
       enableContentPanningGesture={false}
       enableHandlePanningGesture={false}
       enableOverDrag={false}
-      enableDismissOnClose={true}
+      enablePanDownToClose
+      keyboardBehavior="interactive"
       handleStyle={styles.bsHandle}
+      backgroundStyle={styles.bsBackground}
       handleIndicatorStyle={styles.bsHandleBar}
       backdropComponent={props => (
         <BottomSheetBackdrop
@@ -55,7 +70,7 @@ export const LanguagePickerSheet = forwardRef<
             <TouchableOpacity
               key={lang}
               style={styles.option}
-              onPress={() => onSelect(lang)}
+              onPress={() => handleSelect(lang)}
               activeOpacity={0.6}
             >
               <View style={styles.flagWrapper}>
@@ -76,15 +91,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
+    paddingBottom: 24,
+    gap: 6,
   },
   bsHandle: {
     paddingTop: 7.5,
   },
-  title: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: COLORS.text,
-    marginBottom: 12,
+  bsBackground: {
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
   },
   option: {
     flexDirection: 'row',
@@ -94,11 +109,6 @@ const styles = StyleSheet.create({
   optionLabel: {
     fontSize: 15,
     color: COLORS.text,
-  },
-  optionLabelSelected: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: COLORS.primary,
   },
   bsHandleBar: {
     width: 40,

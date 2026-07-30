@@ -38,5 +38,6 @@
     "syncFailed": "Sync failed, please try again later"
   },
   "favoriteAdded": "Added to favorites!",
-  "favoriteRemoved": "Removed from favorites!"
+  "favoriteRemoved": "Removed from favorites!",
+  "languageChanged": "Changed language to {{language}}"
 }

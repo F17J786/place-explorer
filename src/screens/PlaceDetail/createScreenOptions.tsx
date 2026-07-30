@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Platform,
   StyleSheet,
+  StatusBar,
 } from 'react-native';
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Feather';
@@ -14,6 +15,11 @@ interface ScreenHeaderOptions {
   title: string;
   headerRight?: () => React.ReactNode;
 }
+
+// react-native-screens 4.21.0 không tự cộng đủ inset cho header custom
+// trên Android edge-to-edge, nên tự tính và cộng thủ công ở đây.
+const STATUSBAR_HEIGHT =
+  Platform.OS === 'android' ? StatusBar.currentHeight ?? 24 : 0;
 
 export const createScreenOptions = ({
   navigation,
@@ -58,7 +64,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
-    marginVertical: 14,
+    marginTop: STATUSBAR_HEIGHT + 14,
+    marginBottom: 14,
   },
   titleText: {
     fontSize: 18,
@@ -67,7 +74,8 @@ const styles = StyleSheet.create({
   },
   backBtn: {
     marginLeft: Platform.OS === 'ios' ? 4 : 0,
-    marginVertical: 14,
+    marginTop: STATUSBAR_HEIGHT + 14,
+    marginBottom: 14,
   },
   backIconWrap: {
     width: 34,

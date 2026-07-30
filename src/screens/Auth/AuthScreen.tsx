@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react';
 import {
   Animated,
+  Keyboard,
   Platform,
   ScrollView,
   StyleSheet,
@@ -46,6 +47,13 @@ export const AuthScreen = () => {
   const { currentLanguage, setLanguage } = useLanguage();
   const languageSheetRef = useRef<BottomSheetModal>(null);
 
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
+
+  const openLanguageSheet = () => {
+    setIsKeyboardOpen(Keyboard.isVisible());
+    languageSheetRef.current?.present();
+  };
+
   const handleSelectLanguage = async (lang: 'en' | 'vi') => {
     await setLanguage(lang);
     languageSheetRef.current?.dismiss();
@@ -76,13 +84,13 @@ export const AuthScreen = () => {
   return (
     <KeyboardAwareScrollView
       style={[styles.screen, { paddingTop: insets.top }]}
-      enableOnAndroid
-      keyboardShouldPersistTaps="handled"
+      enableOnAndroid={false}
+      keyboardShouldPersistTaps="always"
       contentContainerStyle={styles.keyboardScrollContent}
     >
       <TouchableOpacity
         style={[styles.langButton, { top: insets.top - 10 }]}
-        onPress={() => languageSheetRef.current?.present()}
+        onPress={openLanguageSheet}
         hitSlop={styles.hitSlop}
       >
         <View style={styles.langFlagWrapper}>
@@ -99,7 +107,7 @@ export const AuthScreen = () => {
           styles.scrollContent,
           { paddingBottom: insets.bottom + 24 },
         ]}
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps="always"
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.logoArea}>
@@ -173,6 +181,7 @@ export const AuthScreen = () => {
         ref={languageSheetRef}
         currentLanguage={currentLanguage}
         onSelect={handleSelectLanguage}
+        isKeyboardOpen={isKeyboardOpen}
       />
     </KeyboardAwareScrollView>
   );

@@ -38,5 +38,6 @@
     "syncFailed": "Đồng bộ thất bại, thử lại sau"
   },
   "favoriteAdded": "Đã thêm vào yêu thích!",
-  "favoriteRemoved": "Đã xoá khỏi yêu thích!"
+  "favoriteRemoved": "Đã xoá khỏi yêu thích!",
+  "languageChanged": "Đã thay đổi ngôn ngữ sang {{language}}"
 }
