@@ -1,0 +1,60 @@
+{
+  "actions": {
+    "directions": "길 찾기",
+    "checkin": "체크인"
+  },
+  "checkinSection": {
+    "title": "체크인",
+    "empty": "아직 체크인이 없습니다"
+  },
+  "infoCard": {
+    "reviewCount": "({{count}}개 리뷰)",
+    "website": "웹사이트"
+  },
+  "mediaGallery": {
+    "title": "사진 및 동영상"
+  },
+  "reviewSection": {
+    "title": "리뷰",
+    "empty": "아직 리뷰가 없습니다",
+    "emptyHint": "탭하여 리뷰를 보고 작성하세요"
+  },
+  "navTitle": {
+    "detail": "장소 상세 정보"
+  },
+  "checkinAction": {
+    "loginRequired": {
+      "title": "로그인 필요",
+      "message": "체크인하려면 로그인해야 합니다."
+    },
+    "tooSoon": {
+      "title": "아직 체크인할 수 없습니다",
+      "message": "방금 이곳에 체크인했습니다. {{minutes}}분 후에 다시 시도해주세요."
+    },
+    "tooFar": {
+      "title": "거리가 너무 멉니다",
+      "message": "현재 위치가 {{distance}}m 떨어져 있습니다. 체크인하려면 {{maxDistance}}m 이내에 있어야 합니다."
+    },
+    "success": {
+      "title": "체크인 성공!",
+      "message": "{{placeName}}에 체크인했습니다"
+    },
+    "locationError": {
+      "title": "위치 오류",
+      "message": "위치를 가져올 수 없습니다. GPS 권한을 확인해주세요."
+    }
+  },
+  "favoriteAction": {
+    "loginRequired": {
+      "message": "즐겨찾기에 추가하려면 로그인해야 합니다."
+    },
+    "removed": {
+      "title": "삭제됨",
+      "message": "즐겨찾기 목록에서 삭제했습니다."
+    },
+    "added": {
+      "title": "저장됨",
+      "message": "즐겨찾기 목록에 추가했습니다!"
+    }
+  }
+}

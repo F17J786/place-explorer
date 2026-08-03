@@ -11,6 +11,7 @@ import { placeDetailApi } from './placeDetailApi';
 import { setPendingAvatarUpload } from '@/services/pendingAvatarUpload';
 import { uploadImageToCloudinary } from '@/utils/cloudinaryUpload';
 import NetInfo from '@react-native-community/netinfo';
+import i18n from 'i18next';
 
 type OptimisticUser = Pendable<User>;
 
@@ -34,7 +35,10 @@ export const profileApi = api.injectEndpoints({
               patchBody = { ...body, avatar: uploadedUrl };
             } catch (e: any) {
               return {
-                error: { status: 500, data: 'Tải ảnh đại diện thất bại' },
+                error: {
+                  status: 500,
+                  data: i18n.t('profile:apiError.avatarUploadFailed'),
+                },
               };
             }
           } else {
@@ -50,7 +54,7 @@ export const profileApi = api.injectEndpoints({
           data: patchBody,
           invalidateTagsOnSync: [`User:${id}`],
           resourceKey: `profile:${id}`,
-          offlineSuccessMessage: 'Cập nhật thông tin thành công',
+          offlineSuccessMessage: i18n.t('profile:personalInfo.updateSuccess'),
         });
 
         if (result.error) {
@@ -100,7 +104,7 @@ export const profileApi = api.injectEndpoints({
             return {
               error: {
                 status: 0,
-                data: 'Không có mạng. Vui lòng kết nối mạng để đổi mật khẩu',
+                data: i18n.t('profile:apiError.offlineChangePassword'),
               },
             };
           }
@@ -112,7 +116,10 @@ export const profileApi = api.injectEndpoints({
 
           if (user.password !== oldPassword) {
             return {
-              error: { status: 400, data: 'Mật khẩu hiện tại không đúng' },
+              error: {
+                status: 400,
+                data: i18n.t('profile:apiError.wrongOldPassword'),
+              },
             };
           }
 

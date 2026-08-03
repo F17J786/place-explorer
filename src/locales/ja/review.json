@@ -1,0 +1,101 @@
+{
+  "validation": {
+    "rating": {
+      "required": "星評価を選択してください",
+      "max": "最大5つ星までです"
+    },
+    "comment": {
+      "required": "レビュー内容を入力してください",
+      "minLength": "レビュー内容は10文字以上で入力してください",
+      "maxLength": "レビュー内容は1000文字以内で入力してください"
+    },
+    "media": {
+      "max": "最大{{max}}枚の写真/動画まで追加できます"
+    }
+  },
+  "writeReview": {
+    "formTitle": "レビューを書く",
+    "ratingLabel": "あなたの評価",
+    "ratingHint": {
+      "1": "非常に悪い",
+      "2": "悪い",
+      "3": "普通",
+      "4": "良い",
+      "5": "最高"
+    },
+    "commentPlaceholder": "ここで体験を共有してください...",
+    "addMedia": "写真・動画を追加",
+    "cancel": "キャンセル",
+    "submit": "レビューを投稿",
+    "updateSubmit": "レビューを更新"
+  },
+  "unsavedChanges": {
+    "title": "未送信のレビュー",
+    "message": "未送信の変更があります。終了しますか？",
+    "stay": "続ける",
+    "leave": "終了"
+  },
+  "uploadError": {
+    "title": "エラー",
+    "message": "メディアのアップロードに失敗しました。もう一度お試しください。"
+  },
+  "filter": {
+    "title": "フィルター",
+    "starChip": "{{star}}つ星",
+    "clear": "クリア",
+    "sortBy": "並び替え",
+    "apply": "適用",
+    "option": {
+      "newest": "新しい順",
+      "star5": "⭐⭐⭐⭐⭐  5つ星",
+      "star4": "⭐⭐⭐⭐  4つ星",
+      "star3": "⭐⭐⭐  3つ星",
+      "star2": "⭐⭐  2つ星",
+      "star1": "⭐  1つ星"
+    }
+  },
+  "empty": {
+    "title": "まだレビューはありません",
+    "loginPrompt": "ログインしてレビューを書きましょう"
+  },
+  "menu": {
+    "editReview": "評価を編集",
+    "deleteReview": "レビューを削除"
+  },
+  "deleteConfirm": {
+    "title": "確認",
+    "message": "このレビューを削除しますか？",
+    "cancel": "キャンセル"
+  },
+  "summary": {
+    "reviewCount": "{{count}}件のレビュー"
+  },
+  "navTitle": "レビュー一覧",
+  "mediaPicker": {
+    "limitReached": {
+      "title": "制限",
+      "message": "最大{{max}}枚の写真/動画までです。"
+    },
+    "videoTooLarge": {
+      "title": "動画サイズ超過",
+      "message": "{{fileName}}は{{maxSizeMb}}MBを超えています。"
+    },
+    "videoTooLong": {
+      "title": "動画が長すぎます",
+      "message": "{{fileName}}は{{maxSeconds}}秒を超えています。"
+    },
+    "imageTooSmall": {
+      "title": "画像が小さすぎます",
+      "message": "{{fileName}}は{{minSizeKb}}KB未満です。"
+    },
+    "imageTooLarge": {
+      "title": "画像サイズ超過",
+      "message": "{{fileName}}は{{maxSizeMb}}MBを超えています。"
+    },
+    "offline": {
+      "reviewAdded": "レビューを追加しました！",
+      "reviewUpdated": "レビューを更新しました！",
+      "reviewDeleted": "レビューを削除しました！"
+    }
+  }
+}

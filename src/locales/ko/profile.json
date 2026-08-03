@@ -1,0 +1,61 @@
+{
+  "title": "계정",
+  "logout": {
+    "title": "로그아웃",
+    "message": "정말 로그아웃하시겠습니까?",
+    "cancel": "취소",
+    "confirm": "로그아웃"
+  },
+  "menu": {
+    "personalInfo": "개인 정보",
+    "personalInfoSubtitle": "이름, 이메일, 프로필 이미지를 업데이트",
+    "changePassword": "비밀번호 변경",
+    "changePasswordSubtitle": "로그인 비밀번호 변경",
+    "language": "언어",
+    "logout": "로그아웃"
+  },
+  "language": {
+    "title": "언어 선택"
+  },
+  "validation": {
+    "name": {
+      "required": "이름을 입력해주세요",
+      "minLength": "이름은 최소 2자 이상이어야 합니다"
+    },
+    "email": {
+      "required": "이메일을 입력해주세요",
+      "invalid": "유효한 이메일을 입력해주세요"
+    },
+    "avatar": {
+      "required": "프로필 이미지를 선택해주세요"
+    },
+    "oldPassword": {
+      "required": "현재 비밀번호를 입력해주세요"
+    },
+    "newPassword": {
+      "required": "새 비밀번호를 입력해주세요",
+      "minLength": "새 비밀번호는 최소 6자 이상이어야 합니다",
+      "sameAsOld": "새 비밀번호는 현재 비밀번호와 달라야 합니다"
+    },
+    "confirmNewPassword": {
+      "required": "새 비밀번호 확인을 입력해주세요",
+      "mismatch": "확인 비밀번호가 일치하지 않습니다"
+    }
+  },
+  "personalInfo": {
+    "submitButton": "변경사항 저장",
+    "updateSuccess": "개인 정보가 성공적으로 업데이트되었습니다"
+  },
+  "changePassword": {
+    "oldPasswordLabel": "현재 비밀번호",
+    "newPasswordLabel": "새 비밀번호",
+    "confirmNewPasswordLabel": "새 비밀번호 확인",
+    "submitButton": "비밀번호 변경",
+    "successMessage": "비밀번호가 성공적으로 변경되었습니다"
+  },
+  "apiError": {
+    "avatarUploadFailed": "프로필 이미지 업로드에 실패했습니다",
+    "offlineChangePassword": "네트워크가 없습니다. 인터넷에 연결한 후 비밀번호를 변경해주세요",
+    "wrongOldPassword": "현재 비밀번호가 올바르지 않습니다"
+  }
+}

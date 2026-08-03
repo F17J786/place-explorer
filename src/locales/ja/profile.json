@@ -1,0 +1,61 @@
+{
+  "title": "アカウント",
+  "logout": {
+    "title": "ログアウト",
+    "message": "ログアウトしてもよろしいですか？",
+    "cancel": "キャンセル",
+    "confirm": "ログアウト"
+  },
+  "menu": {
+    "personalInfo": "プロフィール",
+    "personalInfoSubtitle": "氏名、メールアドレス、プロフィール画像を更新",
+    "changePassword": "パスワード変更",
+    "changePasswordSubtitle": "ログインパスワードを変更",
+    "language": "言語",
+    "logout": "ログアウト"
+  },
+  "language": {
+    "title": "言語を選択"
+  },
+  "validation": {
+    "name": {
+      "required": "氏名を入力してください",
+      "minLength": "氏名は2文字以上で入力してください"
+    },
+    "email": {
+      "required": "メールアドレスを入力してください",
+      "invalid": "有効なメールアドレスを入力してください"
+    },
+    "avatar": {
+      "required": "プロフィール画像を選択してください"
+    },
+    "oldPassword": {
+      "required": "現在のパスワードを入力してください"
+    },
+    "newPassword": {
+      "required": "新しいパスワードを入力してください",
+      "minLength": "新しいパスワードは6文字以上で入力してください",
+      "sameAsOld": "新しいパスワードは現在のパスワードと異なる必要があります"
+    },
+    "confirmNewPassword": {
+      "required": "新しいパスワード（確認）を入力してください",
+      "mismatch": "確認用パスワードが一致しません"
+    }
+  },
+  "personalInfo": {
+    "submitButton": "変更を保存",
+    "updateSuccess": "プロフィールを更新しました"
+  },
+  "changePassword": {
+    "oldPasswordLabel": "現在のパスワード",
+    "newPasswordLabel": "新しいパスワード",
+    "confirmNewPasswordLabel": "新しいパスワード（確認）",
+    "submitButton": "パスワードを変更",
+    "successMessage": "パスワードを変更しました"
+  },
+  "apiError": {
+    "avatarUploadFailed": "プロフィール画像のアップロードに失敗しました",
+    "offlineChangePassword": "オフラインです。ネットワークに接続してからパスワードを変更してください",
+    "wrongOldPassword": "現在のパスワードが正しくありません"
+  }
+}

@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import * as Keychain from 'react-native-keychain';
+import i18n from 'i18next';
 
 import { KEYCHAIN_SERVICE } from '@/constants/keychain';
 import { STORAGE_KEYS } from '@/constants/storageKeys';
@@ -21,7 +22,7 @@ const getErrorMessage = (error: unknown): string => {
     }
   }
 
-  return 'Đã xảy ra lỗi, vui lòng thử lại';
+  return i18n.t('common:error.generic');
 };
 
 export const useAuth = () => {

@@ -1,0 +1,17 @@
+{
+  "allCheckins": "全部打卡",
+  "noCheckins": "暂无打卡记录",
+  "allReviews": "全部评价",
+  "noReviews": "暂无评价",
+  "distanceMeters": "{{value}}米",
+  "distanceKm": "{{value}}公里",
+  "stats": {
+    "reviews": "评价",
+    "media": "图片/视频"
+  },
+  "mediaSection": {
+    "title": "已发布的图片和视频",
+    "collapse": "收起"
+  },
+  "navTitle": "个人主页"
+}

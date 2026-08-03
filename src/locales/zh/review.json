@@ -1,0 +1,101 @@
+{
+  "validation": {
+    "rating": {
+      "required": "请选择星级",
+      "max": "最高 5 星"
+    },
+    "comment": {
+      "required": "请输入评价内容",
+      "minLength": "评价内容至少需要 10 个字符",
+      "maxLength": "评价内容最多 1000 个字符"
+    },
+    "media": {
+      "max": "最多上传 {{max}} 张图片/视频"
+    }
+  },
+  "writeReview": {
+    "formTitle": "撰写评价",
+    "ratingLabel": "您的评价",
+    "ratingHint": {
+      "1": "非常差",
+      "2": "较差",
+      "3": "一般",
+      "4": "很好",
+      "5": "非常棒"
+    },
+    "commentPlaceholder": "分享您在这里的体验...",
+    "addMedia": "添加图片/视频",
+    "cancel": "取消",
+    "submit": "提交评价",
+    "updateSubmit": "更新评价"
+  },
+  "unsavedChanges": {
+    "title": "评价未提交",
+    "message": "您有未提交的修改，确定要退出吗？",
+    "stay": "留下",
+    "leave": "退出"
+  },
+  "uploadError": {
+    "title": "错误",
+    "message": "上传媒体失败，请重试。"
+  },
+  "filter": {
+    "title": "筛选",
+    "starChip": "{{star}} 星",
+    "clear": "清除",
+    "sortBy": "排序方式",
+    "apply": "应用",
+    "option": {
+      "newest": "最新",
+      "star5": "⭐⭐⭐⭐⭐  5 星",
+      "star4": "⭐⭐⭐⭐  4 星",
+      "star3": "⭐⭐⭐  3 星",
+      "star2": "⭐⭐  2 星",
+      "star1": "⭐  1 星"
+    }
+  },
+  "empty": {
+    "title": "暂无评价",
+    "loginPrompt": "登录后即可撰写评价"
+  },
+  "menu": {
+    "editReview": "编辑评分",
+    "deleteReview": "删除评价"
+  },
+  "deleteConfirm": {
+    "title": "确认",
+    "message": "确定要删除这条评价吗？",
+    "cancel": "取消"
+  },
+  "summary": {
+    "reviewCount": "{{count}} 条评价"
+  },
+  "navTitle": "评价列表",
+  "mediaPicker": {
+    "limitReached": {
+      "title": "数量限制",
+      "message": "最多上传 {{max}} 张图片/视频。"
+    },
+    "videoTooLarge": {
+      "title": "视频过大",
+      "message": "{{fileName}} 超过 {{maxSizeMb}} MB。"
+    },
+    "videoTooLong": {
+      "title": "视频过长",
+      "message": "{{fileName}} 超过 {{maxSeconds}} 秒。"
+    },
+    "imageTooSmall": {
+      "title": "图片过小",
+      "message": "{{fileName}} 小于 {{minSizeKb}} KB。"
+    },
+    "imageTooLarge": {
+      "title": "图片过大",
+      "message": "{{fileName}} 超过 {{maxSizeMb}} MB。"
+    },
+    "offline": {
+      "reviewAdded": "评价已添加！",
+      "reviewUpdated": "评价已更新！",
+      "reviewDeleted": "评价已删除！"
+    }
+  }
+}

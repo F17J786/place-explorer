@@ -1,0 +1,17 @@
+{
+  "allCheckins": "すべてのチェックイン",
+  "noCheckins": "まだチェックインはありません",
+  "allReviews": "すべてのレビュー",
+  "noReviews": "まだレビューはありません",
+  "distanceMeters": "{{value}}m",
+  "distanceKm": "{{value}}km",
+  "stats": {
+    "reviews": "レビュー",
+    "media": "写真・動画"
+  },
+  "mediaSection": {
+    "title": "投稿した写真・動画",
+    "collapse": "折りたたむ"
+  },
+  "navTitle": "プロフィール"
+}

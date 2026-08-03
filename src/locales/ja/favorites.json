@@ -1,0 +1,21 @@
+{
+  "header": {
+    "title": "お気に入り",
+    "selectPrompt": "場所を選択",
+    "selectedCount": "{{count}}件を選択中",
+    "selectAll": "すべて選択",
+    "deselectAll": "選択解除"
+  },
+  "empty": {
+    "title": "お気に入りの場所はまだありません",
+    "subtitle": "地図上のハートアイコンを長押しして場所を保存しましょう。"
+  },
+  "deleteConfirm": {
+    "singleTitle": "場所を削除",
+    "singleMessage": "「{{name}}」をお気に入りから削除しますか？",
+    "multipleTitle": "お気に入りの場所を削除",
+    "multipleMessage": "選択した{{count}}件の場所を削除しますか？",
+    "doneTitle": "削除しました",
+    "doneMessage": "お気に入りから{{count}}件の場所を削除しました。"
+  }
+}

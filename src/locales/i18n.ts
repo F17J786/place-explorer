@@ -25,6 +25,37 @@ import viProfileReview from './vi/profileReview.json'; // mới
 import enMap from './en/map.json'; // mới
 import viMap from './vi/map.json'; // mới
 
+import zhCommon from './zh/common.json';
+import zhAuth from './zh/auth.json';
+import zhProfile from './zh/profile.json';
+import zhFavorites from './zh/favorites.json';
+import zhPlaceDetail from './zh/placeDetail.json';
+import zhReview from './zh/review.json';
+import zhCheckin from './zh/checkin.json';
+import zhProfileReview from './zh/profileReview.json';
+import zhMap from './zh/map.json';
+
+import jaCommon from './ja/common.json';
+import jaAuth from './ja/auth.json';
+import jaProfile from './ja/profile.json';
+import jaFavorites from './ja/favorites.json';
+import jaPlaceDetail from './ja/placeDetail.json';
+import jaReview from './ja/review.json';
+import jaCheckin from './ja/checkin.json';
+import jaProfileReview from './ja/profileReview.json';
+import jaMap from './ja/map.json';
+
+// Thêm import tiếng Hàn
+import koCommon from './ko/common.json';
+import koAuth from './ko/auth.json';
+import koProfile from './ko/profile.json';
+import koFavorites from './ko/favorites.json';
+import koPlaceDetail from './ko/placeDetail.json';
+import koReview from './ko/review.json';
+import koCheckin from './ko/checkin.json';
+import koProfileReview from './ko/profileReview.json';
+import koMap from './ko/map.json';
+
 export const LANGUAGE_STORAGE_KEY = '@app_language';
 
 export const resources = {
@@ -50,9 +81,42 @@ export const resources = {
     profileReview: viProfileReview, // mới
     map: viMap,
   },
+  zh: {
+    common: zhCommon,
+    auth: zhAuth,
+    profile: zhProfile,
+    favorites: zhFavorites,
+    placeDetail: zhPlaceDetail,
+    review: zhReview,
+    checkin: zhCheckin,
+    profileReview: zhProfileReview,
+    map: zhMap,
+  },
+  ja: {
+    common: jaCommon,
+    auth: jaAuth,
+    profile: jaProfile,
+    favorites: jaFavorites,
+    placeDetail: jaPlaceDetail,
+    review: jaReview,
+    checkin: jaCheckin,
+    profileReview: jaProfileReview,
+    map: jaMap,
+  },
+  ko: {
+    common: koCommon,
+    auth: koAuth,
+    profile: koProfile,
+    favorites: koFavorites,
+    placeDetail: koPlaceDetail,
+    review: koReview,
+    checkin: koCheckin,
+    profileReview: koProfileReview,
+    map: koMap,
+  },
 } as const;
 
-export const SUPPORTED_LANGUAGES = ['en', 'vi'] as const;
+export const SUPPORTED_LANGUAGES = ['en', 'vi', 'zh', 'ja', 'ko'] as const;
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 const getDeviceLanguage = (): SupportedLanguage => {

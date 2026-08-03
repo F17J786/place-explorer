@@ -1,0 +1,21 @@
+{
+  "header": {
+    "title": "收藏",
+    "selectPrompt": "选择地点",
+    "selectedCount": "已选择 {{count}} 个",
+    "selectAll": "全选",
+    "deselectAll": "取消全选"
+  },
+  "empty": {
+    "title": "暂无收藏地点",
+    "subtitle": "长按地图上的爱心图标即可收藏地点。"
+  },
+  "deleteConfirm": {
+    "singleTitle": "删除地点",
+    "singleMessage": "要将“{{name}}”从收藏中移除吗？",
+    "multipleTitle": "删除收藏地点",
+    "multipleMessage": "确定要删除已选择的 {{count}} 个地点吗？",
+    "doneTitle": "删除成功",
+    "doneMessage": "已从收藏中删除 {{count}} 个地点。"
+  }
+}

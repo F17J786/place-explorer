@@ -2,6 +2,7 @@ import type { LoginFormValues } from '@/types/auth.types';
 import type { RegisterUserPayload, User } from '@/types/user';
 import { api } from '@/store/api/baseApi';
 import { isOfflineError } from '@/utils/offlineError';
+import i18n from 'i18next';
 
 interface AuthApiError {
   status: number;
@@ -26,10 +27,7 @@ export const authApi = api.injectEndpoints({
         if (result.error) {
           if (isOfflineError(result.error)) {
             return {
-              error: createAuthError(
-                0,
-                'Không có mạng. Vui lòng kết nối mạng để đăng nhập',
-              ),
+              error: createAuthError(0, i18n.t('auth:apiError.offlineLogin')),
             };
           }
           return { error: result.error };
@@ -38,13 +36,17 @@ export const authApi = api.injectEndpoints({
         const users = result.data as User[];
 
         if (users.length === 0) {
-          return { error: createAuthError(404, 'Email không tồn tại') };
+          return {
+            error: createAuthError(404, i18n.t('auth:apiError.emailNotFound')),
+          };
         }
 
         const matchedUser = users[0];
 
         if (matchedUser.password !== password) {
-          return { error: createAuthError(401, 'Mật khẩu không đúng') };
+          return {
+            error: createAuthError(401, i18n.t('auth:apiError.wrongPassword')),
+          };
         }
 
         return { data: matchedUser };
@@ -62,7 +64,7 @@ export const authApi = api.injectEndpoints({
             return {
               error: createAuthError(
                 0,
-                'Không có mạng. Vui lòng kết nối mạng để đăng ký',
+                i18n.t('auth:apiError.offlineRegister'),
               ),
             };
           }
@@ -76,7 +78,9 @@ export const authApi = api.injectEndpoints({
         );
 
         if (emailExists) {
-          return { error: createAuthError(409, 'Email đã được sử dụng') };
+          return {
+            error: createAuthError(409, i18n.t('auth:apiError.emailTaken')),
+          };
         }
 
         const createResult = await baseQuery({
@@ -91,7 +95,7 @@ export const authApi = api.injectEndpoints({
             return {
               error: createAuthError(
                 0,
-                'Không có mạng. Vui lòng kết nối mạng để đăng ký',
+                i18n.t('auth:apiError.offlineRegister'),
               ),
             };
           }

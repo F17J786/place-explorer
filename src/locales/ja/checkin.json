@@ -1,0 +1,12 @@
+{
+  "empty": {
+    "title": "まだチェックインがありません",
+    "subtitle": "最初にここへチェックインしましょう！"
+  },
+  "checkinCount": "{{count}}件のチェックイン",
+  "distanceAway": "{{distance}}m先",
+  "navTitle": "チェックイン一覧",
+  "offline": {
+    "checkinSuccess": "チェックインしました！"
+  }
+}

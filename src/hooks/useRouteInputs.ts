@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Keyboard } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { searchNominatim } from '@/store/api/nominatim';
 import { addToRecent, loadRecentFromStorage } from '@/storage/recentPoints';
 import {
@@ -20,6 +21,7 @@ export const useRouteInputs = ({
   sortedRef,
   requestPermAndGetCoord,
 }: UseRouteInputsParams) => {
+  const { t } = useTranslation('map');
   const [routeMode, setRouteMode] = useState(false);
 
   const [pointA, setPointA] = useState<RoutePoint | null>(null);
@@ -45,10 +47,12 @@ export const useRouteInputs = ({
     loadRecentFromStorage().then(setRecentPoints);
   }, []);
 
+  const myLocationLabel = t('routePanel.yourLocation');
+
   const displayA =
-    inputAIsMyLoc && !inputAFocusHide ? 'Vị trí của bạn' : inputAText;
+    inputAIsMyLoc && !inputAFocusHide ? myLocationLabel : inputAText;
   const displayB =
-    inputBIsMyLoc && !inputBFocusHide ? 'Vị trí của bạn' : inputBText;
+    inputBIsMyLoc && !inputBFocusHide ? myLocationLabel : inputBText;
 
   const typingA = focusedInput === 'A' && inputAText.length > 0;
   const typingB = focusedInput === 'B' && inputBText.length > 0;
@@ -191,7 +195,7 @@ export const useRouteInputs = ({
       setPointA({
         coordinate: coord,
         label: 'A',
-        name: 'Vị trí của bạn',
+        name: myLocationLabel,
         isMyLocation: true,
       });
       setInputAText('');
@@ -201,7 +205,7 @@ export const useRouteInputs = ({
       setPointB({
         coordinate: coord,
         label: 'B',
-        name: 'Vị trí của bạn',
+        name: myLocationLabel,
         isMyLocation: true,
       });
       setInputBText('');
@@ -212,7 +216,7 @@ export const useRouteInputs = ({
     setRouteSuggestions([]);
     setFocusedInput(null);
     Keyboard.dismiss();
-  }, [focusedInput, pointA, requestPermAndGetCoord]);
+  }, [focusedInput, pointA, requestPermAndGetCoord, myLocationLabel]);
 
   const clearInputA = useCallback(() => {
     setPointA(null);

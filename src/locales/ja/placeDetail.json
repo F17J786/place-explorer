@@ -1,0 +1,60 @@
+{
+  "actions": {
+    "directions": "経路案内",
+    "checkin": "チェックイン"
+  },
+  "checkinSection": {
+    "title": "チェックイン",
+    "empty": "まだチェックインはありません"
+  },
+  "infoCard": {
+    "reviewCount": "（{{count}}件のレビュー）",
+    "website": "ウェブサイト"
+  },
+  "mediaGallery": {
+    "title": "写真・動画"
+  },
+  "reviewSection": {
+    "title": "レビュー",
+    "empty": "まだレビューはありません",
+    "emptyHint": "タップしてレビューを閲覧・投稿"
+  },
+  "navTitle": {
+    "detail": "場所の詳細"
+  },
+  "checkinAction": {
+    "loginRequired": {
+      "title": "ログインが必要です",
+      "message": "チェックインするにはログインしてください。"
+    },
+    "tooSoon": {
+      "title": "まだチェックインできません",
+      "message": "この場所にはすでにチェックインしています。{{minutes}}分後にもう一度お試しください。"
+    },
+    "tooFar": {
+      "title": "距離が離れすぎています",
+      "message": "現在地は{{distance}}m離れています。チェックインするには{{maxDistance}}m以内にいる必要があります。"
+    },
+    "success": {
+      "title": "チェックインしました！",
+      "message": "{{placeName}}にチェックインしました。"
+    },
+    "locationError": {
+      "title": "位置情報エラー",
+      "message": "現在地を取得できません。GPSの権限を確認してください。"
+    }
+  },
+  "favoriteAction": {
+    "loginRequired": {
+      "message": "お気に入りに追加するにはログインしてください。"
+    },
+    "removed": {
+      "title": "削除しました",
+      "message": "お気に入りから削除しました。"
+    },
+    "added": {
+      "title": "保存しました",
+      "message": "お気に入りに追加しました！"
+    }
+  }
+}

@@ -52,5 +52,10 @@
     "confirmNewPasswordLabel": "Xác nhận mật khẩu mới",
     "submitButton": "Đổi mật khẩu",
     "successMessage": "Đổi mật khẩu thành công"
+  },
+  "apiError": {
+    "avatarUploadFailed": "Tải ảnh đại diện thất bại",
+    "offlineChangePassword": "Không có mạng. Vui lòng kết nối mạng để đổi mật khẩu",
+    "wrongOldPassword": "Mật khẩu hiện tại không đúng"
   }
 }

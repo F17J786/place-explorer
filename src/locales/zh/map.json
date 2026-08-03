@@ -1,0 +1,32 @@
+{
+  "status": {
+    "locating": "正在获取当前位置...",
+    "loadingPlaces": "正在加载地点..."
+  },
+  "popup": {
+    "detail": "详情"
+  },
+  "placeList": {
+    "title": "区域内地点",
+    "emptyInArea": "此区域暂无地点",
+    "selectCategory": "请选择分类以查看地点"
+  },
+  "routePanel": {
+    "startPlaceholder": "选择起点",
+    "destinationPlaceholder": "选择终点",
+    "findingRoute": "正在规划路线...",
+    "yourLocation": "您的位置",
+    "recent": "最近"
+  },
+  "searchBar": {
+    "placeholder": "搜索地点...",
+    "displayLabel": "显\n示",
+    "searching": "正在搜索..."
+  },
+  "location": {
+    "gpsError": "获取当前位置失败，请重试"
+  },
+  "routeFetch": {
+    "notFound": "无法找到路线，请重试"
+  }
+}

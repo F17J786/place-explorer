@@ -18,6 +18,7 @@ import { ProfileMenuItem } from '@/components/profile/ProfileMenuItem';
 import { LanguagePickerSheet } from '@/components/profile/LanguagePickerSheet';
 import { useProfile } from '@/hooks/useProfile';
 import { useLanguage } from '@/hooks/useLanguage';
+import { SupportedLanguage } from '@/locales';
 
 interface ProfileScreenProps {
   navigation?: any;
@@ -46,7 +47,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
     ]);
   };
 
-  const handleSelectLanguage = async (lang: 'en' | 'vi') => {
+  const handleSelectLanguage = async (lang: SupportedLanguage) => {
     await setLanguage(lang);
     languageSheetRef.current?.dismiss();
   };

@@ -1,0 +1,43 @@
+{
+  "button": {
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "retry": "重试",
+    "delete": "删除"
+  },
+  "error": {
+    "noConnection": "无网络连接",
+    "generic": "发生错误"
+  },
+  "loading": "加载中...",
+  "anonymousUser": "匿名用户",
+  "unknownPlace": "地点",
+  "seeAll": "查看全部",
+  "tabs": {
+    "map": "地图",
+    "profile": "我的",
+    "favoritesAccessibility": "收藏"
+  },
+  "batteryPermission": {
+    "title": "需要允许后台运行",
+    "message": "为了让 PlaceExplorer 在离线时同步数据，请前往电池设置并选择“不受限制”，以确保应用稳定运行。",
+    "later": "稍后",
+    "openSettings": "打开设置"
+  },
+  "location": {
+    "notAvailable": "当前位置信息不可用，请重试"
+  },
+  "offline": {
+    "noConnection": "无网络",
+    "queuedForSync": "无网络，已保存，稍后自动同步",
+    "cancelledByNewerRequest": "无网络，操作已因较新的请求而取消",
+    "favoriteRestoreFailed": "请求被取消后，无法恢复原来的收藏状态",
+    "queuedSuccess": "已保存，将在网络恢复后同步",
+    "syncSuccess": "离线数据同步成功",
+    "syncFailed": "同步失败，请稍后重试"
+  },
+  "favoriteAdded": "已添加到收藏！",
+  "favoriteRemoved": "已从收藏中移除！",
+  "languageChanged": "语言已切换为 {{language}}"
+}

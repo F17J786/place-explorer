@@ -52,5 +52,10 @@
     "confirmNewPasswordLabel": "Confirm New Password",
     "submitButton": "Change Password",
     "successMessage": "Password changed successfully"
+  },
+  "apiError": {
+    "avatarUploadFailed": "Avatar upload failed",
+    "offlineChangePassword": "No internet connection. Please connect to change your password",
+    "wrongOldPassword": "Current password is incorrect"
   }
 }

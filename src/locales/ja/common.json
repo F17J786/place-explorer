@@ -1,0 +1,43 @@
+{
+  "button": {
+    "save": "保存",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "retry": "再試行",
+    "delete": "削除"
+  },
+  "error": {
+    "noConnection": "ネットワークに接続されていません",
+    "generic": "エラーが発生しました"
+  },
+  "loading": "読み込み中...",
+  "anonymousUser": "匿名ユーザー",
+  "unknownPlace": "場所",
+  "seeAll": "すべて表示",
+  "tabs": {
+    "map": "マップ",
+    "profile": "アカウント",
+    "favoritesAccessibility": "お気に入り"
+  },
+  "batteryPermission": {
+    "title": "バックグラウンド実行の許可が必要です",
+    "message": "PlaceExplorer がオフライン時にデータを同期できるよう、バッテリー設定で「制限なし」を選択してください。",
+    "later": "後で",
+    "openSettings": "設定を開く"
+  },
+  "location": {
+    "notAvailable": "現在地を取得できません。もう一度お試しください"
+  },
+  "offline": {
+    "noConnection": "オフラインです",
+    "queuedForSync": "オフラインのため、後で同期するよう保存しました",
+    "cancelledByNewerRequest": "オフラインのため、新しいリクエストにより操作がキャンセルされました",
+    "favoriteRestoreFailed": "リクエストがキャンセルされたため、お気に入りの状態を復元できませんでした",
+    "queuedSuccess": "保存しました。ネットワーク接続時に同期されます",
+    "syncSuccess": "オフラインデータを同期しました",
+    "syncFailed": "同期に失敗しました。後でもう一度お試しください"
+  },
+  "favoriteAdded": "お気に入りに追加しました！",
+  "favoriteRemoved": "お気に入りから削除しました！",
+  "languageChanged": "言語を{{language}}に変更しました"
+}

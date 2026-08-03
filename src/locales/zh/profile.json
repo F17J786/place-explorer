@@ -1,0 +1,61 @@
+{
+  "title": "我的",
+  "logout": {
+    "title": "退出登录",
+    "message": "确定要退出登录吗？",
+    "cancel": "取消",
+    "confirm": "退出登录"
+  },
+  "menu": {
+    "personalInfo": "个人资料",
+    "personalInfoSubtitle": "更新姓名、邮箱和头像",
+    "changePassword": "修改密码",
+    "changePasswordSubtitle": "修改登录密码",
+    "language": "语言",
+    "logout": "退出登录"
+  },
+  "language": {
+    "title": "选择语言"
+  },
+  "validation": {
+    "name": {
+      "required": "请输入姓名",
+      "minLength": "姓名至少需要 2 个字符"
+    },
+    "email": {
+      "required": "请输入邮箱",
+      "invalid": "邮箱格式无效"
+    },
+    "avatar": {
+      "required": "请选择头像"
+    },
+    "oldPassword": {
+      "required": "请输入当前密码"
+    },
+    "newPassword": {
+      "required": "请输入新密码",
+      "minLength": "新密码至少需要 6 个字符",
+      "sameAsOld": "新密码不能与当前密码相同"
+    },
+    "confirmNewPassword": {
+      "required": "请确认新密码",
+      "mismatch": "两次输入的密码不一致"
+    }
+  },
+  "personalInfo": {
+    "submitButton": "保存更改",
+    "updateSuccess": "个人资料更新成功"
+  },
+  "changePassword": {
+    "oldPasswordLabel": "当前密码",
+    "newPasswordLabel": "新密码",
+    "confirmNewPasswordLabel": "确认新密码",
+    "submitButton": "修改密码",
+    "successMessage": "密码修改成功"
+  },
+  "apiError": {
+    "avatarUploadFailed": "头像上传失败",
+    "offlineChangePassword": "无网络连接，请连接网络后修改密码",
+    "wrongOldPassword": "当前密码错误"
+  }
+}

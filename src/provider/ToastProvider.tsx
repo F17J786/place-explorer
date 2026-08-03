@@ -49,7 +49,6 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
     [opacity, translateY],
   );
 
-  // Đăng ký hàm thật vào ref module-level khi mount, gỡ khi unmount
   useEffect(() => {
     registerToastFn(showToast);
     return () => registerToastFn(null);
@@ -79,7 +78,7 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 120, // chỉnh giá trị này để match vị trí trong ảnh
+    bottom: 120,
     alignSelf: 'center',
     maxWidth: SCREEN_WIDTH - 80,
     backgroundColor: '#FFFFFF',

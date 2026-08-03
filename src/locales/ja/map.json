@@ -1,0 +1,32 @@
+{
+  "status": {
+    "locating": "現在地を取得中...",
+    "loadingPlaces": "場所を読み込み中..."
+  },
+  "popup": {
+    "detail": "詳細"
+  },
+  "placeList": {
+    "title": "このエリアの場所",
+    "emptyInArea": "このエリアには場所がありません",
+    "selectCategory": "場所を表示するにはカテゴリを選択してください"
+  },
+  "routePanel": {
+    "startPlaceholder": "出発地点を選択",
+    "destinationPlaceholder": "目的地を選択",
+    "findingRoute": "ルートを検索中...",
+    "yourLocation": "現在地",
+    "recent": "最近"
+  },
+  "searchBar": {
+    "placeholder": "場所を検索...",
+    "displayLabel": "表\n示",
+    "searching": "検索中..."
+  },
+  "location": {
+    "gpsError": "現在地を取得できませんでした。もう一度お試しください"
+  },
+  "routeFetch": {
+    "notFound": "ルートが見つかりません。もう一度お試しください"
+  }
+}

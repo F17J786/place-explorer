@@ -18,13 +18,17 @@ import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 import { LoginForm } from '@/components/auth/LoginForm';
 import { RegisterForm } from '@/components/auth/RegisterForm';
-import { LanguagePickerSheet } from '@/components/profile/LanguagePickerSheet';
+import {
+  FLAG_MAP,
+  LanguagePickerSheet,
+} from '@/components/profile/LanguagePickerSheet';
 import { AUTH_COLORS } from '@/constants/authTheme';
 import type { AuthTab } from '@/types/auth.types';
 import { useLanguage } from '@/hooks/useLanguage';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '@/navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SupportedLanguage } from '@/locales';
 
 const CARD_HORIZONTAL_MARGIN = 24;
 const CARD_PADDING = 28;
@@ -54,7 +58,7 @@ export const AuthScreen = () => {
     languageSheetRef.current?.present();
   };
 
-  const handleSelectLanguage = async (lang: 'en' | 'vi') => {
+  const handleSelectLanguage = async (lang: SupportedLanguage) => {
     await setLanguage(lang);
     languageSheetRef.current?.dismiss();
   };
@@ -94,10 +98,7 @@ export const AuthScreen = () => {
         hitSlop={styles.hitSlop}
       >
         <View style={styles.langFlagWrapper}>
-          <CountryFlag
-            isoCode={currentLanguage === 'en' ? 'gb' : 'vn'}
-            size={23}
-          />
+          <CountryFlag isoCode={FLAG_MAP[currentLanguage]} size={23} />
         </View>
         <Icon name="chevron-down" size={16} color={AUTH_COLORS.tabInactive} />
       </TouchableOpacity>

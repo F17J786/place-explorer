@@ -1,0 +1,60 @@
+{
+  "actions": {
+    "directions": "导航",
+    "checkin": "打卡"
+  },
+  "checkinSection": {
+    "title": "打卡",
+    "empty": "暂无打卡记录"
+  },
+  "infoCard": {
+    "reviewCount": "（{{count}} 条评价）",
+    "website": "网站"
+  },
+  "mediaGallery": {
+    "title": "图片与视频"
+  },
+  "reviewSection": {
+    "title": "评价",
+    "empty": "暂无评价",
+    "emptyHint": "点击查看并撰写评价"
+  },
+  "navTitle": {
+    "detail": "地点详情"
+  },
+  "checkinAction": {
+    "loginRequired": {
+      "title": "需要登录",
+      "message": "登录后才能打卡。"
+    },
+    "tooSoon": {
+      "title": "暂时无法打卡",
+      "message": "您刚刚在此处打卡，请于 {{minutes}} 分钟后再试。"
+    },
+    "tooFar": {
+      "title": "距离过远",
+      "message": "您距离此地点 {{distance}} 米，需在 {{maxDistance}} 米范围内才能打卡。"
+    },
+    "success": {
+      "title": "打卡成功！",
+      "message": "您已在 {{placeName}} 打卡。"
+    },
+    "locationError": {
+      "title": "定位错误",
+      "message": "无法获取当前位置，请检查 GPS 权限。"
+    }
+  },
+  "favoriteAction": {
+    "loginRequired": {
+      "message": "登录后才能添加到收藏。"
+    },
+    "removed": {
+      "title": "已移除",
+      "message": "已从收藏中移除。"
+    },
+    "added": {
+      "title": "已收藏",
+      "message": "已添加到收藏！"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "allCheckins": "모든 체크인",
+  "noCheckins": "아직 체크인이 없습니다",
+  "allReviews": "모든 리뷰",
+  "noReviews": "아직 리뷰가 없습니다",
+  "distanceMeters": "{{value}}m",
+  "distanceKm": "{{value}}km",
+  "stats": {
+    "reviews": "리뷰",
+    "media": "사진/동영상"
+  },
+  "mediaSection": {
+    "title": "게시한 사진 및 동영상",
+    "collapse": "접기"
+  },
+  "navTitle": "프로필"
+}

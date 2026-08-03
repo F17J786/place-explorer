@@ -1,0 +1,12 @@
+{
+  "empty": {
+    "title": "暂无签到",
+    "subtitle": "快来成为第一个在这里签到的人吧！"
+  },
+  "checkinCount": "{{count}} 次签到",
+  "distanceAway": "距离 {{distance}} 米",
+  "navTitle": "签到列表",
+  "offline": {
+    "checkinSuccess": "签到成功！"
+  }
+}

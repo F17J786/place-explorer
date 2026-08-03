@@ -16,8 +16,6 @@ interface ScreenHeaderOptions {
   headerRight?: () => React.ReactNode;
 }
 
-// react-native-screens 4.21.0 không tự cộng đủ inset cho header custom
-// trên Android edge-to-edge, nên tự tính và cộng thủ công ở đây.
 const STATUSBAR_HEIGHT =
   Platform.OS === 'android' ? StatusBar.currentHeight ?? 24 : 0;
 

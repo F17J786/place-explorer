@@ -1,0 +1,21 @@
+{
+  "header": {
+    "title": "즐겨찾기",
+    "selectPrompt": "장소 선택",
+    "selectedCount": "{{count}}개 선택됨",
+    "selectAll": "전체 선택",
+    "deselectAll": "선택 해제"
+  },
+  "empty": {
+    "title": "즐겨찾기한 장소가 없습니다",
+    "subtitle": "지도에서 하트 아이콘을 길게 눌러 장소를 저장하세요."
+  },
+  "deleteConfirm": {
+    "singleTitle": "장소 삭제",
+    "singleMessage": "\"{{name}}\"을(를) 즐겨찾기에서 삭제하시겠습니까?",
+    "multipleTitle": "즐겨찾기 장소 삭제",
+    "multipleMessage": "선택한 {{count}}개의 장소를 삭제하시겠습니까?",
+    "doneTitle": "삭제 완료",
+    "doneMessage": "즐겨찾기 목록에서 {{count}}개의 장소를 삭제했습니다."
+  }
+}

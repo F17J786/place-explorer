@@ -595,6 +595,18 @@
       "thumbnailUrl": "https://i.pravatar.cc/150?img=4",
       "createdAt": "2026-07-21T03:52:57.472Z",
       "id": "Ncr4CazxDu4"
+    },
+    {
+      "osmId": "node_12949255684",
+      "osmType": "node",
+      "name": "Nhà Hàng Thuần Chay Quán Âm",
+      "category": "restaurant",
+      "lat": 10.7966992,
+      "lng": 106.6528938,
+      "address": "210 Nguyễn Thái Bình,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=58",
+      "createdAt": "2026-07-30T04:30:06.299Z",
+      "id": "pBQCnkHEB0g"
     }
   ],
   "reviews": [
@@ -790,9 +802,15 @@
     },
     {
       "userId": 1,
+      "osmId": "node_12949255684",
+      "createdAt": "2026-07-30T04:30:06.575Z",
+      "id": "aGOHpR2Y8O8"
+    },
+    {
+      "userId": 1,
       "osmId": "node_12453142101",
-      "createdAt": "2026-07-30T01:24:41.838Z",
-      "id": "DBjKlwxzZe8"
+      "createdAt": "2026-07-31T09:25:03.999Z",
+      "id": "B3TQP-NO_aM"
     }
   ],
   "checkins": [

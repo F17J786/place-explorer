@@ -15,6 +15,17 @@ import { showToast } from '@/utils/toast';
 const LANGUAGE_LABELS: Record<SupportedLanguage, string> = {
   en: 'English',
   vi: 'Tiếng Việt',
+  zh: '简体中文',
+  ja: '日本語',
+  ko: '한국어',
+};
+
+export const FLAG_MAP: Record<SupportedLanguage, string> = {
+  en: 'gb',
+  vi: 'vn',
+  zh: 'cn',
+  ja: 'jp',
+  ko: 'kr',
 };
 
 interface LanguagePickerSheetProps {
@@ -33,8 +44,6 @@ export const LanguagePickerSheet = forwardRef<
       return;
     }
 
-    // Dịch message theo đúng ngôn ngữ MỚI được chọn (lng: lang),
-    // không phụ thuộc i18n.language hiện tại — tránh race condition với changeLanguage() bất đồng bộ
     const message = i18n.t('common:languageChanged', {
       language: LANGUAGE_LABELS[lang],
       lng: lang,
@@ -74,7 +83,7 @@ export const LanguagePickerSheet = forwardRef<
               activeOpacity={0.6}
             >
               <View style={styles.flagWrapper}>
-                <CountryFlag isoCode={lang === 'en' ? 'gb' : 'vn'} size={23} />
+                <CountryFlag isoCode={FLAG_MAP[lang]} size={23} />
               </View>
               <Text style={styles.optionLabel}>{LANGUAGE_LABELS[lang]}</Text>
             </TouchableOpacity>

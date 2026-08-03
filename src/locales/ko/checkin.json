@@ -1,0 +1,12 @@
+{
+  "empty": {
+    "title": "아직 체크인이 없습니다",
+    "subtitle": "이곳에서 첫 번째로 체크인해보세요!"
+  },
+  "checkinCount": "{{count}}회 체크인",
+  "distanceAway": "{{distance}}m 거리",
+  "navTitle": "체크인 목록",
+  "offline": {
+    "checkinSuccess": "체크인 완료!"
+  }
+}
