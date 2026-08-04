@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "@baronha/ting": "^1.2.3",
+    "@formatjs/intl-getcanonicallocales": "^3.2.11",
+    "@formatjs/intl-locale": "^5.3.10",
+    "@formatjs/intl-pluralrules": "^6.3.13",
+    "@formatjs/intl-relativetimeformat": "^12.3.13",
     "@gorhom/bottom-sheet": "^5.2.14",
     "@hookform/resolvers": "^5.4.0",
     "@react-native-async-storage/async-storage": "^3.1.1",
@@ -56,6 +60,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@babel/plugin-transform-class-static-block": "^7.29.7",
     "@babel/preset-env": "^7.25.3",
     "@babel/runtime": "^7.25.0",
     "@react-native-community/cli": "20.0.0",

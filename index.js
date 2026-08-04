@@ -1,6 +1,23 @@
 /**
  * @format
  */
+import '@formatjs/intl-getcanonicallocales/polyfill';
+import '@formatjs/intl-locale/polyfill';
+
+import '@formatjs/intl-pluralrules/polyfill-force';
+import '@formatjs/intl-pluralrules/locale-data/vi';
+import '@formatjs/intl-pluralrules/locale-data/en';
+import '@formatjs/intl-pluralrules/locale-data/zh';
+import '@formatjs/intl-pluralrules/locale-data/ja';
+import '@formatjs/intl-pluralrules/locale-data/ko';
+
+import '@formatjs/intl-relativetimeformat/polyfill-force';
+import '@formatjs/intl-relativetimeformat/locale-data/vi';
+import '@formatjs/intl-relativetimeformat/locale-data/en';
+import '@formatjs/intl-relativetimeformat/locale-data/zh';
+import '@formatjs/intl-relativetimeformat/locale-data/ja';
+import '@formatjs/intl-relativetimeformat/locale-data/ko';
+
 import 'react-native-get-random-values';
 import 'react-native-gesture-handler';
 import { AppRegistry } from 'react-native';

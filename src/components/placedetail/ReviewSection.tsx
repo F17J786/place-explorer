@@ -16,7 +16,8 @@ import { Avatar } from '@/components/placedetail/Avatar';
 import MediaThumb from '@/components/review/MediaThumb';
 import type { Review } from '@/types/placeDetail.types';
 import type { LightboxState } from '@/types/PlaceDetail.types';
-import { formatDate } from '@/utils/dateFormat';
+import { formatRelativeTime } from '@/utils/dateFormat';
+import { useGetReviewCountByUserIdQuery } from '@/store/api/placeDetailApi';
 
 type ReviewSectionProps = {
   reviews: Review[];
@@ -25,6 +26,80 @@ type ReviewSectionProps = {
   onSeeAll: () => void;
   onGoToProfile: (review: Review) => void;
   onOpenLightbox: (state: LightboxState) => void;
+};
+
+const ReviewCard = ({
+  review,
+  onGoToProfile,
+  onOpenLightbox,
+}: {
+  review: Review;
+  onGoToProfile: (review: Review) => void;
+  onOpenLightbox: (state: LightboxState) => void;
+}) => {
+  const { t } = useTranslation('placeDetail');
+  const { data: reviewCount } = useGetReviewCountByUserIdQuery(review.userId, {
+    skip: !review.userId,
+  });
+
+  return (
+    <View style={styles.reviewCard}>
+      <View style={styles.reviewHeader}>
+        <TouchableOpacity
+          onPress={() => onGoToProfile(review)}
+          hitSlop={styles.hitSlop}
+        >
+          <Avatar uri={review.user?.avatar} size={36} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.reviewMeta}
+          onPress={() => onGoToProfile(review)}
+          activeOpacity={0.6}
+        >
+          <Text style={styles.reviewAuthor}>
+            {review.user?.name ?? t('common:anonymousUser')}
+          </Text>
+          <Text style={styles.reviewCountText}>
+            {t('review:summary.reviewCount', { count: reviewCount ?? 0 })}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.reviewRatingRow}>
+        <StarRow rating={review.rating} size={12} />
+        <Text style={styles.reviewDate}>
+          {formatRelativeTime(review.createdAt)}
+        </Text>
+      </View>
+
+      <Text style={styles.reviewComment}>{review.comment}</Text>
+
+      {review.mediaUrls.length > 0 && (
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={review.mediaUrls}
+          keyExtractor={(_, i) => `${review.id}-${i}`}
+          contentContainerStyle={styles.reviewMediaContent}
+          renderItem={({ item: url, index }) => (
+            <MediaThumb
+              url={url}
+              type={review.mediaTypes?.[index] ?? 'image'}
+              onPress={() =>
+                onOpenLightbox({
+                  urls: review.mediaUrls,
+                  types:
+                    review.mediaTypes ??
+                    review.mediaUrls.map(() => 'image' as const),
+                  index,
+                })
+              }
+            />
+          )}
+        />
+      )}
+    </View>
+  );
 };
 
 export const ReviewSection = ({
@@ -63,58 +138,12 @@ export const ReviewSection = ({
           </TouchableOpacity>
         ) : (
           previewReviews.map(review => (
-            <View key={review.id} style={styles.reviewCard}>
-              <View style={styles.reviewHeader}>
-                <TouchableOpacity
-                  onPress={() => onGoToProfile(review)}
-                  hitSlop={styles.hitSlop}
-                >
-                  <Avatar uri={review.user?.avatar} size={36} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.reviewMeta}
-                  onPress={() => onGoToProfile(review)}
-                  activeOpacity={0.6}
-                >
-                  <Text style={styles.reviewAuthor}>
-                    {review.user?.name ?? t('common:anonymousUser')}
-                  </Text>
-                  <View style={styles.reviewRatingRow}>
-                    <StarRow rating={review.rating} size={12} />
-                    <Text style={styles.reviewDate}>
-                      {formatDate(review.createdAt)}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-
-              <Text style={styles.reviewComment}>{review.comment}</Text>
-
-              {review.mediaUrls.length > 0 && (
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  data={review.mediaUrls}
-                  keyExtractor={(_, i) => `${review.id}-${i}`}
-                  contentContainerStyle={styles.reviewMediaContent}
-                  renderItem={({ item: url, index }) => (
-                    <MediaThumb
-                      url={url}
-                      type={review.mediaTypes?.[index] ?? 'image'}
-                      onPress={() =>
-                        onOpenLightbox({
-                          urls: review.mediaUrls,
-                          types:
-                            review.mediaTypes ??
-                            review.mediaUrls.map(() => 'image' as const),
-                          index,
-                        })
-                      }
-                    />
-                  )}
-                />
-              )}
-            </View>
+            <ReviewCard
+              key={review.id}
+              review={review}
+              onGoToProfile={onGoToProfile}
+              onOpenLightbox={onOpenLightbox}
+            />
           ))
         )}
       </View>

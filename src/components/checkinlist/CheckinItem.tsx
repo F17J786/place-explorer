@@ -7,7 +7,7 @@ import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesCheckinListScreen';
 import type { Checkin } from '@/types/placeDetail.types';
 import { Avatar } from '../placedetail/Avatar';
-import { formatDateTime } from '@/utils/dateFormat';
+import { formatRelativeTime } from '@/utils/dateFormat';
 
 interface CheckinItemProps {
   item: Checkin;
@@ -25,7 +25,9 @@ export const CheckinItem = ({ item }: CheckinItemProps) => {
         </Text>
         <View style={styles.metaRow}>
           <Icon name="access-time" size={12} color={COLORS.textLight} />
-          <Text style={styles.metaText}>{formatDateTime(item.createdAt)}</Text>
+          <Text style={styles.metaText}>
+            {formatRelativeTime(item.createdAt)}
+          </Text>
         </View>
         <View style={styles.metaRow}>
           <Icon name="location-on" size={12} color={COLORS.primary} />

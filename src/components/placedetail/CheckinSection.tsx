@@ -7,7 +7,7 @@ import { styles } from '@/constants/stylesPlaceDetailScreen';
 import { SectionHeader } from '@/components/placedetail/SectionHeader';
 import { Avatar } from '@/components/placedetail/Avatar';
 import type { Checkin } from '@/types/placeDetail.types';
-import { formatDateTime } from '@/utils/dateFormat';
+import { formatRelativeTime } from '@/utils/dateFormat';
 
 type CheckinSectionProps = {
   checkins: Checkin[];
@@ -66,7 +66,7 @@ export const CheckinSection = ({
                 {checkin.user?.name ?? t('common:anonymousUser')}
               </Text>
               <Text style={styles.checkinMeta}>
-                {formatDateTime(checkin.createdAt)}
+                {formatRelativeTime(checkin.createdAt)}
                 {'  •  '}
                 {checkin.distanceMeters}m
               </Text>

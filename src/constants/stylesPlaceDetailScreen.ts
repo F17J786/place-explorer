@@ -223,7 +223,7 @@ export const styles = StyleSheet.create({
   },
   reviewHeader: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     gap: 10,
     marginBottom: 8,
   },
@@ -232,6 +232,10 @@ export const styles = StyleSheet.create({
   reviewDate: { fontSize: 11, color: COLORS.textLight },
   reviewComment: { fontSize: 13, color: COLORS.textSub, lineHeight: 19 },
   reviewMedia: { width: 72, height: 72, borderRadius: 8, marginRight: 6 },
+  reviewCountText: {
+    fontSize: 12,
+    color: COLORS.textSub,
+  },
 
   checkinRow: {
     flexDirection: 'row',

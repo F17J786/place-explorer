@@ -753,6 +753,25 @@ export const placeDetailApi = api.injectEndpoints({
       ],
     }),
 
+    getReviewCountByUserId: builder.query<number, string | number>({
+      queryFn: async userId => {
+        try {
+          const { data: reviews } = await axiosInstance.get<Review[]>(
+            '/reviews',
+            { params: { userId } },
+          );
+          return { data: reviews.length };
+        } catch (e: any) {
+          return { error: { status: e.response?.status, data: e.message } };
+        }
+      },
+      serializeQueryArgs: ({ queryArgs, endpointName }) =>
+        `${endpointName}(${String(queryArgs)})`,
+      providesTags: (_result, _err, userId) => [
+        { type: 'Review', id: `user-${String(userId)}` },
+      ],
+    }),
+
     getCheckinsByUserId: builder.query<Checkin[], string | number>({
       queryFn: async userId => {
         try {
@@ -791,4 +810,5 @@ export const {
   useGetUserByIdQuery,
   useGetReviewsByUserIdQuery,
   useGetCheckinsByUserIdQuery,
+  useGetReviewCountByUserIdQuery,
 } = placeDetailApi;

@@ -20,7 +20,8 @@ import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesReviewListScreen';
 import { StarRow } from '../placedetail/StarRow';
 import { Avatar } from '../placedetail/Avatar';
-import { formatDate } from '@/utils/dateFormat';
+import { formatRelativeTime } from '@/utils/dateFormat';
+import { useGetReviewCountByUserIdQuery } from '@/store/api/placeDetailApi';
 
 type NavProp = NativeStackNavigationProp<
   PlaceDetailStackParamList,
@@ -45,6 +46,10 @@ export const ReviewItem = ({
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [menuVisible, setMenuVisible] = useState(false);
   const navigation = useNavigation<NavProp>();
+
+  const { data: reviewCount } = useGetReviewCountByUserIdQuery(item.userId, {
+    skip: !item.userId,
+  });
 
   const goToProfile = () => {
     navigation.navigate('ProfileReview', {
@@ -80,10 +85,9 @@ export const ReviewItem = ({
           <Text style={styles.userName}>
             {item.user?.name ?? t('common:anonymousUser')}
           </Text>
-          <View style={styles.ratingRow}>
-            <StarRow rating={item.rating} size={13} />
-            <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
-          </View>
+          <Text style={styles.reviewCountText}>
+            {t('summary.reviewCount', { count: reviewCount ?? 0 })}
+          </Text>
         </TouchableOpacity>
         {isOwn && (
           <Menu
@@ -130,6 +134,14 @@ export const ReviewItem = ({
           </Menu>
         )}
       </View>
+
+      <View style={styles.ratingRow}>
+        <StarRow rating={item.rating} size={13} />
+        <Text style={styles.dateText}>
+          {formatRelativeTime(item.createdAt)}
+        </Text>
+      </View>
+
       <Text style={styles.comment}>{item.comment}</Text>
       {item.mediaUrls.length > 0 && (
         <FlatList

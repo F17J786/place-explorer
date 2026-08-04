@@ -1,12 +1,19 @@
 import i18n from 'i18next';
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '@/locales';
 
-const LOCALE_MAP: Record<string, string> = {
+const LOCALE_BY_LANGUAGE: Record<SupportedLanguage, string> = {
   en: 'en-US',
   vi: 'vi-VN',
+  zh: 'zh-CN',
+  ja: 'ja-JP',
+  ko: 'ko-KR',
 };
 
 const getCurrentLocale = (): string => {
-  return LOCALE_MAP[i18n.language] ?? 'en-US';
+  const lang = SUPPORTED_LANGUAGES.includes(i18n.language as SupportedLanguage)
+    ? (i18n.language as SupportedLanguage)
+    : 'en';
+  return LOCALE_BY_LANGUAGE[lang];
 };
 
 export const formatDateTime = (date: string | Date): string => {
@@ -29,7 +36,7 @@ export const formatRelativeTime = (date: string | Date): string => {
   const diffSeconds = Math.floor((now.getTime() - target.getTime()) / 1000);
 
   const rtf = new Intl.RelativeTimeFormat(getCurrentLocale(), {
-    numeric: 'auto',
+    numeric: 'always',
   });
 
   if (diffSeconds < 60) return rtf.format(-diffSeconds, 'second');

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import type { Checkin } from '@/types/placeDetail.types';
 import { COLORS } from '@/constants/constants';
 import { styles } from '@/constants/stylesProfileReviewScreen';
-import { formatDate } from '@/utils/dateFormat';
+import { formatRelativeTime } from '@/utils/dateFormat';
 
 export const CheckinCard = ({
   item,
@@ -44,7 +44,9 @@ export const CheckinCard = ({
           </Text>
         )}
         <View style={styles.metaRow}>
-          <Text style={styles.dateText}>{formatDate(item.createdAt)}</Text>
+          <Text style={styles.dateText}>
+            {formatRelativeTime(item.createdAt)}
+          </Text>
           <Text style={styles.dateText}>•</Text>
           <Text style={styles.dateText}>{distanceText}</Text>
         </View>

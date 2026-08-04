@@ -276,7 +276,7 @@ export const styles = StyleSheet.create({
   },
   cardHeader: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     gap: 10,
     marginBottom: 10,
   },
@@ -432,5 +432,9 @@ export const styles = StyleSheet.create({
   menuItemText: {
     fontSize: 14,
     color: COLORS.text,
+  },
+  reviewCountText: {
+    fontSize: 12,
+    color: COLORS.textSub,
   },
 });
