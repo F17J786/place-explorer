@@ -28,5 +28,15 @@
   },
   "routeFetch": {
     "notFound": "경로를 찾을 수 없습니다. 다시 시도해주세요"
+  },
+  "filters": {
+    "cafe": "카페",
+    "restaurant": "음식점",
+    "hospital": "병원",
+    "bank": "은행",
+    "atm": "ATM",
+    "pharmacy": "약국",
+    "school": "학교",
+    "fuel": "주유소"
   }
 }

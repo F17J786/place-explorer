@@ -28,5 +28,15 @@
   },
   "routeFetch": {
     "notFound": "Không tìm được đường đi. Hãy thử lại"
+  },
+  "filters": {
+    "cafe": "Cafe",
+    "restaurant": "Ăn uống",
+    "hospital": "Y tế",
+    "bank": "Ngân hàng",
+    "atm": "ATM",
+    "pharmacy": "Thuốc",
+    "school": "Trường học",
+    "fuel": "Xăng"
   }
 }

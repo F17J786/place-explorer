@@ -607,6 +607,18 @@
       "thumbnailUrl": "https://i.pravatar.cc/150?img=58",
       "createdAt": "2026-07-30T04:30:06.299Z",
       "id": "pBQCnkHEB0g"
+    },
+    {
+      "osmId": "node_13847918601",
+      "osmType": "node",
+      "name": "Đậu Homemade - Bún đậu mắm tôm",
+      "category": "restaurant",
+      "lat": 10.7970394,
+      "lng": 106.6926236,
+      "address": "25 Gia Định Phan Xích Long,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=7",
+      "createdAt": "2026-08-04T04:14:53.727Z",
+      "id": "eW5Q5H7vy00"
     }
   ],
   "reviews": [
@@ -821,6 +833,12 @@
       "osmId": "node_12453142101",
       "createdAt": "2026-07-31T09:25:03.999Z",
       "id": "B3TQP-NO_aM"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13847918601",
+      "createdAt": "2026-08-04T04:14:53.948Z",
+      "id": "3AzCQ7zqA9w"
     }
   ],
   "checkins": [
@@ -1030,6 +1048,15 @@
       "distanceMeters": 1413.9,
       "createdAt": "2026-07-27T09:57:33.116Z",
       "id": "o7smyq175jg"
+    },
+    {
+      "userId": 1,
+      "osmId": "node_13720019089",
+      "lat": 11.051003333333332,
+      "lng": 106.66789500000002,
+      "distanceMeters": 1373.1,
+      "createdAt": "2026-08-04T04:43:20.620Z",
+      "id": "UBhIhwHyaOA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

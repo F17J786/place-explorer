@@ -83,14 +83,14 @@ export const INITIAL_REGION: Region = {
 };
 
 export const FILTERS = [
-  { key: 'cafe', label: 'Cafe', icon: 'local-cafe' },
-  { key: 'restaurant', label: 'Ăn uống', icon: 'restaurant' },
-  { key: 'hospital', label: 'Y tế', icon: 'local-hospital' },
-  { key: 'bank', label: 'Ngân hàng', icon: 'account-balance' },
-  { key: 'atm', label: 'ATM', icon: 'local-atm' },
-  { key: 'pharmacy', label: 'Thuốc', icon: 'local-pharmacy' },
-  { key: 'school', label: 'Trường học', icon: 'school' },
-  { key: 'fuel', label: 'Xăng', icon: 'local-gas-station' },
+  { key: 'cafe', labelKey: 'filters.cafe', icon: 'local-cafe' },
+  { key: 'restaurant', labelKey: 'filters.restaurant', icon: 'restaurant' },
+  { key: 'hospital', labelKey: 'filters.hospital', icon: 'local-hospital' },
+  { key: 'bank', labelKey: 'filters.bank', icon: 'account-balance' },
+  { key: 'atm', labelKey: 'filters.atm', icon: 'local-atm' },
+  { key: 'pharmacy', labelKey: 'filters.pharmacy', icon: 'local-pharmacy' },
+  { key: 'school', labelKey: 'filters.school', icon: 'school' },
+  { key: 'fuel', labelKey: 'filters.fuel', icon: 'local-gas-station' },
 ];
 
 export const MIN_ZOOM = 5;

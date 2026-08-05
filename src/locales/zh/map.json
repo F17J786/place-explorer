@@ -28,5 +28,15 @@
   },
   "routeFetch": {
     "notFound": "无法找到路线，请重试"
+  },
+  "filters": {
+    "cafe": "咖啡馆",
+    "restaurant": "餐厅",
+    "hospital": "医院",
+    "bank": "银行",
+    "atm": "ATM",
+    "pharmacy": "药店",
+    "school": "学校",
+    "fuel": "加油站"
   }
 }

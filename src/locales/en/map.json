@@ -28,5 +28,15 @@
   },
   "routeFetch": {
     "notFound": "Could not find a route. Please try again"
+  },
+  "filters": {
+    "cafe": "Cafe",
+    "restaurant": "Food",
+    "hospital": "Hospital",
+    "bank": "Bank",
+    "atm": "ATM",
+    "pharmacy": "Pharmacy",
+    "school": "School",
+    "fuel": "Gas Station"
   }
 }

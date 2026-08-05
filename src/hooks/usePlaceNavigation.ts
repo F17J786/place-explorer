@@ -18,6 +18,9 @@ export const usePlaceNavigation = (
   }, [navigation, place]);
 
   const handleOpenMaps = useCallback(() => {
+    const parent = navigation.getParent();
+    console.log('[handleOpenMaps] parent state:', parent?.getState());
+
     navigation.getParent()?.navigate('Main', {
       screen: 'Map',
       params: {

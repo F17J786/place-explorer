@@ -28,5 +28,15 @@
   },
   "routeFetch": {
     "notFound": "ルートが見つかりません。もう一度お試しください"
+  },
+  "filters": {
+    "cafe": "カフェ",
+    "restaurant": "レストラン",
+    "hospital": "病院",
+    "bank": "銀行",
+    "atm": "ATM",
+    "pharmacy": "薬局",
+    "school": "学校",
+    "fuel": "ガソリンスタンド"
   }
 }

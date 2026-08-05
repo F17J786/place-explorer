@@ -49,7 +49,6 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
   const [currentZoom, setCurrentZoom] = useState<number | null>(null);
   const [selectedAmenity, setSelectedAmenity] = useState('');
   const [selectedMarker, setSelectedMarker] = useState<OsmMarker | null>(null);
-  const [isMapReady, setIsMapReady] = useState(false);
   const [initialRegion, setInitialRegion] = useState(INITIAL_REGION);
 
   const {
@@ -83,12 +82,24 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
     routeInputs.openRouteToPlace(routeParams.routeTo);
   }, [routeParams?.routeTo]);
 
+  console.log(
+    '[MapScreen render] navKey:',
+    routeParams?.navKey,
+    'selectedMarker:',
+    routeParams?.selectedMarker,
+  );
+
   useEffect(() => {
     const marker = routeParams?.selectedMarker;
-    if (!marker || !isMapReady) return;
+    if (!marker) return;
     setSelectedMarker(marker);
-    mapRef.current?.animateCamera({ center: marker.coordinate, zoom: 19 });
-  }, [routeParams?.selectedMarker, routeParams?.navKey, isMapReady]);
+
+    const timer = setTimeout(() => {
+      mapRef.current?.animateCamera({ center: marker.coordinate, zoom: 19 });
+    }, 350);
+
+    return () => clearTimeout(timer);
+  }, [routeParams?.selectedMarker]);
 
   useEffect(() => {
     loadLastRegion().then(r => {
@@ -156,7 +167,6 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
     <View style={styles.container}>
       <MapView
         ref={mapRef}
-        onMapReady={() => setIsMapReady(true)}
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={initialRegion}

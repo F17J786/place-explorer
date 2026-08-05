@@ -3,7 +3,6 @@ import { initReactI18next } from 'react-i18next';
 import * as RNLocalize from 'react-native-localize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// English resources
 import enCommon from './en/common.json';
 import enAuth from './en/auth.json';
 import enProfile from './en/profile.json';
@@ -11,9 +10,8 @@ import enFavorites from './en/favorites.json';
 import enPlaceDetail from './en/placeDetail.json';
 import enReview from './en/review.json';
 import enCheckin from './en/checkin.json';
-import enProfileReview from './en/profileReview.json'; // mới
+import enProfileReview from './en/profileReview.json';
 
-// Vietnamese resources
 import viCommon from './vi/common.json';
 import viAuth from './vi/auth.json';
 import viProfile from './vi/profile.json';
@@ -21,9 +19,9 @@ import viFavorites from './vi/favorites.json';
 import viPlaceDetail from './vi/placeDetail.json';
 import viReview from './vi/review.json';
 import viCheckin from './vi/checkin.json';
-import viProfileReview from './vi/profileReview.json'; // mới
-import enMap from './en/map.json'; // mới
-import viMap from './vi/map.json'; // mới
+import viProfileReview from './vi/profileReview.json';
+import enMap from './en/map.json';
+import viMap from './vi/map.json';
 
 import zhCommon from './zh/common.json';
 import zhAuth from './zh/auth.json';
@@ -45,7 +43,6 @@ import jaCheckin from './ja/checkin.json';
 import jaProfileReview from './ja/profileReview.json';
 import jaMap from './ja/map.json';
 
-// Thêm import tiếng Hàn
 import koCommon from './ko/common.json';
 import koAuth from './ko/auth.json';
 import koProfile from './ko/profile.json';
@@ -67,7 +64,7 @@ export const resources = {
     placeDetail: enPlaceDetail,
     review: enReview,
     checkin: enCheckin,
-    profileReview: enProfileReview, // mới
+    profileReview: enProfileReview,
     map: enMap,
   },
   vi: {
@@ -78,7 +75,7 @@ export const resources = {
     placeDetail: viPlaceDetail,
     review: viReview,
     checkin: viCheckin,
-    profileReview: viProfileReview, // mới
+    profileReview: viProfileReview,
     map: viMap,
   },
   zh: {
@@ -155,7 +152,7 @@ const initI18n = async () => {
       'placeDetail',
       'review',
       'checkin',
-      'profileReview', // mới
+      'profileReview',
       'map',
     ],
     interpolation: {
