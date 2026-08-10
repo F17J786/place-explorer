@@ -3,7 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
 import { FILTERS, getConfig } from '@/constants/constants';
-import { styles } from '@/constants/stylesMapScreen';
+import { useMapScreenStyles } from '@/hooks/useMapScreenStyles';
 
 interface FilterChipsProps {
   selectedAmenity: string;
@@ -14,6 +14,7 @@ export const FilterChips: React.FC<FilterChipsProps> = ({
   selectedAmenity,
   onToggle,
 }) => {
+  const { styles } = useMapScreenStyles();
   const { t } = useTranslation('map');
 
   return (

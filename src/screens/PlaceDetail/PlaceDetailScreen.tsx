@@ -7,7 +7,7 @@ import type {
   PlaceDetailRouteProp,
   PlaceDetailNavProp,
 } from '@/types/navigation';
-import { styles } from '@/constants/stylesPlaceDetailScreen';
+import { usePlaceDetailScreenStyles } from '@/hooks/usePlaceDetailScreenStyles';
 import {
   REVIEW_PREVIEW_LIMIT,
   CHECKIN_PREVIEW_LIMIT,
@@ -34,6 +34,7 @@ export const PlaceDetailScreen = () => {
   const navigation = useNavigation<PlaceDetailNavProp>();
   const route = useRoute<PlaceDetailRouteProp>();
   const { place } = route.params as { place: OsmMarker };
+  const { styles } = usePlaceDetailScreenStyles();
 
   const osmId: string = (place as any).osmId ?? `node_${place.id}`;
   const amenityLabel =

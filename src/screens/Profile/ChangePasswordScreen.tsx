@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { AuthErrorBanner } from '@/components/auth/AuthErrorBanner';
 import { AuthInput } from '@/components/auth/AuthInput';
 import { AuthSubmitButton } from '@/components/auth/AuthSubmitButton';
-import { COLORS } from '@/constants/constants';
+import { useTheme } from '@/theme/ThemeContext';
+import { ThemeColors } from '@/theme/colors';
 import { useProfile } from '@/hooks/useProfile';
 import { changePasswordSchema } from '@/schemas/profile.schema';
 import type { ChangePasswordFormValues } from '@/types/profile.types';
@@ -25,6 +26,8 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
   navigation,
 }) => {
   const { t } = useTranslation('profile');
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const [isOldVisible, setIsOldVisible] = useState(false);
   const [isNewVisible, setIsNewVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
@@ -74,7 +77,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
           name="oldPassword"
           render={({ field: { onChange, onBlur, value } }) => (
             <AuthInput
-              containerStyle={{ backgroundColor: COLORS.inputBg2 }}
+              containerStyle={{ backgroundColor: colors.inputBg2 }}
               label={t('changePassword.oldPasswordLabel')}
               placeholder={t('auth:register.passwordPlaceholder')}
               secureTextEntry={!isOldVisible}
@@ -85,7 +88,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
               onBlur={onBlur}
               error={translateError(errors.oldPassword?.message)}
               leftSlot={
-                <Icon name="lock" size={18} color={COLORS.placeholder} />
+                <Icon name="lock" size={18} color={colors.placeholder} />
               }
               rightSlot={
                 <TouchableOpacity
@@ -95,7 +98,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
                   <Icon
                     name={isOldVisible ? 'eye-off' : 'eye'}
                     size={18}
-                    color={COLORS.placeholder}
+                    color={colors.placeholder}
                   />
                 </TouchableOpacity>
               }
@@ -108,7 +111,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
           name="newPassword"
           render={({ field: { onChange, onBlur, value } }) => (
             <AuthInput
-              containerStyle={{ backgroundColor: COLORS.inputBg2 }}
+              containerStyle={{ backgroundColor: colors.inputBg2 }}
               label={t('changePassword.newPasswordLabel')}
               placeholder={t('auth:register.passwordPlaceholder')}
               secureTextEntry={!isNewVisible}
@@ -122,7 +125,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
               onBlur={onBlur}
               error={translateError(errors.newPassword?.message)}
               leftSlot={
-                <Icon name="lock" size={18} color={COLORS.placeholder} />
+                <Icon name="lock" size={18} color={colors.placeholder} />
               }
               rightSlot={
                 <TouchableOpacity
@@ -132,7 +135,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
                   <Icon
                     name={isNewVisible ? 'eye-off' : 'eye'}
                     size={18}
-                    color={COLORS.placeholder}
+                    color={colors.placeholder}
                   />
                 </TouchableOpacity>
               }
@@ -145,7 +148,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
           name="confirmNewPassword"
           render={({ field: { onChange, onBlur, value } }) => (
             <AuthInput
-              containerStyle={{ backgroundColor: COLORS.inputBg2 }}
+              containerStyle={{ backgroundColor: colors.inputBg2 }}
               label={t('changePassword.confirmNewPasswordLabel')}
               placeholder={t('auth:register.passwordPlaceholder')}
               secureTextEntry={!isConfirmVisible}
@@ -159,7 +162,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
               onBlur={onBlur}
               error={translateError(errors.confirmNewPassword?.message)}
               leftSlot={
-                <Icon name="lock" size={18} color={COLORS.placeholder} />
+                <Icon name="lock" size={18} color={colors.placeholder} />
               }
               rightSlot={
                 <TouchableOpacity
@@ -169,7 +172,7 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
                   <Icon
                     name={isConfirmVisible ? 'eye-off' : 'eye'}
                     size={18}
-                    color={COLORS.placeholder}
+                    color={colors.placeholder}
                   />
                 </TouchableOpacity>
               }
@@ -187,18 +190,19 @@ export const ChangePasswordScreen: React.FC<ChangePasswordScreenProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: COLORS.bg,
-  },
-  content: {
-    padding: 20,
-  },
-  hitSlop: {
-    top: 8,
-    bottom: 8,
-    left: 8,
-    right: 8,
-  },
-});
+const createStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: colors.bg,
+    },
+    content: {
+      padding: 20,
+    },
+    hitSlop: {
+      top: 8,
+      bottom: 8,
+      left: 8,
+      right: 8,
+    },
+  });

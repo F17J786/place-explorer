@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useBottomSheet } from '@gorhom/bottom-sheet';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesReviewListScreen';
+import { useReviewListScreenStyles } from '@/hooks/useReviewListScreenStyles';
 
 interface FilterHandleComponentProps {
   title: string;
@@ -12,6 +11,7 @@ interface FilterHandleComponentProps {
 export const FilterHandleComponent = ({
   title,
 }: FilterHandleComponentProps) => {
+  const { styles, colors } = useReviewListScreenStyles();
   const { close } = useBottomSheet();
   return (
     <View style={styles.bsHandle}>
@@ -23,7 +23,7 @@ export const FilterHandleComponent = ({
           hitSlop={styles.hitSlop}
           style={styles.bsCloseBtn}
         >
-          <Icon name="close" size={20} color={COLORS.textSub} />
+          <Icon name="close" size={20} color={colors.textSub} />
         </TouchableOpacity>
       </View>
     </View>

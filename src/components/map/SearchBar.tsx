@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
-import { COLORS, getConfig } from '@/constants/constants';
+import { getConfig } from '@/constants/constants';
 import { SearchSuggestion } from '@/types/mapScreen.type';
-import { styles } from '@/constants/stylesMapScreen';
+import { useMapScreenStyles } from '@/hooks/useMapScreenStyles';
 
 interface SearchBarProps {
   searchQuery: string;
@@ -39,6 +39,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onSelectSuggestion,
   onOpenRoutePanel,
 }) => {
+  const { styles, colors } = useMapScreenStyles();
   const { t } = useTranslation('map');
   const showSuggestions =
     searchFocused && (suggestions.length > 0 || searchLoading);
@@ -52,12 +53,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           <Icon
             name="search"
             size={18}
-            color={searchFocused ? COLORS.primary : COLORS.textMuted}
+            color={searchFocused ? colors.primary : colors.textMuted}
           />
           <TextInput
             style={styles.searchInput}
             placeholder={t('searchBar.placeholder')}
-            placeholderTextColor={COLORS.textMuted}
+            placeholderTextColor={colors.textMuted}
             value={searchQuery}
             onChangeText={onChangeText}
             onFocus={onFocus}
@@ -66,7 +67,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           />
           {searchQuery.length > 0 && (
             <TouchableOpacity onPress={onClear}>
-              <Icon name="close" size={20} color={COLORS.textMuted} />
+              <Icon name="close" size={20} color={colors.textMuted} />
             </TouchableOpacity>
           )}
         </View>
@@ -78,7 +79,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           style={styles.routeToggleBtn}
           onPress={onOpenRoutePanel}
         >
-          <Icon name="directions" size={22} color={COLORS.primary} />
+          <Icon name="directions" size={22} color={colors.primary} />
         </TouchableOpacity>
       </View>
 
@@ -86,7 +87,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         <View style={styles.suggestionList}>
           {searchLoading && (
             <View style={styles.suggestLoading}>
-              <ActivityIndicator size="small" color={COLORS.primary} />
+              <ActivityIndicator size="small" color={colors.primary} />
               <Text style={styles.suggestLoadingText}>
                 {t('searchBar.searching')}
               </Text>
@@ -103,7 +104,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                   styles.suggestIcon,
                   {
                     backgroundColor:
-                      s.type === 'marker' ? COLORS.primaryLight : '#F1F5F9',
+                      s.type === 'marker'
+                        ? colors.primaryLight
+                        : colors.surfaceMuted,
                   },
                 ]}
               >
@@ -114,7 +117,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                       : 'place'
                   }
                   size={14}
-                  color={s.type === 'marker' ? COLORS.primary : COLORS.textSec}
+                  color={s.type === 'marker' ? colors.primary : colors.textSec}
                 />
               </View>
               <View style={styles.suggestTextWrap}>
@@ -125,7 +128,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                   {s.displayName}
                 </Text>
               </View>
-              <Icon name="north-west" size={12} color={COLORS.textMuted} />
+              <Icon name="north-west" size={12} color={colors.textMuted} />
             </TouchableOpacity>
           ))}
         </View>

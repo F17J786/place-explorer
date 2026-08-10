@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { AUTH_COLORS } from '@/constants/authTheme';
+import { AuthColors } from '@/constants/authTheme';
+import { useAuthColors } from '@/hooks/useAuthColors';
 
 interface AuthErrorBannerProps {
   message: string | null;
 }
 
 export const AuthErrorBanner = ({ message }: AuthErrorBannerProps) => {
+  const AUTH_COLORS = useAuthColors();
+  const styles = useMemo(() => createStyles(AUTH_COLORS), [AUTH_COLORS]);
+
   if (!message) {
     return null;
   }
@@ -19,16 +23,17 @@ export const AuthErrorBanner = ({ message }: AuthErrorBannerProps) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#FEE2E2',
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 16,
-  },
-  text: {
-    fontSize: 13,
-    color: AUTH_COLORS.error,
-    textAlign: 'center',
-  },
-});
+const createStyles = (AUTH_COLORS: AuthColors) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: AUTH_COLORS.errorBg,
+      borderRadius: 10,
+      padding: 12,
+      marginBottom: 16,
+    },
+    text: {
+      fontSize: 13,
+      color: AUTH_COLORS.error,
+      textAlign: 'center',
+    },
+  });

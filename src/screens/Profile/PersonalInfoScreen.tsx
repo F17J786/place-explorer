@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +9,8 @@ import { AuthErrorBanner } from '@/components/auth/AuthErrorBanner';
 import { AuthInput } from '@/components/auth/AuthInput';
 import { AuthSubmitButton } from '@/components/auth/AuthSubmitButton';
 import { AvatarPicker } from '@/components/auth/AvatarPicker';
-import { COLORS } from '@/constants/constants';
+import { useTheme } from '@/theme/ThemeContext';
+import { ThemeColors } from '@/theme/colors';
 import { useProfile } from '@/hooks/useProfile';
 import { updateProfileSchema } from '@/schemas/profile.schema';
 import type { UpdateProfileFormValues } from '@/types/profile.types';
@@ -26,6 +27,8 @@ export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
   navigation,
 }) => {
   const { t } = useTranslation('profile');
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const {
     user,
     profileError,
@@ -85,9 +88,9 @@ export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
           name="name"
           render={({ field: { onChange, onBlur, value } }) => (
             <AuthInput
-              containerStyle={{ backgroundColor: COLORS.inputBg2 }}
+              containerStyle={{ backgroundColor: colors.inputBg2 }}
               leftSlot={
-                <Icon name="user" size={18} color={COLORS.placeholder} />
+                <Icon name="user" size={18} color={colors.placeholder} />
               }
               label={t('auth:register.fullNameLabel')}
               placeholder={t('auth:register.fullNamePlaceholder')}
@@ -106,9 +109,9 @@ export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
             <AuthInput
-              containerStyle={{ backgroundColor: COLORS.inputBg2 }}
+              containerStyle={{ backgroundColor: colors.inputBg2 }}
               leftSlot={
-                <Icon name="mail" size={18} color={COLORS.placeholder} />
+                <Icon name="mail" size={18} color={colors.placeholder} />
               }
               label={t('auth:register.emailLabel')}
               placeholder={t('auth:register.emailPlaceholder')}
@@ -133,12 +136,13 @@ export const PersonalInfoScreen: React.FC<PersonalInfoScreenProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: COLORS.bg,
-  },
-  content: {
-    padding: 20,
-  },
-});
+const createStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: colors.bg,
+    },
+    content: {
+      padding: 20,
+    },
+  });

@@ -12,7 +12,8 @@
     "changePassword": "Change Password",
     "changePasswordSubtitle": "Change your login password",
     "language": "Language",
-    "logout": "Log out"
+    "logout": "Log out",
+    "theme": "Theme"
   },
   "language": {
     "title": "Select language"

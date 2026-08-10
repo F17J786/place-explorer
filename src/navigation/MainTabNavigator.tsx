@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -6,7 +6,8 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 import { useTranslation } from 'react-i18next';
 
-import { COLORS } from '@/constants/constants';
+import { useTheme } from '@/theme/ThemeContext';
+import { ThemeColors } from '@/theme/colors';
 import type { MainTabParamList } from '@/navigation/types';
 import { MapScreen } from '@/screens/Map';
 import { FavoritesScreen } from '@/screens/Favorites';
@@ -20,6 +21,8 @@ interface CustomTabBarProps {
 
 const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
   const { t } = useTranslation('common');
+  const { colors } = useTheme();
+  const tabBarStyles = useMemo(() => createTabBarStyles(colors), [colors]);
 
   const TABS = [
     { key: 'Map', label: t('tabs.map'), icon: 'map' },
@@ -73,13 +76,13 @@ const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
             >
               <Feather
                 name={tab.icon}
-                color={isActive ? COLORS.primary : COLORS.tabInactive}
+                color={isActive ? colors.primary : colors.tabInactive}
                 size={16}
               />
               <Text
                 style={[
                   tabBarStyles.tabLabel,
-                  { color: isActive ? COLORS.primary : COLORS.tabInactive },
+                  { color: isActive ? colors.primary : colors.tabInactive },
                 ]}
                 numberOfLines={1}
               >
@@ -93,89 +96,90 @@ const CustomTabBar = ({ state, navigation }: CustomTabBarProps) => {
   );
 };
 
-const tabBarStyles = StyleSheet.create({
-  wrapper: {
-    height: 100,
-    backgroundColor: COLORS.bg,
-  },
+const createTabBarStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    wrapper: {
+      height: 100,
+      backgroundColor: colors.bg,
+    },
 
-  bar: {
-    position: 'absolute',
-    bottom: 14,
-    left: 20,
-    right: 20,
-    borderRadius: 32,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 8,
-    overflow: 'visible',
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 68,
-    paddingHorizontal: 12,
-  },
+    bar: {
+      position: 'absolute',
+      bottom: 14,
+      left: 20,
+      right: 20,
+      borderRadius: 32,
+      backgroundColor: colors.surface,
+      shadowColor: '#000',
+      shadowOpacity: 0.12,
+      shadowRadius: 16,
+      shadowOffset: { width: 0, height: 4 },
+      elevation: 8,
+      overflow: 'visible',
+      flexDirection: 'row',
+      alignItems: 'center',
+      height: 68,
+      paddingHorizontal: 12,
+    },
 
-  wrapperFloating: {
-    position: 'absolute',
-    bottom: 14,
-    left: 20,
-    right: 20,
-    borderRadius: 32,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 8,
-    overflow: 'visible',
-  },
+    wrapperFloating: {
+      position: 'absolute',
+      bottom: 14,
+      left: 20,
+      right: 20,
+      borderRadius: 32,
+      backgroundColor: colors.surface,
+      shadowColor: '#000',
+      shadowOpacity: 0.12,
+      shadowRadius: 16,
+      shadowOffset: { width: 0, height: 4 },
+      elevation: 8,
+      overflow: 'visible',
+    },
 
-  barFloating: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 68,
-    paddingHorizontal: 12,
-  },
+    barFloating: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      height: 68,
+      paddingHorizontal: 12,
+    },
 
-  tabBtn: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 4,
-  },
+    tabBtn: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 4,
+    },
 
-  tabLabel: {
-    fontSize: 9,
-    fontWeight: '600',
-    letterSpacing: 0.2,
-  },
+    tabLabel: {
+      fontSize: 9,
+      fontWeight: '600',
+      letterSpacing: 0.2,
+    },
 
-  fabContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: -45,
-    paddingBottom: 0,
-  },
+    fabContainer: {
+      flex: 1,
+      alignItems: 'center',
+      marginTop: -45,
+      paddingBottom: 0,
+    },
 
-  fab: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#1A56DB',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 4,
-    borderColor: '#fff',
-    shadowColor: '#1A56DB',
-    shadowOpacity: 0.4,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 10,
-  },
-});
+    fab: {
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      backgroundColor: colors.primary,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 4,
+      borderColor: colors.surface,
+      shadowColor: colors.primary,
+      shadowOpacity: 0.4,
+      shadowRadius: 12,
+      shadowOffset: { width: 0, height: 6 },
+      elevation: 10,
+    },
+  });
 
 const MapStack = createNativeStackNavigator();
 const FavStack = createNativeStackNavigator();

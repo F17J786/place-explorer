@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import {
   ActivityIndicator,
   Animated,
@@ -7,7 +7,8 @@ import {
   Text,
 } from 'react-native';
 
-import { AUTH_COLORS, AUTH_TYPOGRAPHY } from '@/constants/authTheme';
+import { AUTH_TYPOGRAPHY, AuthColors } from '@/constants/authTheme';
+import { useAuthColors } from '@/hooks/useAuthColors';
 
 interface AuthSubmitButtonProps {
   title: string;
@@ -20,6 +21,8 @@ export const AuthSubmitButton = ({
   isLoading,
   onPress,
 }: AuthSubmitButtonProps) => {
+  const AUTH_COLORS = useAuthColors();
+  const styles = useMemo(() => createStyles(AUTH_COLORS), [AUTH_COLORS]);
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
@@ -60,27 +63,28 @@ export const AuthSubmitButton = ({
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: AUTH_COLORS.primary,
-    borderRadius: 12,
-    height: 52,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 8,
-  },
-  buttonDisabled: {
-    opacity: 0.6,
-  },
-  text: {
-    ...AUTH_TYPOGRAPHY.button,
-    color: AUTH_COLORS.white,
-  },
-  hitSlop: {
-    top: 8,
-    bottom: 8,
-    left: 8,
-    right: 8,
-  },
-});
+const createStyles = (AUTH_COLORS: AuthColors) =>
+  StyleSheet.create({
+    button: {
+      backgroundColor: AUTH_COLORS.primary,
+      borderRadius: 12,
+      height: 52,
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 8,
+    },
+    buttonDisabled: {
+      opacity: 0.6,
+    },
+    text: {
+      ...AUTH_TYPOGRAPHY.button,
+      color: AUTH_COLORS.white,
+    },
+    hitSlop: {
+      top: 8,
+      bottom: 8,
+      left: 8,
+      right: 8,
+    },
+  });

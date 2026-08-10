@@ -2,12 +2,11 @@ import React from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesPlaceDetailScreen';
 import { SectionHeader } from '@/components/placedetail/SectionHeader';
 import { Avatar } from '@/components/placedetail/Avatar';
 import type { Checkin } from '@/types/placeDetail.types';
 import { formatRelativeTime } from '@/utils/dateFormat';
+import { usePlaceDetailScreenStyles } from '@/hooks/usePlaceDetailScreenStyles';
 
 type CheckinSectionProps = {
   checkins: Checkin[];
@@ -24,6 +23,7 @@ export const CheckinSection = ({
   onSeeAll,
   onGoToProfile,
 }: CheckinSectionProps) => {
+  const { styles, colors } = usePlaceDetailScreenStyles();
   const { t } = useTranslation('placeDetail');
 
   return (
@@ -36,7 +36,7 @@ export const CheckinSection = ({
 
       {checkinsLoading ? (
         <ActivityIndicator
-          color={COLORS.primary}
+          color={colors.primary}
           style={styles.checkinLoading}
         />
       ) : previewCheckins.length === 0 ? (
@@ -44,7 +44,7 @@ export const CheckinSection = ({
           <Icon2
             name="map-marker-off-outline"
             size={36}
-            color={COLORS.textLight}
+            color={colors.textLight}
           />
           <Text style={styles.emptyText}>{t('checkinSection.empty')}</Text>
         </View>
@@ -72,7 +72,7 @@ export const CheckinSection = ({
               </Text>
             </TouchableOpacity>
             <View style={styles.checkinBadge}>
-              <Icon2 name="map-marker-check" size={14} color={COLORS.success} />
+              <Icon2 name="map-marker-check" size={14} color={colors.success} />
             </View>
           </View>
         ))

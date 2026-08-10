@@ -1,5 +1,4 @@
-import { COLORS } from '@/constants/constants';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -9,6 +8,8 @@ import {
   type ViewStyle,
   type TextInputProps,
 } from 'react-native';
+import { useTheme } from '@/theme/ThemeContext';
+import { ThemeColors } from '@/theme/colors';
 
 interface AuthInputProps extends TextInputProps {
   label?: string;
@@ -31,6 +32,8 @@ export const AuthInput = ({
   onBlur,
   ...textInputProps
 }: AuthInputProps) => {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus: TextInputProps['onFocus'] = event => {
@@ -57,7 +60,7 @@ export const AuthInput = ({
         {leftSlot ? <View style={styles.leftSlot}>{leftSlot}</View> : null}
         <TextInput
           style={[styles.input, style]}
-          placeholderTextColor={COLORS.placeholder}
+          placeholderTextColor={colors.placeholder}
           onFocus={handleFocus}
           onBlur={handleBlur}
           {...textInputProps}
@@ -69,57 +72,58 @@ export const AuthInput = ({
   );
 };
 
-const styles = StyleSheet.create({
-  wrapper: {
-    marginBottom: 16,
-  },
-  label: {
-    marginLeft: 7,
-    fontSize: 11,
-    fontWeight: '700',
-    color: COLORS.labelText,
-    letterSpacing: 0.8,
-    marginBottom: 8,
-  },
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.inputBg,
-    borderRadius: 18,
-    height: 52,
-    paddingHorizontal: 14,
-  },
-  containerFocused: {
-    borderWidth: 1,
-    borderColor: COLORS.primaryAlt,
-    ...Platform.select({
-      ios: {
-        shadowColor: COLORS.primaryAlt,
-        shadowOpacity: 0.18,
-      },
-    }),
-  },
-  containerError: {
-    borderColor: COLORS.error2,
-  },
-  input: {
-    flex: 1,
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: COLORS.bodyText,
-    padding: 0,
-  },
-  leftSlot: {
-    marginLeft: 2,
-    marginRight: 10,
-  },
-  rightSlot: {
-    marginLeft: 8,
-  },
-  errorText: {
-    marginLeft: 7,
-    marginTop: 4,
-    fontSize: 12,
-    color: COLORS.error2,
-  },
-});
+const createStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    wrapper: {
+      marginBottom: 16,
+    },
+    label: {
+      marginLeft: 7,
+      fontSize: 11,
+      fontWeight: '700',
+      color: colors.labelText,
+      letterSpacing: 0.8,
+      marginBottom: 8,
+    },
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: colors.inputBg,
+      borderRadius: 18,
+      height: 52,
+      paddingHorizontal: 14,
+    },
+    containerFocused: {
+      borderWidth: 1,
+      borderColor: colors.primaryAlt,
+      ...Platform.select({
+        ios: {
+          shadowColor: colors.primaryAlt,
+          shadowOpacity: 0.18,
+        },
+      }),
+    },
+    containerError: {
+      borderColor: colors.error2,
+    },
+    input: {
+      flex: 1,
+      fontSize: 15,
+      fontWeight: 'bold',
+      color: colors.bodyText,
+      padding: 0,
+    },
+    leftSlot: {
+      marginLeft: 2,
+      marginRight: 10,
+    },
+    rightSlot: {
+      marginLeft: 8,
+    },
+    errorText: {
+      marginLeft: 7,
+      marginTop: 4,
+      fontSize: 12,
+      color: colors.error2,
+    },
+  });

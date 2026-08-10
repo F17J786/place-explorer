@@ -4,8 +4,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
 import { COLORS } from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
-import { styles } from '@/constants/stylesMapScreen';
 import { MarkerRow } from './MarkerRow';
+import { useMapScreenStyles } from '@/hooks/useMapScreenStyles';
 
 interface PlaceListSheetProps {
   markers: OsmMarker[];
@@ -20,6 +20,7 @@ export const PlaceListSheet: React.FC<PlaceListSheetProps> = ({
   selectedAmenity,
   onSelectMarker,
 }) => {
+  const { styles } = useMapScreenStyles();
   const { t } = useTranslation('map');
 
   return (

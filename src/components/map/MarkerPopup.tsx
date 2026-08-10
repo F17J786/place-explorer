@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
 import { COLORS, getConfig } from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
-import { styles } from '@/constants/stylesMapScreen';
+import { useMapScreenStyles } from '@/hooks/useMapScreenStyles';
 
 interface MarkerPopupProps {
   selectedMarker: OsmMarker | null;
@@ -21,6 +21,7 @@ export const MarkerPopup: React.FC<MarkerPopupProps> = ({
   onDetail,
   onRoute,
 }) => {
+  const { styles } = useMapScreenStyles();
   const { t } = useTranslation('map');
 
   return (

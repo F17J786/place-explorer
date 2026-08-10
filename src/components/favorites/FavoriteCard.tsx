@@ -2,10 +2,9 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { COLORS } from '@/constants/constants';
 import type { Favorite, PlaceRecord } from '@/types/placeDetail.types';
 import { CATEGORY_ICON, CATEGORY_COLOR } from '@/constants/constants';
-import { styles } from '@/constants/stylesFavoritesScreen';
+import { useFavoritesScreenStyles } from '@/hooks/useFavoritesScreenStyles';
 
 type FavoriteCardProps = {
   item: Favorite;
@@ -25,6 +24,7 @@ export const FavoriteCard = React.memo(
     onPress,
     onDelete,
   }: FavoriteCardProps) => {
+    const { styles, colors } = useFavoritesScreenStyles();
     const iconName =
       CATEGORY_ICON[place?.category ?? 'default'] ?? CATEGORY_ICON.default;
     const iconColor =
@@ -53,7 +53,7 @@ export const FavoriteCard = React.memo(
               <Icon
                 name="map-marker-outline"
                 size={12}
-                color={COLORS.textSecondary}
+                color={colors.textSecondary}
               />
               <Text style={styles.cardAddress} numberOfLines={1}>
                 {place.address}

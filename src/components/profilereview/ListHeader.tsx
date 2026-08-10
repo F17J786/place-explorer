@@ -3,10 +3,9 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
 import MediaThumb from '@/components/review/MediaThumb';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesProfileReviewScreen';
 import type { FlatMedia } from '@/types/placeDetail.types';
 import { Avatar } from '../placedetail/Avatar';
+import { useProfileReviewScreenStyles } from '@/hooks/useProfileReviewScreenStyles';
 
 interface ListHeaderProps {
   displayAvatar?: string;
@@ -37,6 +36,7 @@ export const ListHeader = ({
   previewLimit,
   gridGap,
 }: ListHeaderProps) => {
+  const { styles, colors } = useProfileReviewScreenStyles();
   const { t } = useTranslation('profileReview');
 
   return (
@@ -94,7 +94,7 @@ export const ListHeader = ({
                     <Icon
                       name="play-circle-filled"
                       size={22}
-                      color={COLORS.white}
+                      color={colors.white}
                     />
                   </View>
                 )}

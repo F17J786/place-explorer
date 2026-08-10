@@ -11,8 +11,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { useTranslation } from 'react-i18next';
 import { COLORS } from '@/constants/constants';
 import { SearchSuggestion } from '@/types/mapScreen.type';
-import { styles } from '@/constants/stylesMapScreen';
 import { routeMarkerStyles } from './RouteMarker';
+import { useMapScreenStyles } from '@/hooks/useMapScreenStyles';
 
 interface RoutePanelProps {
   focusedInput: 'A' | 'B' | null;
@@ -75,6 +75,7 @@ export const RoutePanel: React.FC<RoutePanelProps> = ({
   onSelectRecent,
   onSelectMyLocation,
 }) => {
+  const { styles } = useMapScreenStyles();
   const { t } = useTranslation('map');
   const showDropdown = routeCoordsEmpty && showRouteDropdownBase;
 

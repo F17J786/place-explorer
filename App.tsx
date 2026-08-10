@@ -21,6 +21,7 @@ import BackgroundFetch from 'react-native-background-fetch';
 import initI18n from '@/locales/i18n';
 import { COLORS } from '@/constants/constants';
 import { ToastProvider } from '@/provider/ToastProvider';
+import { ThemeProvider } from '@/theme/ThemeContext';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -62,24 +63,26 @@ const App = () => {
 
   return (
     <GestureHandlerRootView style={styles.root}>
-      <ToastProvider>
-        <Provider store={store}>
-          <NetworkProvider>
-            <SafeAreaProvider>
-              <PaperProvider>
-                <BottomSheetModalProvider>
-                  <StatusBar
-                    barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-                    backgroundColor="transparent"
-                    translucent
-                  />
-                  <AppNavigator />
-                </BottomSheetModalProvider>
-              </PaperProvider>
-            </SafeAreaProvider>
-          </NetworkProvider>
-        </Provider>
-      </ToastProvider>
+      <ThemeProvider>
+        <ToastProvider>
+          <Provider store={store}>
+            <NetworkProvider>
+              <SafeAreaProvider>
+                <PaperProvider>
+                  <BottomSheetModalProvider>
+                    <StatusBar
+                      barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+                      backgroundColor="transparent"
+                      translucent
+                    />
+                    <AppNavigator />
+                  </BottomSheetModalProvider>
+                </PaperProvider>
+              </SafeAreaProvider>
+            </NetworkProvider>
+          </Provider>
+        </ToastProvider>
+      </ThemeProvider>
     </GestureHandlerRootView>
   );
 };

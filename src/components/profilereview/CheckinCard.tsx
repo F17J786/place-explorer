@@ -3,9 +3,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
 import type { Checkin } from '@/types/placeDetail.types';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesProfileReviewScreen';
 import { formatRelativeTime } from '@/utils/dateFormat';
+import { useProfileReviewScreenStyles } from '@/hooks/useProfileReviewScreenStyles';
 
 export const CheckinCard = ({
   item,
@@ -18,6 +17,7 @@ export const CheckinCard = ({
   placeAddress?: string;
   onOpenPlace: () => void;
 }) => {
+  const { styles, colors } = useProfileReviewScreenStyles();
   const { t } = useTranslation('profileReview');
 
   const distanceText =
@@ -32,7 +32,7 @@ export const CheckinCard = ({
       activeOpacity={0.7}
     >
       <View style={styles.placeIconWrap}>
-        <Icon name="check-circle" size={16} color={COLORS.primary} />
+        <Icon name="check-circle" size={16} color={colors.primary} />
       </View>
       <View style={styles.checkinInfo}>
         <Text style={styles.placeName} numberOfLines={1}>
@@ -51,7 +51,7 @@ export const CheckinCard = ({
           <Text style={styles.dateText}>{distanceText}</Text>
         </View>
       </View>
-      <Icon name="chevron-right" size={20} color={COLORS.textLight} />
+      <Icon name="chevron-right" size={20} color={colors.textLight} />
     </TouchableOpacity>
   );
 };

@@ -2,9 +2,8 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesReviewListScreen';
 import { StarRow } from '../placedetail/StarRow';
+import { useReviewListScreenStyles } from '@/hooks/useReviewListScreenStyles';
 
 interface RatingDistItem {
   star: number;
@@ -24,6 +23,7 @@ export const SummaryCard = ({
   ratingDist,
 }: SummaryCardProps) => {
   const { t } = useTranslation('review');
+  const { styles, colors } = useReviewListScreenStyles();
 
   return (
     <View style={styles.summaryCard}>
@@ -38,7 +38,7 @@ export const SummaryCard = ({
         {ratingDist.map(({ star, count, pct }) => (
           <View key={star} style={styles.distRow}>
             <Text style={styles.distStar}>{star}</Text>
-            <Icon name="star" size={11} color={COLORS.star} />
+            <Icon name="star" size={11} color={colors.star} />
             <View style={styles.distBar}>
               <View style={[styles.distFill, { width: `${pct}%` }]} />
             </View>

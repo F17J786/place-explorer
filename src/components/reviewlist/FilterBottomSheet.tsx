@@ -7,11 +7,11 @@ import {
   useBottomSheetSpringConfigs,
 } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
-import { COLORS, FILTER_OPTIONS } from '@/constants/constants';
-import { styles } from '@/constants/stylesReviewListScreen';
+import { FILTER_OPTIONS } from '@/constants/constants';
 import type { FilterType } from '@/types/reviewListScreen.types';
 import { FilterHandleComponent } from '@/components/reviewlist/FilterHandleComponent';
 import { FilterApplyButton } from '@/components/reviewlist/FilterApplyButton';
+import { useReviewListScreenStyles } from '@/hooks/useReviewListScreenStyles';
 
 interface FilterBottomSheetProps {
   activeFilter: FilterType;
@@ -23,6 +23,7 @@ export const FilterBottomSheet = forwardRef<
   FilterBottomSheetProps
 >(({ activeFilter, onApply }, ref) => {
   const { t } = useTranslation('review');
+  const { styles, colors } = useReviewListScreenStyles();
   const [temp, setTemp] = useState<FilterType>(activeFilter);
   const animationConfigs = useBottomSheetSpringConfigs({
     damping: 80,
@@ -39,6 +40,9 @@ export const FilterBottomSheet = forwardRef<
       ref={ref}
       index={0}
       snapPoints={['38%']}
+      enableContentPanningGesture={false}
+      enableHandlePanningGesture={false}
+      enableOverDrag={false}
       enablePanDownToClose
       enableDynamicSizing={false}
       handleComponent={() => (
@@ -76,7 +80,7 @@ export const FilterBottomSheet = forwardRef<
                 <Icon
                   name="check"
                   size={13}
-                  color={COLORS.primary}
+                  color={colors.primary}
                   style={styles.bsChipIcon}
                 />
               )}

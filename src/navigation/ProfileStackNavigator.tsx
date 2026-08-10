@@ -8,11 +8,13 @@ import {
 } from '@/screens/Profile';
 import { createScreenOptions } from '@/screens/PlaceDetail';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '@/theme/ThemeContext';
 
 const ProfileStack = createNativeStackNavigator();
 
 export const ProfileStackNavigator = () => {
   const { t } = useTranslation();
+  const { colors } = useTheme();
 
   return (
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
@@ -24,6 +26,7 @@ export const ProfileStackNavigator = () => {
           createScreenOptions({
             navigation,
             title: t('profile:menu.personalInfo'),
+            colors,
           })
         }
       />
@@ -34,6 +37,7 @@ export const ProfileStackNavigator = () => {
           createScreenOptions({
             navigation,
             title: t('profile:menu.changePassword'),
+            colors,
           })
         }
       />

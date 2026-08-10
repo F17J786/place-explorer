@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import {
   Alert,
   Image,
@@ -13,12 +13,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useTranslation } from 'react-i18next';
 
-import { COLORS } from '@/constants/constants';
+import { useTheme } from '@/theme/ThemeContext';
+import { ThemeColors } from '@/theme/colors';
 import { ProfileMenuItem } from '@/components/profile/ProfileMenuItem';
 import { LanguagePickerSheet } from '@/components/profile/LanguagePickerSheet';
 import { useProfile } from '@/hooks/useProfile';
 import { useLanguage } from '@/hooks/useLanguage';
 import { SupportedLanguage } from '@/locales';
+import { ThemeSwitcher } from '@/components/profile/ThemeSwitcher';
 
 interface ProfileScreenProps {
   navigation?: any;
@@ -34,6 +36,8 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
   const { t } = useTranslation('profile');
   const { user, handleLogout } = useProfile();
   const { currentLanguage, setLanguage } = useLanguage();
+  const { colors, isDark } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const languageSheetRef = useRef<BottomSheetModal>(null);
 
   const confirmLogout = () => {
@@ -54,7 +58,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
 
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
-      <StatusBar barStyle="light-content" backgroundColor={COLORS.primary} />
+      <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
 
       <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
         <Text style={styles.headerTitle}>{t('title')}</Text>
@@ -68,7 +72,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
             <Image source={{ uri: user.avatar }} style={styles.avatar} />
           ) : (
             <View style={[styles.avatar, styles.avatarPlaceholder]}>
-              <Icon name="user" size={28} color={COLORS.white} />
+              <Icon name="user" size={28} color={colors.white} />
             </View>
           )}
           <View style={styles.userInfo}>
@@ -103,6 +107,12 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
             rightText={LANGUAGE_LABELS[currentLanguage]}
             onPress={() => languageSheetRef.current?.present()}
           />
+          <View style={styles.divider} />
+          <ProfileMenuItem
+            icon={isDark ? 'moon' : 'sun'}
+            label={t('menu.theme')}
+            rightComponent={<ThemeSwitcher compact />}
+          />
         </View>
 
         <View style={styles.menuGroup}>
@@ -124,80 +134,81 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.bg,
-  },
-  header: {
-    paddingHorizontal: 16,
-    backgroundColor: COLORS.primary,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 125,
-    zIndex: 0,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: COLORS.white,
-  },
-  content: {
-    zIndex: 10,
-    marginTop: 80,
-  },
-  userCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 16,
-    marginTop: -24,
-    marginBottom: 20,
-    padding: 16,
-    borderRadius: 16,
-    backgroundColor: COLORS.white,
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 3,
-  },
-  avatar: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-  },
-  avatarPlaceholder: {
-    backgroundColor: COLORS.primary,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  userInfo: {
-    flex: 1,
-    marginLeft: 14,
-  },
-  userName: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: COLORS.text,
-  },
-  userEmail: {
-    marginTop: 2,
-    fontSize: 13,
-    color: COLORS.textSecondary,
-  },
-  menuGroup: {
-    marginHorizontal: 16,
-    marginBottom: 16,
-    borderRadius: 14,
-    overflow: 'hidden',
-    backgroundColor: COLORS.white,
-  },
-  divider: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: COLORS.border ?? '#E5E7EB',
-  },
-});
+const createStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.bg,
+    },
+    header: {
+      paddingHorizontal: 16,
+      backgroundColor: colors.primary,
+      borderBottomLeftRadius: 24,
+      borderBottomRightRadius: 24,
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: 125,
+      zIndex: 0,
+    },
+    headerTitle: {
+      fontSize: 20,
+      fontWeight: '700',
+      color: colors.white,
+    },
+    content: {
+      zIndex: 10,
+      marginTop: 80,
+    },
+    userCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginHorizontal: 16,
+      marginTop: -24,
+      marginBottom: 20,
+      padding: 16,
+      borderRadius: 16,
+      backgroundColor: colors.surface,
+      shadowColor: '#000',
+      shadowOpacity: 0.08,
+      shadowRadius: 8,
+      shadowOffset: { width: 0, height: 4 },
+      elevation: 3,
+    },
+    avatar: {
+      width: 56,
+      height: 56,
+      borderRadius: 28,
+    },
+    avatarPlaceholder: {
+      backgroundColor: colors.primary,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    userInfo: {
+      flex: 1,
+      marginLeft: 14,
+    },
+    userName: {
+      fontSize: 16,
+      fontWeight: '700',
+      color: colors.text,
+    },
+    userEmail: {
+      marginTop: 2,
+      fontSize: 13,
+      color: colors.textSecondary,
+    },
+    menuGroup: {
+      marginHorizontal: 16,
+      marginBottom: 16,
+      borderRadius: 14,
+      overflow: 'hidden',
+      backgroundColor: colors.surface,
+    },
+    divider: {
+      height: StyleSheet.hairlineWidth,
+      backgroundColor: colors.border,
+    },
+  });

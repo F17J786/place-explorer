@@ -16,12 +16,11 @@ import { useTranslation } from 'react-i18next';
 import { PlaceDetailStackParamList } from '@/types/navigation';
 import type { Review } from '@/types/placeDetail.types';
 import MediaThumb, { MediaLightbox } from '@/components/review/MediaThumb';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesReviewListScreen';
 import { StarRow } from '../placedetail/StarRow';
 import { Avatar } from '../placedetail/Avatar';
 import { formatRelativeTime } from '@/utils/dateFormat';
 import { useGetReviewCountByUserIdQuery } from '@/store/api/placeDetailApi';
+import { useReviewListScreenStyles } from '@/hooks/useReviewListScreenStyles';
 
 type NavProp = NativeStackNavigationProp<
   PlaceDetailStackParamList,
@@ -42,6 +41,7 @@ export const ReviewItem = ({
   onDelete,
 }: ReviewItemProps) => {
   const { t } = useTranslation('review');
+  const { styles, colors } = useReviewListScreenStyles();
   const isOwn = currentUserId === String(item.userId);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [menuVisible, setMenuVisible] = useState(false);
@@ -99,22 +99,22 @@ export const ReviewItem = ({
                 onPress={() => setMenuVisible(true)}
                 hitSlop={styles.hitSlop3}
               >
-                <Icon name="more-vert" size={20} color={COLORS.textSub} />
+                <Icon name="more-vert" size={20} color={colors.textSub} />
               </TouchableOpacity>
             }
           >
             <Pressable
-              android_ripple={{ color: COLORS.primaryLight }}
+              android_ripple={{ color: colors.primaryLight }}
               onPress={() => {
                 setMenuVisible(false);
                 onEdit(item);
               }}
               style={({ pressed }) => [
                 styles.menuItem,
-                pressed && { backgroundColor: COLORS.border },
+                pressed && { backgroundColor: colors.border },
               ]}
             >
-              <Icon2 name="pencil-outline" size={16} color={COLORS.text} />
+              <Icon2 name="pencil-outline" size={16} color={colors.text} />
               <Text style={styles.menuItemText}>{t('menu.editReview')}</Text>
             </Pressable>
 
@@ -123,11 +123,11 @@ export const ReviewItem = ({
               onPress={confirmDelete}
               style={({ pressed }) => [
                 styles.menuItem,
-                pressed && { backgroundColor: COLORS.border },
+                pressed && { backgroundColor: colors.border },
               ]}
             >
-              <Icon2 name="delete-outline" size={16} color={COLORS.danger} />
-              <Text style={[styles.menuItemText, { color: COLORS.danger }]}>
+              <Icon2 name="delete-outline" size={16} color={colors.danger} />
+              <Text style={[styles.menuItemText, { color: colors.danger }]}>
                 {t('menu.deleteReview')}
               </Text>
             </Pressable>

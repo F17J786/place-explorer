@@ -18,7 +18,6 @@ import {
   MIN_ZOOM,
 } from '@/constants/constants';
 import { OsmMarker } from '@/types/mapScreen.type';
-import { styles } from '@/constants/stylesMapScreen';
 import { loadLastRegion } from '@/storage/lastRegion';
 
 import { useMapMarkers } from '@/hooks/useMapMarkers';
@@ -35,6 +34,7 @@ import { RoutePanel } from '@/components/map/RoutePanel';
 import { RightActions } from '@/components/map/RightActions';
 import { MarkerPopup } from '@/components/map/MarkerPopup';
 import { PlaceListSheet } from '@/components/map/PlaceListSheet';
+import { useMapScreenStyles } from '@/hooks/useMapScreenStyles';
 
 interface MapScreenProps {
   navigation?: any;
@@ -44,6 +44,8 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
   const { t } = useTranslation('map');
   const mapRef = useRef<MapView>(null);
   const popupAnim = useRef(new Animated.Value(0)).current;
+  const { styles, isDark } = useMapScreenStyles();
+  console.log('[MapScreen] isDark:', isDark);
 
   const [mapType, setMapType] = useState<MapType>('standard');
   const [currentZoom, setCurrentZoom] = useState<number | null>(null);
@@ -117,17 +119,24 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
   }, [selectedMarker, popupAnim]);
 
   const zoom = async (delta: 1 | -1) => {
-    const cam = await mapRef.current?.getCamera();
-    if (!cam || cam.zoom == null) return;
-    const next = Math.min(Math.max(cam.zoom + delta, MIN_ZOOM), MAX_ZOOM);
-    mapRef.current?.animateCamera({ ...cam, zoom: next }, { duration: 300 });
+    try {
+      const cam = await mapRef.current?.getCamera();
+      if (!cam || cam.zoom == null) return;
+      const next = Math.min(Math.max(cam.zoom + delta, MIN_ZOOM), MAX_ZOOM);
+      mapRef.current?.animateCamera({ ...cam, zoom: next }, { duration: 300 });
+    } catch {}
   };
 
   const handleRegionChangeComplete = (r: any) => {
     onRegionChangeComplete(r);
-    mapRef.current?.getCamera().then(cam => {
-      if (cam?.zoom != null) setCurrentZoom(cam.zoom);
-    });
+    if (!mapRef.current) return;
+
+    mapRef.current
+      .getCamera()
+      .then(cam => {
+        if (cam?.zoom != null) setCurrentZoom(cam.zoom);
+      })
+      .catch(() => {});
   };
 
   const closeRoutePanel = () => {
@@ -163,10 +172,21 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
     return !near(routeInputs.pointA) && !near(routeInputs.pointB);
   });
 
+  console.log(
+    '[MapView render]',
+    new Date().toISOString(),
+    'isDark:',
+    isDark,
+    'style:',
+    isDark ? 'DARK' : 'LIGHT',
+  );
+
   return (
     <View style={styles.container}>
       <MapView
+        key={isDark ? 'map-dark' : 'map-light'}
         ref={mapRef}
+        userInterfaceStyle={isDark ? 'dark' : 'light'}
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={initialRegion}

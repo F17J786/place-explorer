@@ -9,11 +9,13 @@ import {
   createScreenOptions,
   ProfileReviewScreen,
 } from '@/screens/PlaceDetail';
+import { useTheme } from '@/theme/ThemeContext';
 
 const DetailStack = createNativeStackNavigator();
 
 export const PlaceDetailStackNavigator = () => {
   const { t } = useTranslation();
+  const { colors } = useTheme();
 
   return (
     <DetailStack.Navigator screenOptions={{ headerShown: false }}>
@@ -24,6 +26,7 @@ export const PlaceDetailStackNavigator = () => {
           createScreenOptions({
             navigation,
             title: t('placeDetail:navTitle.detail'),
+            colors,
           })
         }
       />
@@ -34,6 +37,7 @@ export const PlaceDetailStackNavigator = () => {
           createScreenOptions({
             navigation,
             title: t('checkin:navTitle'),
+            colors,
           })
         }
       />
@@ -44,6 +48,7 @@ export const PlaceDetailStackNavigator = () => {
           createScreenOptions({
             navigation,
             title: t('review:navTitle'),
+            colors,
           })
         }
       />
@@ -54,6 +59,7 @@ export const PlaceDetailStackNavigator = () => {
           createScreenOptions({
             navigation,
             title: t('profileReview:navTitle'),
+            colors,
           })
         }
       />

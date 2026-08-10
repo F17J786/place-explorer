@@ -2,9 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
-
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesFavoritesScreen';
+import { useFavoritesScreenStyles } from '@/hooks/useFavoritesScreenStyles';
 
 type FavoritesHeaderProps = {
   isSelectMode: boolean;
@@ -27,13 +25,14 @@ export const FavoritesHeader = ({
   onToggleAll,
   onDelete,
 }: FavoritesHeaderProps) => {
+  const { styles, colors } = useFavoritesScreenStyles();
   const { t } = useTranslation('favorites');
 
   if (isSelectMode) {
     return (
       <View style={styles.header}>
         <TouchableOpacity style={styles.headerBtn} onPress={onCancelSelect}>
-          <Icon name="close" size={22} color={COLORS.white} />
+          <Icon name="close" size={22} color={colors.white} />
         </TouchableOpacity>
         <View style={styles.headerRow}>
           <Text style={styles.headerTitle}>

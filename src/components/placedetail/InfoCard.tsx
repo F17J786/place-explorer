@@ -4,9 +4,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
 import type { OsmMarker } from '@/types/mapScreen.type';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesPlaceDetailScreen';
 import { StarRow } from '@/components/placedetail/StarRow';
+import { usePlaceDetailScreenStyles } from '@/hooks/usePlaceDetailScreenStyles';
 
 type InfoCardProps = {
   place: OsmMarker;
@@ -25,6 +24,7 @@ export const InfoCard = ({
   onShare,
   onOpenMaps,
 }: InfoCardProps) => {
+  const { styles, colors } = usePlaceDetailScreenStyles();
   const { t } = useTranslation('placeDetail');
 
   return (
@@ -37,12 +37,12 @@ export const InfoCard = ({
           {place.name}
         </Text>
         <TouchableOpacity onPress={onShare}>
-          <Icon name="share" size={24} color={COLORS.primary} />
+          <Icon name="share" size={24} color={colors.primary} />
         </TouchableOpacity>
       </View>
 
       <View style={styles.heroTag}>
-        <Icon2 name="map-marker" size={12} color={COLORS.white} />
+        <Icon2 name="map-marker" size={12} color={colors.white} />
         <Text style={styles.heroTagText}>{amenityLabel}</Text>
       </View>
 
@@ -58,11 +58,11 @@ export const InfoCard = ({
 
       {place.address && (
         <TouchableOpacity style={styles.addressRow} onPress={onOpenMaps}>
-          <Icon name="location-on" size={16} color={COLORS.primary} />
+          <Icon name="location-on" size={16} color={colors.primary} />
           <Text style={styles.addressText} numberOfLines={2}>
             {place.address}
           </Text>
-          <Icon name="open-in-new" size={14} color={COLORS.textLight} />
+          <Icon name="open-in-new" size={14} color={colors.textLight} />
         </TouchableOpacity>
       )}
 
@@ -70,7 +70,7 @@ export const InfoCard = ({
         <View style={styles.tagList}>
           {place.tags.opening_hours && (
             <View style={styles.tagChip}>
-              <Icon name="access-time" size={12} color={COLORS.primary} />
+              <Icon name="access-time" size={12} color={colors.primary} />
               <Text style={styles.tagChipText}>{place.tags.opening_hours}</Text>
             </View>
           )}
@@ -79,7 +79,7 @@ export const InfoCard = ({
               style={styles.tagChip}
               onPress={() => Linking.openURL(`tel:${place.tags!.phone}`)}
             >
-              <Icon name="phone" size={12} color={COLORS.primary} />
+              <Icon name="phone" size={12} color={colors.primary} />
               <Text style={styles.tagChipText}>{place.tags.phone}</Text>
             </TouchableOpacity>
           )}
@@ -88,7 +88,7 @@ export const InfoCard = ({
               style={styles.tagChip}
               onPress={() => Linking.openURL(place.tags!.website!)}
             >
-              <Icon name="language" size={12} color={COLORS.primary} />
+              <Icon name="language" size={12} color={colors.primary} />
               <Text style={styles.tagChipText}>{t('infoCard.website')}</Text>
             </TouchableOpacity>
           )}

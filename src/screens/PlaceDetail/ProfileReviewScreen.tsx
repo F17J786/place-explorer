@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { MediaLightbox } from '@/components/review/MediaThumb';
 import type { PlaceDetailStackParamList } from '@/types/navigation';
 import { PREVIEW_LIMIT, GRID_GAP } from '@/constants/constants';
-import { styles } from '@/constants/stylesProfileReviewScreen';
+import { useProfileReviewScreenStyles } from '@/hooks/useProfileReviewScreenStyles';
 import { useProfileReviewData } from '@/hooks/useProfileReviewData';
 import { useMediaLightbox } from '@/hooks/useMediaLightbox';
 import { useOpenPlace } from '@/hooks/useOpenPlace';
@@ -19,6 +19,7 @@ export const ProfileReviewScreen = () => {
   const { t } = useTranslation('profileReview');
   const route = useRoute<RoutePropType>();
   const { userId, name: initialName, avatar: initialAvatar } = route.params;
+  const { styles } = useProfileReviewScreenStyles();
 
   const [showAllMedia, setShowAllMedia] = useState(false);
 

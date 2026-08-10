@@ -12,7 +12,8 @@
     "changePassword": "Đổi mật khẩu",
     "changePasswordSubtitle": "Thay đổi mật khẩu đăng nhập",
     "language": "Ngôn ngữ",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "theme": "Giao diện"
   },
   "language": {
     "title": "Chọn ngôn ngữ"

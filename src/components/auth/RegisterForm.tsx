@@ -12,12 +12,13 @@ import { useAuth } from '@/hooks/useAuth';
 import { registerSchema } from '@/schemas/auth.schema';
 import type { RegisterFormValues } from '@/types/auth.types';
 import Icon from 'react-native-vector-icons/Feather';
-import { COLORS } from '@/constants/constants';
+import { useTheme } from '@/theme/ThemeContext';
 import { createErrorTranslator } from '@/utils/formError';
 
 export const RegisterForm = () => {
   const translateError = createErrorTranslator('auth');
   const { t } = useTranslation('auth');
+  const { colors } = useTheme();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
@@ -67,7 +68,7 @@ export const RegisterForm = () => {
         name="fullName"
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
-            leftSlot={<Icon name="user" size={18} color={COLORS.placeholder} />}
+            leftSlot={<Icon name="user" size={18} color={colors.placeholder} />}
             label={t('register.fullNameLabel')}
             placeholder={t('register.fullNamePlaceholder')}
             autoCapitalize="words"
@@ -85,7 +86,7 @@ export const RegisterForm = () => {
         name="email"
         render={({ field: { onChange, onBlur, value } }) => (
           <AuthInput
-            leftSlot={<Icon name="mail" size={18} color={COLORS.placeholder} />}
+            leftSlot={<Icon name="mail" size={18} color={colors.placeholder} />}
             label={t('register.emailLabel')}
             placeholder={t('register.emailPlaceholder')}
             keyboardType="email-address"
@@ -113,7 +114,7 @@ export const RegisterForm = () => {
             onChangeText={onChange}
             onBlur={onBlur}
             error={translateError(errors.password?.message)}
-            leftSlot={<Icon name="lock" size={18} color={COLORS.placeholder} />}
+            leftSlot={<Icon name="lock" size={18} color={colors.placeholder} />}
             rightSlot={
               <TouchableOpacity
                 onPress={() => setIsPasswordVisible(v => !v)}
@@ -122,7 +123,7 @@ export const RegisterForm = () => {
                 <Icon
                   name={isPasswordVisible ? 'eye-off' : 'eye'}
                   size={18}
-                  color={COLORS.placeholder}
+                  color={colors.placeholder}
                 />
               </TouchableOpacity>
             }
@@ -147,7 +148,7 @@ export const RegisterForm = () => {
             }}
             onBlur={onBlur}
             error={translateError(errors.confirmPassword?.message)}
-            leftSlot={<Icon name="lock" size={18} color={COLORS.placeholder} />}
+            leftSlot={<Icon name="lock" size={18} color={colors.placeholder} />}
             rightSlot={
               <TouchableOpacity
                 onPress={() => setIsConfirmPasswordVisible(v => !v)}
@@ -156,7 +157,7 @@ export const RegisterForm = () => {
                 <Icon
                   name={isConfirmPasswordVisible ? 'eye-off' : 'eye'}
                   size={18}
-                  color={COLORS.placeholder}
+                  color={colors.placeholder}
                 />
               </TouchableOpacity>
             }

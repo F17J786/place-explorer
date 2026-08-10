@@ -19,8 +19,7 @@ import {
   reviewSchema,
   type ReviewFormValues,
 } from '@/schemas/validationSchemas';
-import { MAX_MEDIA, COLORS, RATING_HINT_KEYS } from '@/constants/constants';
-import { styles } from '@/constants/stylesReviewListScreen';
+import { MAX_MEDIA, RATING_HINT_KEYS } from '@/constants/constants';
 import type { MediaItem } from '@/types/reviewListScreen.types';
 import { useMediaPicker } from '@/hooks/useMediaPicker';
 import {
@@ -28,6 +27,7 @@ import {
   uploadVideoToCloudinary,
 } from '@/utils/cloudinaryUpload';
 import { createErrorTranslator } from '@/utils/formError';
+import { useReviewListScreenStyles } from '@/hooks/useReviewListScreenStyles';
 
 interface WriteReviewFormProps {
   initialRating?: number;
@@ -55,6 +55,7 @@ export const WriteReviewForm = ({
   const [hint, setHint] = useState<{ text: string; index: number } | null>(
     null,
   );
+  const { styles, colors } = useReviewListScreenStyles();
   const navigation = useNavigation();
 
   const {
@@ -161,7 +162,7 @@ export const WriteReviewForm = ({
                   <Icon
                     name={i <= value ? 'star' : 'star-border'}
                     size={36}
-                    color={COLORS.star}
+                    color={colors.star}
                   />
                 </TouchableOpacity>
               </View>
@@ -182,7 +183,7 @@ export const WriteReviewForm = ({
           <TextInput
             style={[styles.reviewInput, errors.comment && styles.inputError]}
             placeholder={t('writeReview.commentPlaceholder')}
-            placeholderTextColor={COLORS.textLight}
+            placeholderTextColor={colors.textLight}
             multiline
             numberOfLines={4}
             value={value}
@@ -209,7 +210,7 @@ export const WriteReviewForm = ({
             <View key={index} style={styles.mediaPreviewWrap}>
               {item.type === 'video' ? (
                 <View style={[styles.mediaThumb, styles.videoThumbFallback]}>
-                  <Icon name="videocam" size={26} color={COLORS.white} />
+                  <Icon name="videocam" size={26} color={colors.white} />
                 </View>
               ) : (
                 <Image source={{ uri: item.uri }} style={styles.mediaThumb} />
@@ -218,7 +219,7 @@ export const WriteReviewForm = ({
                 style={styles.removeMediaBtn}
                 onPress={() => removeMedia(index)}
               >
-                <Icon name="close" size={12} color={COLORS.white} />
+                <Icon name="close" size={12} color={colors.white} />
               </TouchableOpacity>
             </View>
           ))}
@@ -227,7 +228,7 @@ export const WriteReviewForm = ({
               style={styles.addMoreMediaBtn}
               onPress={pickMedia}
             >
-              <Icon name="add" size={24} color={COLORS.textLight} />
+              <Icon name="add" size={24} color={colors.textLight} />
             </TouchableOpacity>
           )}
         </ScrollView>
@@ -236,7 +237,7 @@ export const WriteReviewForm = ({
       <View style={styles.formActions}>
         {media.length === 0 && (
           <TouchableOpacity style={styles.mediaPickerBtn} onPress={pickMedia}>
-            <Icon name="add-photo-alternate" size={20} color={COLORS.primary} />
+            <Icon name="add-photo-alternate" size={20} color={colors.primary} />
             <Text style={styles.mediaPickerText}>
               {t('writeReview.addMedia')}
             </Text>
@@ -265,10 +266,10 @@ export const WriteReviewForm = ({
             disabled={isLoading}
           >
             {isLoading ? (
-              <ActivityIndicator color={COLORS.white} size="small" />
+              <ActivityIndicator color={colors.white} size="small" />
             ) : (
               <>
-                <Icon name="send" size={15} color={COLORS.white} />
+                <Icon name="send" size={15} color={colors.white} />
                 <Text style={styles.submitBtnText}>
                   {submitLabel ?? t('writeReview.submit')}
                 </Text>

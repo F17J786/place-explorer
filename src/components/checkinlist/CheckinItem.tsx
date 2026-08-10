@@ -3,11 +3,10 @@ import { View, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesCheckinListScreen';
 import type { Checkin } from '@/types/placeDetail.types';
 import { Avatar } from '../placedetail/Avatar';
 import { formatRelativeTime } from '@/utils/dateFormat';
+import { useCheckinListScreenStyles } from '@/hooks/useCheckinListScreenStyles';
 
 interface CheckinItemProps {
   item: Checkin;
@@ -15,6 +14,7 @@ interface CheckinItemProps {
 
 export const CheckinItem = ({ item }: CheckinItemProps) => {
   const { t } = useTranslation('checkin');
+  const { styles, colors } = useCheckinListScreenStyles();
 
   return (
     <View style={styles.card}>
@@ -24,20 +24,20 @@ export const CheckinItem = ({ item }: CheckinItemProps) => {
           {item.user?.name ?? t('common:anonymousUser')}
         </Text>
         <View style={styles.metaRow}>
-          <Icon name="access-time" size={12} color={COLORS.textLight} />
+          <Icon name="access-time" size={12} color={colors.textLight} />
           <Text style={styles.metaText}>
             {formatRelativeTime(item.createdAt)}
           </Text>
         </View>
         <View style={styles.metaRow}>
-          <Icon name="location-on" size={12} color={COLORS.primary} />
+          <Icon name="location-on" size={12} color={colors.primary} />
           <Text style={styles.distanceText}>
             {t('distanceAway', { distance: item.distanceMeters })}
           </Text>
         </View>
       </View>
       <View style={styles.badge}>
-        <Icon2 name="map-marker-check" size={18} color={COLORS.success} />
+        <Icon2 name="map-marker-check" size={18} color={colors.success} />
       </View>
     </View>
   );

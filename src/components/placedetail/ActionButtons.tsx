@@ -4,8 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesPlaceDetailScreen';
+import { usePlaceDetailScreenStyles } from '@/hooks/usePlaceDetailScreenStyles';
 
 type ActionButtonsProps = {
   isLoggedIn: boolean;
@@ -24,6 +23,7 @@ export const ActionButtons = ({
   onCheckin,
   onToggleFavorite,
 }: ActionButtonsProps) => {
+  const { styles, colors } = usePlaceDetailScreenStyles();
   const { t } = useTranslation('placeDetail');
 
   return (
@@ -32,7 +32,7 @@ export const ActionButtons = ({
         style={[styles.actionBtn, styles.actionBtnOutline]}
         onPress={onSearchRoute}
       >
-        <Icon name="directions" size={18} color={COLORS.primary} />
+        <Icon name="directions" size={18} color={colors.primary} />
         <Text style={styles.actionBtnOutlineText}>
           {t('actions.directions')}
         </Text>
@@ -48,10 +48,10 @@ export const ActionButtons = ({
         disabled={!isLoggedIn || checkinLoading}
       >
         {checkinLoading ? (
-          <ActivityIndicator color={COLORS.white} size="small" />
+          <ActivityIndicator color={colors.white} size="small" />
         ) : (
           <>
-            <Icon2 name="map-marker-check" size={18} color={COLORS.white} />
+            <Icon2 name="map-marker-check" size={18} color={colors.white} />
             <Text style={styles.actionBtnPrimaryText}>
               {t('actions.checkin')}
             </Text>
@@ -70,7 +70,7 @@ export const ActionButtons = ({
         <Ionicons
           name={isFavorited ? 'heart' : 'heart-outline'}
           size={22}
-          color={COLORS.primary}
+          color={colors.primary}
         />
       </TouchableOpacity>
     </View>

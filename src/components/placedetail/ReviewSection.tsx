@@ -8,8 +8,6 @@ import {
 } from 'react-native';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesPlaceDetailScreen';
 import { SectionHeader } from '@/components/placedetail/SectionHeader';
 import { StarRow } from '@/components/placedetail/StarRow';
 import { Avatar } from '@/components/placedetail/Avatar';
@@ -18,6 +16,7 @@ import type { Review } from '@/types/placeDetail.types';
 import type { LightboxState } from '@/types/PlaceDetail.types';
 import { formatRelativeTime } from '@/utils/dateFormat';
 import { useGetReviewCountByUserIdQuery } from '@/store/api/placeDetailApi';
+import { usePlaceDetailScreenStyles } from '@/hooks/usePlaceDetailScreenStyles';
 
 type ReviewSectionProps = {
   reviews: Review[];
@@ -37,6 +36,7 @@ const ReviewCard = ({
   onGoToProfile: (review: Review) => void;
   onOpenLightbox: (state: LightboxState) => void;
 }) => {
+  const { styles } = usePlaceDetailScreenStyles();
   const { t } = useTranslation('placeDetail');
   const { data: reviewCount } = useGetReviewCountByUserIdQuery(review.userId, {
     skip: !review.userId,
@@ -110,6 +110,7 @@ export const ReviewSection = ({
   onGoToProfile,
   onOpenLightbox,
 }: ReviewSectionProps) => {
+  const { styles, colors } = usePlaceDetailScreenStyles();
   const { t } = useTranslation('placeDetail');
 
   return (
@@ -123,7 +124,7 @@ export const ReviewSection = ({
       <View style={styles.reviewList}>
         {reviewsLoading ? (
           <ActivityIndicator
-            color={COLORS.primary}
+            color={colors.primary}
             style={styles.reviewLoading}
           />
         ) : previewReviews.length === 0 ? (
@@ -131,7 +132,7 @@ export const ReviewSection = ({
             <Icon2
               name="comment-text-outline"
               size={36}
-              color={COLORS.textLight}
+              color={colors.textLight}
             />
             <Text style={styles.emptyText}>{t('reviewSection.empty')}</Text>
             <Text style={styles.emptyHint}>{t('reviewSection.emptyHint')}</Text>

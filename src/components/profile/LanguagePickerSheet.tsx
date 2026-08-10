@@ -8,7 +8,8 @@ import BottomSheet, {
 import CountryFlag from 'react-native-country-flag';
 import i18n from 'i18next';
 
-import { COLORS } from '@/constants/constants';
+import { useTheme } from '@/theme/ThemeContext';
+import { ThemeColors } from '@/theme/colors';
 import { SUPPORTED_LANGUAGES, SupportedLanguage } from '@/locales';
 import { showToast } from '@/utils/toast';
 
@@ -38,6 +39,9 @@ export const LanguagePickerSheet = forwardRef<
   BottomSheetModal,
   LanguagePickerSheetProps
 >(({ currentLanguage, onSelect }, ref) => {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const handleSelect = (lang: SupportedLanguage) => {
     if (lang === currentLanguage) {
       onSelect(lang);
@@ -96,44 +100,46 @@ export const LanguagePickerSheet = forwardRef<
 
 LanguagePickerSheet.displayName = 'LanguagePickerSheet';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingBottom: 24,
-    gap: 6,
-  },
-  bsHandle: {
-    paddingTop: 7.5,
-  },
-  bsBackground: {
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-  },
-  option: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 14,
-  },
-  optionLabel: {
-    fontSize: 15,
-    color: COLORS.text,
-  },
-  bsHandleBar: {
-    width: 40,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: COLORS.gray,
-    alignSelf: 'center',
-    marginBottom: 2,
-  },
-  flagWrapper: {
-    width: 21,
-    height: 21,
-    borderRadius: 14,
-    overflow: 'hidden',
-    marginRight: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+const createStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingHorizontal: 20,
+      paddingBottom: 24,
+      gap: 6,
+    },
+    bsHandle: {
+      paddingTop: 7.5,
+    },
+    bsBackground: {
+      backgroundColor: colors.surface,
+      borderTopLeftRadius: 12,
+      borderTopRightRadius: 12,
+    },
+    option: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 14,
+    },
+    optionLabel: {
+      fontSize: 15,
+      color: colors.text,
+    },
+    bsHandleBar: {
+      width: 40,
+      height: 4,
+      borderRadius: 2,
+      backgroundColor: colors.gray,
+      alignSelf: 'center',
+      marginBottom: 2,
+    },
+    flagWrapper: {
+      width: 21,
+      height: 21,
+      borderRadius: 14,
+      overflow: 'hidden',
+      marginRight: 12,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });

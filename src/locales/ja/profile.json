@@ -12,7 +12,8 @@
     "changePassword": "パスワード変更",
     "changePasswordSubtitle": "ログインパスワードを変更",
     "language": "言語",
-    "logout": "ログアウト"
+    "logout": "ログアウト",
+    "theme": "テーマ"
   },
   "language": {
     "title": "言語を選択"

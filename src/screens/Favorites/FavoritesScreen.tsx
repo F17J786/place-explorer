@@ -15,12 +15,13 @@ import { FavoriteCard } from '@/components/favorites/FavoriteCard';
 import { FavoritesHeader } from '@/components/favorites/FavoritesHeader';
 import { EmptyState } from '@/components/favorites/EmptyState';
 import { useFavoritesSelection } from '@/hooks/useFavoritesSelection';
-import { styles } from '@/constants/stylesFavoritesScreen';
+import { useFavoritesScreenStyles } from '@/hooks/useFavoritesScreenStyles';
 
 export const FavoritesScreen = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<any>();
   const user = useAppSelector(state => state.auth.user);
+  const { styles, colors } = useFavoritesScreenStyles();
 
   const {
     data: favorites = [],
@@ -130,7 +131,7 @@ export const FavoritesScreen = () => {
 
       {isLoading || isPlacesFetching ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#1A56DB" />
+          <ActivityIndicator size="large" color={colors.primary} />
         </View>
       ) : (
         <FlatList

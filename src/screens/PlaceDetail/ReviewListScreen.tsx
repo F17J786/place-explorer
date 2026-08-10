@@ -7,8 +7,7 @@ import { FlatList, Text } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { ReviewListRoutePropType } from '@/types/navigation';
 import { useGetReviewsByOsmIdQuery } from '@/store/api/placeDetailApi';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesReviewListScreen';
+import { useReviewListScreenStyles } from '@/hooks/useReviewListScreenStyles';
 import { useReviewFilters } from '@/hooks/useReviewFilters';
 import { useReviewMutations } from '@/hooks/useReviewMutations';
 import { ReviewItem } from '@/components/reviewlist/ReviewItem';
@@ -19,6 +18,7 @@ export const ReviewListScreen = () => {
   const { t } = useTranslation('review');
   const route = useRoute<ReviewListRoutePropType>();
   const { osmId } = route.params;
+  const { styles, colors } = useReviewListScreenStyles();
 
   const filterBsRef = useRef<BottomSheetModal>(null);
 
@@ -78,7 +78,7 @@ export const ReviewListScreen = () => {
         ListEmptyComponent={
           isLoading ? (
             <ActivityIndicator
-              color={COLORS.primary}
+              color={colors.primary}
               size="large"
               style={styles.emptyLoading}
             />
@@ -87,7 +87,7 @@ export const ReviewListScreen = () => {
               <Icon2
                 name="comment-text-outline"
                 size={52}
-                color={COLORS.textLight}
+                color={colors.textLight}
               />
               <Text style={styles.emptyTitle}>{t('empty.title')}</Text>
               {!isLoggedIn && (

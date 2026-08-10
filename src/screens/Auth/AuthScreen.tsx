@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   Animated,
   Keyboard,
@@ -22,7 +22,8 @@ import {
   FLAG_MAP,
   LanguagePickerSheet,
 } from '@/components/profile/LanguagePickerSheet';
-import { AUTH_COLORS } from '@/constants/authTheme';
+import { useAuthColors } from '@/hooks/useAuthColors';
+import { AuthColors } from '@/constants/authTheme';
 import type { AuthTab } from '@/types/auth.types';
 import { useLanguage } from '@/hooks/useLanguage';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
@@ -47,6 +48,9 @@ export const AuthScreen = () => {
 
   const insets = useSafeAreaInsets();
   const [activeTab, setActiveTab] = useState<AuthTab>('login');
+
+  const AUTH_COLORS = useAuthColors();
+  const styles = useMemo(() => createStyles(AUTH_COLORS), [AUTH_COLORS]);
 
   const { currentLanguage, setLanguage } = useLanguage();
   const languageSheetRef = useRef<BottomSheetModal>(null);
@@ -188,117 +192,118 @@ export const AuthScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: AUTH_COLORS.screenBackground,
-  },
-  scrollContent: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    paddingHorizontal: CARD_HORIZONTAL_MARGIN,
-    paddingTop: 32,
-  },
-  logoArea: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 28,
-  },
-  logoSquares: {
-    width: LOGO_SQUARE_SIZE + LOGO_SQUARE_OFFSET,
-    height: LOGO_SQUARE_SIZE + LOGO_SQUARE_OFFSET,
-    marginRight: 10,
-  },
-  logoSquare: {
-    position: 'absolute',
-    width: LOGO_SQUARE_SIZE,
-    height: LOGO_SQUARE_SIZE,
-    borderRadius: LOGO_SQUARE_RADIUS,
-  },
-  logoSquarePrimary: {
-    backgroundColor: AUTH_COLORS.primary,
-    top: 0,
-    left: 0,
-  },
-  logoSquareAccent: {
-    backgroundColor: AUTH_COLORS.accent,
-    bottom: 0,
-    right: 0,
-  },
-  appName: {
-    fontSize: 22,
-    fontWeight: '800',
-    color: AUTH_COLORS.primary,
-    letterSpacing: 1.5,
-  },
-  card: {
-    backgroundColor: AUTH_COLORS.white,
-    borderRadius: 20,
-    padding: CARD_PADDING,
-    ...Platform.select({
-      ios: {
-        shadowColor: AUTH_COLORS.primary,
-        shadowOpacity: 0.08,
-        shadowRadius: 16,
-        shadowOffset: { width: 0, height: 4 },
-      },
-      android: {
-        elevation: 4,
-      },
-    }),
-  },
-  tabRow: {
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
-  tab: {
-    flex: 1,
-    alignItems: 'center',
-    paddingBottom: 10,
-  },
-  tabActive: {
-    borderBottomWidth: 2,
-    borderBottomColor: AUTH_COLORS.primary,
-  },
-  tabInactive: {
-    borderBottomWidth: 2,
-    borderBottomColor: 'transparent',
-  },
-  tabText: {
-    fontSize: 15,
-  },
-  tabTextActive: {
-    color: AUTH_COLORS.primary,
-    fontWeight: '600',
-  },
-  tabTextInactive: {
-    color: AUTH_COLORS.tabInactive,
-    fontWeight: '400',
-  },
-  keyboardScrollContent: {
-    flexGrow: 1,
-  },
-  hitSlop: {
-    top: 8,
-    bottom: 8,
-    left: 8,
-    right: 8,
-  },
-  langButton: {
-    position: 'absolute',
-    right: 20,
-    zIndex: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  langFlagWrapper: {
-    width: 21,
-    height: 21,
-    borderRadius: 14,
-    overflow: 'hidden',
-    marginRight: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+const createStyles = (AUTH_COLORS: AuthColors) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: AUTH_COLORS.screenBackground,
+    },
+    scrollContent: {
+      flexGrow: 1,
+      justifyContent: 'center',
+      paddingHorizontal: CARD_HORIZONTAL_MARGIN,
+      paddingTop: 32,
+    },
+    logoArea: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 28,
+    },
+    logoSquares: {
+      width: LOGO_SQUARE_SIZE + LOGO_SQUARE_OFFSET,
+      height: LOGO_SQUARE_SIZE + LOGO_SQUARE_OFFSET,
+      marginRight: 10,
+    },
+    logoSquare: {
+      position: 'absolute',
+      width: LOGO_SQUARE_SIZE,
+      height: LOGO_SQUARE_SIZE,
+      borderRadius: LOGO_SQUARE_RADIUS,
+    },
+    logoSquarePrimary: {
+      backgroundColor: AUTH_COLORS.primary,
+      top: 0,
+      left: 0,
+    },
+    logoSquareAccent: {
+      backgroundColor: AUTH_COLORS.accent,
+      bottom: 0,
+      right: 0,
+    },
+    appName: {
+      fontSize: 22,
+      fontWeight: '800',
+      color: AUTH_COLORS.primary,
+      letterSpacing: 1.5,
+    },
+    card: {
+      backgroundColor: AUTH_COLORS.white,
+      borderRadius: 20,
+      padding: CARD_PADDING,
+      ...Platform.select({
+        ios: {
+          shadowColor: AUTH_COLORS.primary,
+          shadowOpacity: 0.08,
+          shadowRadius: 16,
+          shadowOffset: { width: 0, height: 4 },
+        },
+        android: {
+          elevation: 4,
+        },
+      }),
+    },
+    tabRow: {
+      flexDirection: 'row',
+      marginBottom: 20,
+    },
+    tab: {
+      flex: 1,
+      alignItems: 'center',
+      paddingBottom: 10,
+    },
+    tabActive: {
+      borderBottomWidth: 2,
+      borderBottomColor: AUTH_COLORS.primary,
+    },
+    tabInactive: {
+      borderBottomWidth: 2,
+      borderBottomColor: 'transparent',
+    },
+    tabText: {
+      fontSize: 15,
+    },
+    tabTextActive: {
+      color: AUTH_COLORS.primary,
+      fontWeight: '600',
+    },
+    tabTextInactive: {
+      color: AUTH_COLORS.tabInactive,
+      fontWeight: '400',
+    },
+    keyboardScrollContent: {
+      flexGrow: 1,
+    },
+    hitSlop: {
+      top: 8,
+      bottom: 8,
+      left: 8,
+      right: 8,
+    },
+    langButton: {
+      position: 'absolute',
+      right: 20,
+      zIndex: 20,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    langFlagWrapper: {
+      width: 21,
+      height: 21,
+      borderRadius: 14,
+      overflow: 'hidden',
+      marginRight: 4,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  });

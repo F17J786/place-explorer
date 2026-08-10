@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { styles } from '@/constants/stylesPlaceDetailScreen';
+import { usePlaceDetailScreenStyles } from '@/hooks/usePlaceDetailScreenStyles';
 
 type SectionHeaderProps = {
   title: string;
@@ -14,6 +14,7 @@ export const SectionHeader = ({
   count,
   onSeeAll,
 }: SectionHeaderProps) => {
+  const { styles } = usePlaceDetailScreenStyles();
   const { t } = useTranslation('placeDetail');
 
   return (

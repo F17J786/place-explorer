@@ -3,10 +3,9 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MediaThumb from '@/components/review/MediaThumb';
 import type { Review } from '@/types/placeDetail.types';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesProfileReviewScreen';
 import { StarRow } from '../placedetail/StarRow';
 import { formatRelativeTime } from '@/utils/dateFormat';
+import { useProfileReviewScreenStyles } from '@/hooks/useProfileReviewScreenStyles';
 
 export const ProfileReviewCard = ({
   item,
@@ -21,6 +20,8 @@ export const ProfileReviewCard = ({
   onOpenPlace: () => void;
   onOpenMedia: (index: number) => void;
 }) => {
+  const { styles, colors } = useProfileReviewScreenStyles();
+
   return (
     <View style={styles.card}>
       <TouchableOpacity
@@ -29,7 +30,7 @@ export const ProfileReviewCard = ({
         activeOpacity={0.7}
       >
         <View style={styles.placeIconWrap}>
-          <Icon name="place" size={16} color={COLORS.primary} />
+          <Icon name="place" size={16} color={colors.primary} />
         </View>
         <View style={styles.placeInfo}>
           <Text style={styles.placeName} numberOfLines={1}>
@@ -41,7 +42,7 @@ export const ProfileReviewCard = ({
             </Text>
           )}
         </View>
-        <Icon name="chevron-right" size={20} color={COLORS.textLight} />
+        <Icon name="chevron-right" size={20} color={colors.textLight} />
       </TouchableOpacity>
 
       <View style={styles.cardTopMeta}>

@@ -2,12 +2,11 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '@/constants/constants';
-import { styles } from '@/constants/stylesReviewListScreen';
 import type { Review } from '@/types/placeDetail.types';
 import type { FilterType, MediaItem } from '@/types/reviewListScreen.types';
 import { SummaryCard } from '@/components/reviewlist/SummaryCard';
 import { WriteReviewForm } from '@/components/reviewlist/WriteReviewForm';
+import { useReviewListScreenStyles } from '@/hooks/useReviewListScreenStyles';
 
 interface RatingDistItem {
   star: number;
@@ -49,6 +48,7 @@ export const ReviewListHeader = ({
   onClearFilter,
 }: ReviewListHeaderProps) => {
   const { t } = useTranslation('review');
+  const { styles, colors } = useReviewListScreenStyles();
 
   return (
     <View>
@@ -84,7 +84,7 @@ export const ReviewListHeader = ({
       <View style={styles.filterBar}>
         <TouchableOpacity style={styles.filterBtn} onPress={onOpenFilter}>
           <View style={styles.iconWrapper}>
-            <Icon name="tune" size={18} color={COLORS.primary} />
+            <Icon name="tune" size={18} color={colors.primary} />
           </View>
           <Text style={styles.filterBtnText}>{t('filter.title')}</Text>
         </TouchableOpacity>
@@ -100,7 +100,7 @@ export const ReviewListHeader = ({
               name="close"
               size={12}
               style={styles.filterClearIcon}
-              color={COLORS.primary}
+              color={colors.primary}
             />
           </TouchableOpacity>
         )}
