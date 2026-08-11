@@ -129,8 +129,9 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
 
   const handleRegionChangeComplete = (r: any) => {
     onRegionChangeComplete(r);
-    if (!mapRef.current) return;
+    setInitialRegion(r);
 
+    if (!mapRef.current) return;
     mapRef.current
       .getCamera()
       .then(cam => {
