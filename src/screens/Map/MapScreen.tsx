@@ -4,7 +4,6 @@ import {
   Animated,
   Keyboard,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, MapType, Polyline } from 'react-native-maps';
@@ -245,16 +244,6 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
           />
         ))}
 
-        {/*
-          Route không active vẽ TRƯỚC (nằm dưới) để route active luôn nổi lên trên cùng,
-          không bị các route mờ che mất phần line trùng nhau.
-        */}
-        {/*
-          Mỗi route (active/inactive) vẽ 2 lớp Polyline chồng nhau để tạo hiệu ứng
-          viền giống Google Maps: lớp viền to hơn vẽ dưới, lớp line chính nhỏ hơn vẽ trên.
-          zIndex tăng dần: inactive border → inactive line → active border → active line,
-          đảm bảo route active luôn nổi trên cùng kể cả ở đoạn tọa độ trùng nhau.
-        */}
         {Array.from({ length: MAX_ALTERNATIVES }).map((_, index) => {
           const alt = activeAlternatives?.[index];
           const isActive = index === activeIndex;

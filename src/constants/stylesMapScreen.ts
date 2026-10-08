@@ -378,6 +378,7 @@ export const createMapScreenStyles = (COLORS: ThemeColors) =>
       backgroundColor: COLORS.surfaceMuted,
       justifyContent: 'center',
       alignItems: 'center',
+      alignSelf: 'flex-start',
     },
     popupActions: { flexDirection: 'row', gap: 10 },
     popupDetailBtn: {
