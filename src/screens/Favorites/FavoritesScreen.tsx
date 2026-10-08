@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { View, FlatList, ActivityIndicator } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -12,6 +12,7 @@ import { useAppSelector } from '@/store/hooks';
 import type { Favorite, PlaceRecord } from '@/types/placeDetail.types';
 
 import { FavoriteCard } from '@/components/favorites/FavoriteCard';
+import { FavoriteListSkeleton } from '@/components/favorites/FavoriteListSkeleton';
 import { FavoritesHeader } from '@/components/favorites/FavoritesHeader';
 import { EmptyState } from '@/components/favorites/EmptyState';
 import { useFavoritesSelection } from '@/hooks/useFavoritesSelection';
@@ -21,7 +22,7 @@ export const FavoritesScreen = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<any>();
   const user = useAppSelector(state => state.auth.user);
-  const { styles, colors } = useFavoritesScreenStyles();
+  const { styles } = useFavoritesScreenStyles();
 
   const {
     data: favorites = [],
@@ -116,6 +117,8 @@ export const FavoritesScreen = () => {
 
   const keyExtractor = useCallback((item: Favorite) => String(item.id), []);
 
+  const isInitialLoading = isLoading || (osmIds.length > 0 && isPlacesFetching);
+
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <FavoritesHeader
@@ -129,9 +132,9 @@ export const FavoritesScreen = () => {
         onDelete={handleDelete}
       />
 
-      {isLoading || isPlacesFetching ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
+      {isInitialLoading ? (
+        <View style={styles.list}>
+          <FavoriteListSkeleton />
         </View>
       ) : (
         <FlatList

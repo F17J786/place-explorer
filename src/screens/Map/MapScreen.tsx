@@ -4,6 +4,7 @@ import {
   Animated,
   Keyboard,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, MapType, Polyline } from 'react-native-maps';
@@ -35,6 +36,10 @@ import { RightActions } from '@/components/map/RightActions';
 import { MarkerPopup } from '@/components/map/MarkerPopup';
 import { PlaceListSheet } from '@/components/map/PlaceListSheet';
 import { useMapScreenStyles } from '@/hooks/useMapScreenStyles';
+import { useTheme } from '@/theme/ThemeContext';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { RouteResultSheet } from '@/components/map/RouteResultSheet';
+import { MAX_ALTERNATIVES } from '@/store/api/osrm';
 
 interface MapScreenProps {
   navigation?: any;
@@ -44,7 +49,9 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
   const { t } = useTranslation('map');
   const mapRef = useRef<MapView>(null);
   const popupAnim = useRef(new Animated.Value(0)).current;
+  const routeResultSheetRef = useRef<BottomSheetModal>(null);
   const { styles, isDark } = useMapScreenStyles();
+  const { colors } = useTheme();
   console.log('[MapScreen] isDark:', isDark);
 
   const [mapType, setMapType] = useState<MapType>('standard');
@@ -68,11 +75,20 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
   const search = useSearch(mapRef, sortedRef);
 
   const routeInputs = useRouteInputs({ sortedRef, requestPermAndGetCoord });
-  const { routeCoords, routeLoading, clearRoute } = useRouteFetch(
-    routeInputs.pointA,
-    routeInputs.pointB,
-    mapRef,
-  );
+  const {
+    routeCoords,
+    routeLoading,
+    clearRoute,
+    selectedMode,
+    setSelectedMode,
+    routesByMode,
+    modesLoading,
+    activeIndexByMode,
+    setActiveRouteIndex,
+    activeAlternatives,
+    activeIndex,
+    routeGeneration,
+  } = useRouteFetch(routeInputs.pointA, routeInputs.pointB, mapRef);
 
   const route = useRoute();
   const routeParams = route.params as
@@ -109,6 +125,26 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
     });
   }, []);
 
+  const hasPresentedRouteSheetRef = useRef(false);
+
+  useEffect(() => {
+    if (routeCoords.length === 0) {
+      hasPresentedRouteSheetRef.current = false;
+      return;
+    }
+
+    if (hasPresentedRouteSheetRef.current) {
+      return;
+    }
+
+    const frame = requestAnimationFrame(() => {
+      routeResultSheetRef.current?.present();
+      hasPresentedRouteSheetRef.current = true;
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [routeCoords]);
+
   useEffect(() => {
     Animated.spring(popupAnim, {
       toValue: selectedMarker ? 1 : 0,
@@ -144,6 +180,7 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
     routeInputs.setRouteMode(false);
     routeInputs.resetRoute();
     clearRoute();
+    routeResultSheetRef.current?.dismiss();
   };
 
   const visibleMarkers = useMemo(() => {
@@ -208,13 +245,61 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
           />
         ))}
 
-        {routeCoords.length > 0 && (
-          <Polyline
-            coordinates={routeCoords}
-            strokeColor={COLORS.primary}
-            strokeWidth={4}
-          />
-        )}
+        {/*
+          Route không active vẽ TRƯỚC (nằm dưới) để route active luôn nổi lên trên cùng,
+          không bị các route mờ che mất phần line trùng nhau.
+        */}
+        {/*
+          Mỗi route (active/inactive) vẽ 2 lớp Polyline chồng nhau để tạo hiệu ứng
+          viền giống Google Maps: lớp viền to hơn vẽ dưới, lớp line chính nhỏ hơn vẽ trên.
+          zIndex tăng dần: inactive border → inactive line → active border → active line,
+          đảm bảo route active luôn nổi trên cùng kể cả ở đoạn tọa độ trùng nhau.
+        */}
+        {Array.from({ length: MAX_ALTERNATIVES }).map((_, index) => {
+          const alt = activeAlternatives?.[index];
+          const isActive = index === activeIndex;
+          const coords = alt && !isActive ? alt.coords : [];
+
+          return (
+            <React.Fragment key={`route-alt-${index}`}>
+              <Polyline
+                coordinates={coords}
+                strokeColor={colors.routeInactiveBorder}
+                strokeWidth={8}
+                lineCap="round"
+                lineJoin="round"
+                zIndex={1}
+              />
+              <Polyline
+                coordinates={coords}
+                strokeColor={colors.routeInactive}
+                strokeWidth={5}
+                lineCap="round"
+                lineJoin="round"
+                tappable
+                zIndex={2}
+                onPress={() => setActiveRouteIndex(selectedMode, index)}
+              />
+            </React.Fragment>
+          );
+        })}
+
+        <Polyline
+          coordinates={routeCoords}
+          strokeColor={colors.routeActiveBorder}
+          strokeWidth={9}
+          lineCap="round"
+          lineJoin="round"
+          zIndex={3}
+        />
+        <Polyline
+          coordinates={routeCoords}
+          strokeColor={colors.routeActive}
+          strokeWidth={6}
+          lineCap="round"
+          lineJoin="round"
+          zIndex={4}
+        />
 
         {routeInputs.pointA && (
           <RouteMarker coordinate={routeInputs.pointA.coordinate} label="A" />
@@ -283,11 +368,9 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
           onInputChange={routeInputs.onInputChange}
           onClearInputA={() => {
             routeInputs.clearInputA();
-            clearRoute();
           }}
           onClearInputB={() => {
             routeInputs.clearInputB();
-            clearRoute();
           }}
           onSwap={routeInputs.swapPoints}
           onSelectSearchResult={routeInputs.handleSelectSearchResult}
@@ -352,6 +435,19 @@ export const MapScreen: React.FC<MapScreenProps> = ({ navigation }) => {
           }}
         />
       )}
+
+      <RouteResultSheet
+        ref={routeResultSheetRef}
+        pointA={routeInputs.pointA}
+        pointB={routeInputs.pointB}
+        selectedMode={selectedMode}
+        onSelectMode={setSelectedMode}
+        routesByMode={routesByMode}
+        modesLoading={modesLoading}
+        activeIndexByMode={activeIndexByMode}
+        onSelectAlternative={setActiveRouteIndex}
+        onClose={closeRoutePanel}
+      />
     </View>
   );
 };

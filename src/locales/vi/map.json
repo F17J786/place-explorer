@@ -38,5 +38,37 @@
     "pharmacy": "Thuốc",
     "school": "Trường học",
     "fuel": "Xăng"
+  },
+  "routeResult": {
+    "header": {
+      "driving": "Xe ô tô và mô tô hai bánh",
+      "motorcycle": "Xe đạp",
+      "walking": "Đi bộ"
+    },
+    "unavailable": "Không tìm thấy tuyến đường",
+    "stepsTitle": "Các chặng",
+    "durationMinutes": "{{count}} phút",
+    "durationHoursPart": "{{count}} giờ",
+    "durationMinutesPart": "{{count}} phút",
+    "durationHours": "{{hoursText}} {{minutesText}}",
+    "distanceMeters": "{{meters}} m",
+    "distanceKm": "{{km}} km",
+    "ontoRoad": "{{direction}} vào {{name}}",
+    "maneuver": {
+      "depart": "Xuất phát",
+      "arrive": "Đến nơi",
+      "straight": "Đi thẳng",
+      "turnLeft": "Rẽ trái",
+      "turnRight": "Rẽ phải",
+      "turnSlightLeft": "Rẽ trái nhẹ",
+      "turnSlightRight": "Rẽ phải nhẹ",
+      "turnSharpLeft": "Rẽ trái gấp",
+      "turnSharpRight": "Rẽ phải gấp",
+      "uturn": "Quay đầu",
+      "enterRoundabout": "Vào vòng xuyến",
+      "exitRoundabout": "Ra khỏi vòng xuyến",
+      "keepLeft": "Đi bên trái",
+      "keepRight": "Đi bên phải"
+    }
   }
 }

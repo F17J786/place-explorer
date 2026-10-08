@@ -38,5 +38,37 @@
     "pharmacy": "药店",
     "school": "学校",
     "fuel": "加油站"
+  },
+  "routeResult": {
+    "header": {
+      "driving": "汽车和摩托车",
+      "motorcycle": "自行车",
+      "walking": "步行"
+    },
+    "unavailable": "未找到路线",
+    "stepsTitle": "路线步骤",
+    "durationMinutes": "{{count}}分钟",
+    "durationHoursPart": "{{count}}小时",
+    "durationMinutesPart": "{{count}}分钟",
+    "durationHours": "{{hoursText}} {{minutesText}}",
+    "distanceMeters": "{{meters}} 米",
+    "distanceKm": "{{km}} 公里",
+    "ontoRoad": "{{direction}}进入{{name}}",
+    "maneuver": {
+      "depart": "出发",
+      "arrive": "到达",
+      "straight": "直行",
+      "turnLeft": "左转",
+      "turnRight": "右转",
+      "turnSlightLeft": "向左前方行驶",
+      "turnSlightRight": "向右前方行驶",
+      "turnSharpLeft": "向左急转",
+      "turnSharpRight": "向右急转",
+      "uturn": "掉头",
+      "enterRoundabout": "进入环岛",
+      "exitRoundabout": "驶出环岛",
+      "keepLeft": "靠左行驶",
+      "keepRight": "靠右行驶"
+    }
   }
 }

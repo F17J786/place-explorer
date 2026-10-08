@@ -1,17 +1,13 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
 import { SectionHeader } from '@/components/placedetail/SectionHeader';
 import { StarRow } from '@/components/placedetail/StarRow';
 import { Avatar } from '@/components/placedetail/Avatar';
 import MediaThumb from '@/components/review/MediaThumb';
+import { ReviewCardSkeleton } from '@/components/placedetail/ReviewCardSkeleton';
+import { Shimmer } from '@/components/common/Shimmer';
 import type { Review } from '@/types/placeDetail.types';
 import type { LightboxState } from '@/types/PlaceDetail.types';
 import { formatRelativeTime } from '@/utils/dateFormat';
@@ -38,9 +34,10 @@ const ReviewCard = ({
 }) => {
   const { styles } = usePlaceDetailScreenStyles();
   const { t } = useTranslation('placeDetail');
-  const { data: reviewCount } = useGetReviewCountByUserIdQuery(review.userId, {
-    skip: !review.userId,
-  });
+  const { data: reviewCount, isFetching: isReviewCountFetching } =
+    useGetReviewCountByUserIdQuery(review.userId, {
+      skip: !review.userId,
+    });
 
   return (
     <View style={styles.reviewCard}>
@@ -59,9 +56,13 @@ const ReviewCard = ({
           <Text style={styles.reviewAuthor}>
             {review.user?.name ?? t('common:anonymousUser')}
           </Text>
-          <Text style={styles.reviewCountText}>
-            {t('review:summary.reviewCount', { count: reviewCount ?? 0 })}
-          </Text>
+          {isReviewCountFetching ? (
+            <Shimmer width={70} height={11} borderRadius={4} />
+          ) : (
+            <Text style={styles.reviewCountText}>
+              {t('review:summary.reviewCount', { count: reviewCount ?? 0 })}
+            </Text>
+          )}
         </TouchableOpacity>
       </View>
 
@@ -123,10 +124,10 @@ export const ReviewSection = ({
 
       <View style={styles.reviewList}>
         {reviewsLoading ? (
-          <ActivityIndicator
-            color={colors.primary}
-            style={styles.reviewLoading}
-          />
+          <>
+            <ReviewCardSkeleton />
+            <ReviewCardSkeleton />
+          </>
         ) : previewReviews.length === 0 ? (
           <TouchableOpacity style={styles.emptyState} onPress={onSeeAll}>
             <Icon2

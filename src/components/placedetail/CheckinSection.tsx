@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTranslation } from 'react-i18next';
 import { SectionHeader } from '@/components/placedetail/SectionHeader';
 import { Avatar } from '@/components/placedetail/Avatar';
+import { CheckinRowSkeleton } from '@/components/placedetail/CheckinRowSkeleton';
 import type { Checkin } from '@/types/placeDetail.types';
 import { formatRelativeTime } from '@/utils/dateFormat';
 import { usePlaceDetailScreenStyles } from '@/hooks/usePlaceDetailScreenStyles';
@@ -35,10 +36,11 @@ export const CheckinSection = ({
       />
 
       {checkinsLoading ? (
-        <ActivityIndicator
-          color={colors.primary}
-          style={styles.checkinLoading}
-        />
+        <>
+          <CheckinRowSkeleton />
+          <CheckinRowSkeleton />
+          <CheckinRowSkeleton />
+        </>
       ) : previewCheckins.length === 0 ? (
         <View style={styles.emptyState}>
           <Icon2

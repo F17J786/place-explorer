@@ -116,7 +116,11 @@ export const PlaceDetailScreen = () => {
 
         {!isLoggedIn && <LoginBanner />}
 
-        <MediaGallerySection allMedia={allMedia} onOpenLightbox={setLightbox} />
+        <MediaGallerySection
+          allMedia={allMedia}
+          onOpenLightbox={setLightbox}
+          loading={reviewsLoading}
+        />
 
         {lightbox !== null && (
           <MediaLightbox

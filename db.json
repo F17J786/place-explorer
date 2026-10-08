@@ -619,6 +619,18 @@
       "thumbnailUrl": "https://i.pravatar.cc/150?img=7",
       "createdAt": "2026-08-04T04:14:53.727Z",
       "id": "eW5Q5H7vy00"
+    },
+    {
+      "osmId": "node_5865197885",
+      "osmType": "node",
+      "name": "Nhà Hàng Bia Tuyết Q9",
+      "category": "restaurant",
+      "lat": 10.8407683,
+      "lng": 106.7655908,
+      "address": "36 Đặng Văn Bi,",
+      "thumbnailUrl": "https://i.pravatar.cc/150?img=3",
+      "createdAt": "2026-08-14T03:41:05.949Z",
+      "id": "94AwtLstab0"
     }
   ],
   "reviews": [

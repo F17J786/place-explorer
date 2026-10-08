@@ -38,5 +38,37 @@
     "pharmacy": "薬局",
     "school": "学校",
     "fuel": "ガソリンスタンド"
+  },
+  "routeResult": {
+    "header": {
+      "driving": "自動車・二輪車",
+      "motorcycle": "自転車",
+      "walking": "徒歩"
+    },
+    "unavailable": "ルートが見つかりません",
+    "stepsTitle": "経路案内",
+    "durationMinutes": "{{count}}分",
+    "durationHoursPart": "{{count}}時間",
+    "durationMinutesPart": "{{count}}分",
+    "durationHours": "{{hoursText}} {{minutesText}}",
+    "distanceMeters": "{{meters}} m",
+    "distanceKm": "{{km}} km",
+    "ontoRoad": "{{direction}}して{{name}}へ",
+    "maneuver": {
+      "depart": "出発",
+      "arrive": "到着",
+      "straight": "直進",
+      "turnLeft": "左折",
+      "turnRight": "右折",
+      "turnSlightLeft": "左へ緩やかに曲がる",
+      "turnSlightRight": "右へ緩やかに曲がる",
+      "turnSharpLeft": "左へ急に曲がる",
+      "turnSharpRight": "右へ急に曲がる",
+      "uturn": "Uターン",
+      "enterRoundabout": "ラウンドアバウトに入る",
+      "exitRoundabout": "ラウンドアバウトを出る",
+      "keepLeft": "左側を進む",
+      "keepRight": "右側を進む"
+    }
   }
 }

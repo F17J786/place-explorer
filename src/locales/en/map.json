@@ -38,5 +38,40 @@
     "pharmacy": "Pharmacy",
     "school": "School",
     "fuel": "Gas Station"
+  },
+  "routeResult": {
+    "header": {
+      "driving": "Car & Motorcycle",
+      "motorcycle": "Bicycle",
+      "walking": "Walking"
+    },
+    "unavailable": "No route found",
+    "stepsTitle": "Steps",
+    "durationMinutes_one": "{{count}} minute",
+    "durationMinutes_other": "{{count}} minutes",
+    "durationHoursPart_one": "{{count}} hour",
+    "durationHoursPart_other": "{{count}} hours",
+    "durationMinutesPart_one": "{{count}} minute",
+    "durationMinutesPart_other": "{{count}} minutes",
+    "durationHours": "{{hoursText}} {{minutesText}}",
+    "distanceMeters": "{{meters}} m",
+    "distanceKm": "{{km}} km",
+    "ontoRoad": "{{direction}} onto {{name}}",
+    "maneuver": {
+      "depart": "Depart",
+      "arrive": "Arrive",
+      "straight": "Continue straight",
+      "turnLeft": "Turn left",
+      "turnRight": "Turn right",
+      "turnSlightLeft": "Turn slight left",
+      "turnSlightRight": "Turn slight right",
+      "turnSharpLeft": "Turn sharp left",
+      "turnSharpRight": "Turn sharp right",
+      "uturn": "Make a U-turn",
+      "enterRoundabout": "Enter the roundabout",
+      "exitRoundabout": "Exit the roundabout",
+      "keepLeft": "Keep left",
+      "keepRight": "Keep right"
+    }
   }
 }

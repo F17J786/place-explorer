@@ -38,5 +38,37 @@
     "pharmacy": "약국",
     "school": "학교",
     "fuel": "주유소"
+  },
+  "routeResult": {
+    "header": {
+      "driving": "자동차 및 오토바이",
+      "motorcycle": "자전거",
+      "walking": "도보"
+    },
+    "unavailable": "경로를 찾을 수 없습니다",
+    "stepsTitle": "경로 안내",
+    "durationMinutes": "{{count}}분",
+    "durationHoursPart": "{{count}}시간",
+    "durationMinutesPart": "{{count}}분",
+    "durationHours": "{{hoursText}} {{minutesText}}",
+    "distanceMeters": "{{meters}} m",
+    "distanceKm": "{{km}} km",
+    "ontoRoad": "{{direction}}하여 {{name}}으로",
+    "maneuver": {
+      "depart": "출발",
+      "arrive": "도착",
+      "straight": "직진",
+      "turnLeft": "좌회전",
+      "turnRight": "우회전",
+      "turnSlightLeft": "약간 좌회전",
+      "turnSlightRight": "약간 우회전",
+      "turnSharpLeft": "급좌회전",
+      "turnSharpRight": "급우회전",
+      "uturn": "유턴",
+      "enterRoundabout": "로터리 진입",
+      "exitRoundabout": "로터리에서 나가기",
+      "keepLeft": "왼쪽으로 이동",
+      "keepRight": "오른쪽으로 이동"
+    }
   }
 }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { useRoute, type RouteProp } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+
 import { MediaLightbox } from '@/components/review/MediaThumb';
 import type { PlaceDetailStackParamList } from '@/types/navigation';
 import { PREVIEW_LIMIT, GRID_GAP } from '@/constants/constants';
@@ -11,9 +12,14 @@ import { useMediaLightbox } from '@/hooks/useMediaLightbox';
 import { useOpenPlace } from '@/hooks/useOpenPlace';
 import { ListHeader } from '@/components/profilereview/ListHeader';
 import { ProfileReviewCard } from '@/components/profilereview/ProfileReviewCard';
+import { ProfileReviewCardSkeleton } from '@/components/profilereview/ProfileReviewCardSkeleton';
 import { CheckinCard } from '@/components/profilereview/CheckinCard';
+import { CheckinCardSkeleton } from '@/components/profilereview/CheckinCardSkeleton';
 
 type RoutePropType = RouteProp<PlaceDetailStackParamList, 'ProfileReview'>;
+
+const REVIEW_SKELETON_COUNT = 3;
+const CHECKIN_SKELETON_COUNT = 3;
 
 export const ProfileReviewScreen = () => {
   const { t } = useTranslation('profileReview');
@@ -82,6 +88,15 @@ export const ProfileReviewScreen = () => {
             />
           );
         }}
+        ListEmptyComponent={
+          isLoading ? (
+            <View>
+              {Array.from({ length: REVIEW_SKELETON_COUNT }).map((_, index) => (
+                <ProfileReviewCardSkeleton key={index} />
+              ))}
+            </View>
+          ) : null
+        }
         ListFooterComponent={
           <View>
             <View style={[styles.section, styles.sectionExtraPadding]}>
@@ -90,23 +105,33 @@ export const ProfileReviewScreen = () => {
                 <Text style={styles.emptyInlineText}>{t('noCheckins')}</Text>
               )}
             </View>
-            {checkins.length > 0 && (
-              <FlatList
-                data={checkins}
-                scrollEnabled={false}
-                keyExtractor={c => c.id}
-                renderItem={({ item }) => {
-                  const place = placesMap[item.osmId];
-                  return (
-                    <CheckinCard
-                      item={item}
-                      placeName={place?.name ?? t('common:unknownPlace')}
-                      placeAddress={place?.address}
-                      onOpenPlace={() => openPlace(item.osmId)}
-                    />
-                  );
-                }}
-              />
+            {checkinsLoading ? (
+              <View>
+                {Array.from({ length: CHECKIN_SKELETON_COUNT }).map(
+                  (_, index) => (
+                    <CheckinCardSkeleton key={index} />
+                  ),
+                )}
+              </View>
+            ) : (
+              checkins.length > 0 && (
+                <FlatList
+                  data={checkins}
+                  scrollEnabled={false}
+                  keyExtractor={c => c.id}
+                  renderItem={({ item }) => {
+                    const place = placesMap[item.osmId];
+                    return (
+                      <CheckinCard
+                        item={item}
+                        placeName={place?.name ?? t('common:unknownPlace')}
+                        placeAddress={place?.address}
+                        onOpenPlace={() => openPlace(item.osmId)}
+                      />
+                    );
+                  }}
+                />
+              )
             )}
           </View>
         }

@@ -1,9 +1,42 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import MapView from 'react-native-maps';
 import { useTranslation } from 'react-i18next';
-import { fetchRoute } from '@/store/api/osrm';
+import { fetchRouteDetails, OrsProfile } from '@/store/api/osrm';
 import { showToast } from '@/utils/toast';
+import { loadTravelMode, saveTravelMode } from '@/storage/routeTravelMode';
 import { RoutePoint } from '@/types/mapScreen.type';
+import {
+  RouteModeActiveIndex,
+  RouteModeLoading,
+  RouteModeResults,
+  TravelMode,
+} from '@/types/route.type';
+
+const PROFILE_BY_MODE: Record<TravelMode, OrsProfile> = {
+  driving: 'driving-car',
+  motorcycle: 'cycling-regular',
+  walking: 'foot-walking',
+};
+
+const MODES: TravelMode[] = ['driving', 'motorcycle', 'walking'];
+
+const EMPTY_RESULTS: RouteModeResults = {
+  driving: null,
+  motorcycle: null,
+  walking: null,
+};
+
+const EMPTY_LOADING: RouteModeLoading = {
+  driving: false,
+  motorcycle: false,
+  walking: false,
+};
+
+const EMPTY_ACTIVE_INDEX: RouteModeActiveIndex = {
+  driving: 0,
+  motorcycle: 0,
+  walking: 0,
+};
 
 export const useRouteFetch = (
   pointA: RoutePoint | null,
@@ -11,44 +44,107 @@ export const useRouteFetch = (
   mapRef: React.RefObject<MapView | null>,
 ) => {
   const { t } = useTranslation('map');
-  const [routeCoords, setRouteCoords] = useState<
-    { latitude: number; longitude: number }[]
-  >([]);
-  const [routeLoading, setRouteLoading] = useState(false);
-  const routeCancelRef = useRef(false);
+  const [selectedMode, setSelectedModeState] = useState<TravelMode>('driving');
+  const [routesByMode, setRoutesByMode] =
+    useState<RouteModeResults>(EMPTY_RESULTS);
+  const [modesLoading, setModesLoading] =
+    useState<RouteModeLoading>(EMPTY_LOADING);
+  const [activeIndexByMode, setActiveIndexByMode] =
+    useState<RouteModeActiveIndex>(EMPTY_ACTIVE_INDEX);
+  const [routeGeneration, setRouteGeneration] = useState(0);
 
-  const doFetchRoute = useCallback(async () => {
+  const requestIdRef = useRef(0);
+  const selectedModeRef = useRef<TravelMode>('driving');
+
+  useEffect(() => {
+    selectedModeRef.current = selectedMode;
+  }, [selectedMode]);
+
+  useEffect(() => {
+    loadTravelMode().then(saved => {
+      if (saved) setSelectedModeState(saved);
+    });
+  }, []);
+
+  const setSelectedMode = useCallback((mode: TravelMode) => {
+    setSelectedModeState(mode);
+    saveTravelMode(mode);
+  }, []);
+
+  const setActiveRouteIndex = useCallback((mode: TravelMode, index: number) => {
+    setActiveIndexByMode(prev => ({ ...prev, [mode]: index }));
+  }, []);
+
+  const doFetchAll = useCallback(async () => {
     if (!pointA || !pointB) return;
 
-    routeCancelRef.current = false;
-    setRouteLoading(true);
-    setRouteCoords([]);
-    const coords = await fetchRoute(pointA.coordinate, pointB.coordinate);
-    setRouteLoading(false);
-    if (routeCancelRef.current) return;
+    const requestId = ++requestIdRef.current;
+    setRoutesByMode(EMPTY_RESULTS);
+    setModesLoading({ driving: true, motorcycle: true, walking: true });
+    setActiveIndexByMode(EMPTY_ACTIVE_INDEX);
 
-    if (coords.length === 0) {
-      showToast(t('routeFetch.notFound'));
-      return;
+    await Promise.all(
+      MODES.map(async mode => {
+        const result = await fetchRouteDetails(
+          pointA.coordinate,
+          pointB.coordinate,
+          PROFILE_BY_MODE[mode],
+        );
+        if (requestId !== requestIdRef.current) return;
+
+        setRoutesByMode(prev => ({ ...prev, [mode]: result }));
+        setModesLoading(prev => ({ ...prev, [mode]: false }));
+        setActiveIndexByMode(prev => ({ ...prev, [mode]: 0 }));
+
+        if (!result && mode === selectedModeRef.current) {
+          showToast(t('routeFetch.notFound'));
+        }
+      }),
+    );
+  }, [pointA, pointB, t]);
+
+  useEffect(() => {
+    if (pointA && pointB) doFetchAll();
+    else {
+      requestIdRef.current += 1;
+      setRoutesByMode(EMPTY_RESULTS);
+      setModesLoading(EMPTY_LOADING);
+      setActiveIndexByMode(EMPTY_ACTIVE_INDEX);
     }
+  }, [pointA, pointB]);
 
-    setRouteCoords(coords);
-    mapRef.current?.fitToCoordinates(coords, {
+  const activeAlternatives = routesByMode[selectedMode];
+  const activeIndex = activeIndexByMode[selectedMode];
+  const activeResult = activeAlternatives?.[activeIndex] ?? null;
+
+  useEffect(() => {
+    if (!activeResult || activeResult.coords.length === 0) return;
+    mapRef.current?.fitToCoordinates(activeResult.coords, {
       edgePadding: { top: 80, right: 40, bottom: 340, left: 40 },
       animated: true,
     });
-  }, [pointA, pointB, mapRef, t]);
-
-  useEffect(() => {
-    if (pointA && pointB) doFetchRoute();
-    else setRouteCoords([]);
-  }, [pointA, pointB]);
+  }, [activeResult, mapRef]);
 
   const clearRoute = useCallback(() => {
-    routeCancelRef.current = true;
-    setRouteLoading(false);
-    setRouteCoords([]);
+    requestIdRef.current += 1;
+    setRoutesByMode(EMPTY_RESULTS);
+    setModesLoading(EMPTY_LOADING);
+    setActiveIndexByMode(EMPTY_ACTIVE_INDEX);
+    setRouteGeneration(g => g + 1);
   }, []);
 
-  return { routeCoords, routeLoading, clearRoute };
+  return {
+    routeCoords: activeResult?.coords ?? [],
+    routeLoading: modesLoading[selectedMode],
+    routeGeneration,
+    clearRoute,
+    selectedMode,
+    setSelectedMode,
+    routesByMode,
+    modesLoading,
+    activeIndexByMode,
+    setActiveRouteIndex,
+    activeAlternatives,
+    activeIndex,
+  };
 };

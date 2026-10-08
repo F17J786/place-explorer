@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import MediaThumb from '@/components/review/MediaThumb';
 import type { FlatMedia } from '@/types/placeDetail.types';
 import { Avatar } from '../placedetail/Avatar';
+import { Shimmer } from '@/components/common/Shimmer';
 import { useProfileReviewScreenStyles } from '@/hooks/useProfileReviewScreenStyles';
 
 interface ListHeaderProps {
@@ -21,6 +22,8 @@ interface ListHeaderProps {
   previewLimit: number;
   gridGap: number;
 }
+
+const GRID_SKELETON_COUNT = 6;
 
 export const ListHeader = ({
   displayAvatar,
@@ -57,11 +60,11 @@ export const ListHeader = ({
         </View>
       </View>
 
-      {allMediaCount > 0 && (
+      {(reviewsLoading || allMediaCount > 0) && (
         <View style={styles.section}>
           <View style={styles.sectionHeaderRow}>
             <Text style={styles.sectionTitle}>{t('mediaSection.title')}</Text>
-            {allMediaCount > previewLimit && (
+            {!reviewsLoading && allMediaCount > previewLimit && (
               <TouchableOpacity onPress={onToggleShowAllMedia}>
                 <Text style={styles.sectionAction}>
                   {showAllMedia
@@ -71,36 +74,53 @@ export const ListHeader = ({
               </TouchableOpacity>
             )}
           </View>
-          <FlatList
-            data={visibleMedia}
-            numColumns={3}
-            scrollEnabled={false}
-            keyExtractor={(m, i) => `${m.reviewId}-${i}`}
-            columnWrapperStyle={{ gap: gridGap }}
-            contentContainerStyle={{ gap: gridGap }}
-            renderItem={({ item: m, index }) => (
-              <TouchableOpacity
-                style={styles.gridCell}
-                activeOpacity={0.85}
-                onPress={() => onOpenMediaAt(index)}
-              >
-                <MediaThumb
-                  url={m.url}
-                  type={m.type}
+
+          {reviewsLoading ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+              }}
+            >
+              {Array.from({ length: GRID_SKELETON_COUNT }).map((_, index) => (
+                <View key={index} style={styles.gridCell}>
+                  <Shimmer width="100%" height="100%" borderRadius={0} />
+                </View>
+              ))}
+            </View>
+          ) : (
+            <FlatList
+              data={visibleMedia}
+              numColumns={3}
+              scrollEnabled={false}
+              keyExtractor={(m, i) => `${m.reviewId}-${i}`}
+              columnWrapperStyle={{ gap: gridGap }}
+              contentContainerStyle={{ gap: gridGap }}
+              renderItem={({ item: m, index }) => (
+                <TouchableOpacity
+                  style={styles.gridCell}
+                  activeOpacity={0.85}
                   onPress={() => onOpenMediaAt(index)}
-                />
-                {m.type === 'video' && (
-                  <View style={styles.gridVideoOverlay}>
-                    <Icon
-                      name="play-circle-filled"
-                      size={22}
-                      color={colors.white}
-                    />
-                  </View>
-                )}
-              </TouchableOpacity>
-            )}
-          />
+                >
+                  <MediaThumb
+                    url={m.url}
+                    type={m.type}
+                    onPress={() => onOpenMediaAt(index)}
+                  />
+                  {m.type === 'video' && (
+                    <View style={styles.gridVideoOverlay}>
+                      <Icon
+                        name="play-circle-filled"
+                        size={22}
+                        color={colors.white}
+                      />
+                    </View>
+                  )}
+                </TouchableOpacity>
+              )}
+            />
+          )}
         </View>
       )}
 

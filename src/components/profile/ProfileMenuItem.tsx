@@ -66,8 +66,6 @@ export const ProfileMenuItem = ({
     </>
   );
 
-  // Khi có rightComponent tương tác riêng (VD ThemeSwitcher), không bọc cả row
-  // trong TouchableOpacity nữa để tránh xung đột vùng bấm.
   if (rightComponent) {
     return <View style={styles.container}>{content}</View>;
   }

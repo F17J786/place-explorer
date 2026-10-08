@@ -26,6 +26,8 @@ export const lightColors = {
   checkboxBorder: '#CBD5E1',
   selectionBarBorder: '#E8EEFF',
   iconBgSubtle: '#EEF2FF',
+  skeletonBase: '#E9EDF3',
+  skeletonHighlight: '#F6F8FB',
   text: '#0F172A',
   textSecondary: '#64748B',
   textSub: '#64748B',
@@ -50,6 +52,10 @@ export const lightColors = {
   headerTitleText: '#111827',
   backBtnBg: '#FAFBFC',
   headerShadow: '#FFFFFF',
+  routeActive: '#3F00FF',
+  routeInactive: '#B4CAFF',
+  routeActiveBorder: '#0A2E5C',
+  routeInactiveBorder: '#3147D9',
 };
 
 export const darkColors: typeof lightColors = {
@@ -65,6 +71,8 @@ export const darkColors: typeof lightColors = {
   checkboxBorder: '#3A3F4A',
   selectionBarBorder: '#2A3352',
   iconBgSubtle: '#2A2F45',
+  skeletonBase: '#242832',
+  skeletonHighlight: '#31363F',
   text: '#E8EAED',
   textSecondary: '#9AA4B2',
   textSub: '#9AA4B2',
@@ -89,6 +97,10 @@ export const darkColors: typeof lightColors = {
   headerTitleText: '#F3F4F6',
   backBtnBg: '#1C1F26',
   headerShadow: '#000000',
+  routeActive: '#00D3FF',
+  routeInactive: '#3D87C1',
+  routeActiveBorder: '#005582',
+  routeInactiveBorder: '#003B7A',
 };
 
 export type ThemeColors = typeof lightColors;
